@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "hito-33569": {
+      "hosting": {
+        "hito-angular-app": [
+          "hito-33569"
+        ]
+      }
+    }
+  }
+}
