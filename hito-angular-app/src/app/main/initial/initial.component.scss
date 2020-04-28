@@ -1,17 +1,30 @@
+//GENERAL
 .background {
-  min-height: 100%;
-  min-width: 1024px;
-  width: 100%;
-  height: auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -100;
+  position:fixed;
+  bottom:0;
+  right:0;
+  width:auto;
+  z-index:-1;
 }
 
-@media screen and (max-width: 1024px) {
-  .background {
-    left: 50%;
-    margin-left: -512px;
+.hito-logo {
+  position:fixed;
+  margin:24px auto 0;
+  top:24px;
+  left:50%;
+  margin-left:-65px;
+  margin-top:0;
+  width:130px;
+  height:36px;
+  background:url( https://i.imgur.com/FaKrsHJ.png) no-repeat;
+}
+
+//MEDIA
+@media (min-width:830px) {
+  .hito-logo {
+    position:fixed;
+    top:24px;
+    left:24px;
+    margin:0;
   }
 }
