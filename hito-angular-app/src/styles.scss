@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+  margin: 0;
+  padding: 0;
+  color: #000;
+  list-style: none;
+  text-decoration: none;
+  font-family: whitney, Helvetica, sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+@font-face {
+  font-family: whitney;
+  src: url(assets/fonts/Whitney.otf) format("opentype");
+}

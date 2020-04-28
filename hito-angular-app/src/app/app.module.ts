@@ -6,11 +6,13 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { InitialComponent } from './main/initial/initial.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './main/initial/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InitialComponent
+    InitialComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
