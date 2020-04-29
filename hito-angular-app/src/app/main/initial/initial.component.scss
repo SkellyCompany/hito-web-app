@@ -3,17 +3,13 @@
   position:fixed;
   bottom:0;
   right:0;
-  width:auto;
   z-index:-1;
 }
 
 .hito-logo {
   position:fixed;
-  margin:24px auto 0;
   top:24px;
-  left:50%;
-  margin-left:-65px;
-  margin-top:0;
+  left:calc(50% - 130px/2);
   width:130px;
   height:36px;
   background:url(https://i.imgur.com/FaKrsHJ.png) no-repeat;
@@ -25,6 +21,5 @@
     position:fixed;
     top:24px;
     left:24px;
-    margin:0;
   }
 }
