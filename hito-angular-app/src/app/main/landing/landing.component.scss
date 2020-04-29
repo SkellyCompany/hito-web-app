@@ -42,24 +42,22 @@ $color-secondary-dark: #333333;
 }
 
 //MEDIA
-@media (min-width:830px) {
-  .hito-logo {
-    position: fixed;
-    top: 24px;
-    left: 24px;
-  }
-}
-
 @media (min-width: 480px) {
   .main-container {
     background: transparent;
   }
 }
 
-@media (min-width:900px) {
+@media (min-width:850px) {
+  .hito-logo {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+  }
+
   .main-container {
     justify-content: flex-start;
-    padding-left: 225px;
+    padding-left: 200px;
   }
 }
 
