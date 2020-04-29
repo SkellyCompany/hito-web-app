@@ -1,25 +1,32 @@
 //GENERAL
 .background {
-  position:fixed;
-  bottom:0;
-  right:0;
-  z-index:-1;
+  position: fixed;
+  width: 1920px;
+  height: 1080px;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.background-image{
+  width: 100%;
+  height: 100%;
 }
 
 .hito-logo {
-  position:fixed;
-  top:24px;
-  left:calc(50% - 130px/2);
-  width:130px;
-  height:36px;
-  background:url(https://i.imgur.com/FaKrsHJ.png) no-repeat;
+  position: fixed;
+  top: 24px;
+  left: calc(50% - 130px/2);
+  width: 130px;
+  height: 36px;
+  background: url(https://i.imgur.com/FaKrsHJ.png) no-repeat;
 }
 
 //MEDIA
 @media (min-width:830px) {
   .hito-logo {
-    position:fixed;
-    top:24px;
-    left:24px;
+    position: fixed;
+    top: 24px;
+    left: 24px;
   }
 }
