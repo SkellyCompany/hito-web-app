@@ -1,4 +1,8 @@
-//GENERAL
+$color-pink: #E2005C;
+$color-purple: #522A84;
+$color-primary-dark: #18181b;
+$color-secondary-dark: #333333;
+
 .background {
   position: fixed;
   width: 1920px;
@@ -23,12 +27,13 @@
 }
 
 .main-container {
-  width: 50vw;
+  width: 100vw;
   height: 100vh;
+  padding-top: 80px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 200px;
+  align-items: flex-start;
+  justify-content: center;
+  background: $color-primary-dark;
 }
 
 .router-container {
@@ -42,5 +47,25 @@
     position: fixed;
     top: 24px;
     left: 24px;
+  }
+}
+
+@media (min-width: 480px) {
+  .main-container {
+    background: transparent;
+  }
+}
+
+@media (min-width:900px) {
+  .main-container {
+    justify-content: flex-start;
+    padding-left: 225px;
+  }
+}
+
+@media (min-height: 630px) {
+  .main-container {
+    padding-top: 15px;
+    align-items: center;
   }
 }
