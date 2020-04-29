@@ -1,6 +1,13 @@
 <div class="main-container">
   <div class="login-container">
-
+    <form class="test">
+      <h1>Ready to chat?</h1>
+      <input type="email" name="email" autocomplete="username" formControlName="email"/>
+      <input type="password" autocomplete="current-password"  formControlName="password"/>
+      <a>Forgot your password?</a>
+      <button type="submit" class="login-button">Login</button>
+      <span>New here? <a routerLink="/register">Create account</a></span>
+    </form>
   </div>
   <div class="triangle-pin">
 
