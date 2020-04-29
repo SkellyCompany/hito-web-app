@@ -22,14 +22,18 @@
   background: url(https://i.imgur.com/FaKrsHJ.png) no-repeat;
 }
 
-.router-container {
-  //background: red;
+.main-container {
   width: 50vw;
   height: 100vh;
-  padding-left: 200px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-left: 200px;
+}
+
+.router-container {
+  width: 450px;
+  height: 500px;
 }
 
 //MEDIA
