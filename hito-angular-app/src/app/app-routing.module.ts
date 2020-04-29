@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InitialComponent } from './main/initial/initial.component';
-import {LoginComponent} from "./main/initial/login/login.component";
+import { LandingComponent } from './main/landing/landing.component';
+import { LoginComponent } from "./main/landing/login/login.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: InitialComponent,
+  { path: '', component: LandingComponent,
     children: [
       { path: 'login', component: LoginComponent}
   ]},
