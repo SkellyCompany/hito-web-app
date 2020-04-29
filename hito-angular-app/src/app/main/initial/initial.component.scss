@@ -22,6 +22,16 @@
   background: url(https://i.imgur.com/FaKrsHJ.png) no-repeat;
 }
 
+.router-container {
+  //background: red;
+  width: 50vw;
+  height: 100vh;
+  padding-left: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 //MEDIA
 @media (min-width:830px) {
   .hito-logo {
