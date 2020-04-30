@@ -2,7 +2,7 @@ $color-primary: #367996;
 $color-accent: #F78E8B;
 $color-background-dark: #18181b;
 $color-primary-dark: #121215;
-$color-contrast-dark: #333333;
+$color-contrast-dark: #333336;
 $color-text-light: #fff;
 $color-text-dark: #72767d;
 
@@ -21,9 +21,14 @@ input {
 	background-color: $color-primary-dark;
   font-size: 14px;
   border-radius: 3px;
-  padding-left: 12px;
+  text-indent: 12px;
   border: solid 1px $color-contrast-dark;
   box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+input:focus {
+  border: solid 1px $color-primary;
 }
 
 a{
@@ -101,19 +106,19 @@ span{
 }
 
 .login-button {
-  cursor: pointer;
-  color: $color-text-light;
-  background-color: $color-primary;
   width: 100%;
   height: 42px;
   margin-top: 30px;
   margin-bottom: 10px;
+  cursor: pointer;
+  color: $color-text-light;
+  background-color: $color-primary;
 	border: none;
   border-radius: 3px;
   font-size: 16px;
   font-weight: 600;
-  outline:0;
 }
+
 .login-button:hover {
   background-color: $color-primary;
 }
