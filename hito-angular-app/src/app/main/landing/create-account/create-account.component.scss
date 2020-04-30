@@ -1,0 +1,178 @@
+$color-primary: #E2005C;
+$color-accent: #522A84;
+$color-background-dark: #18181b;
+$color-primary-dark: #121215;
+$color-contrast-dark: #333333;
+$color-text-light: #fff;
+$color-text-dark: #72767d;
+
+h1 {
+  color: $color-text-light;
+  font-size: 26px;
+  font-weight: 100;
+}
+
+h2 {
+  color: $color-text-dark;
+  font-size: 18px;
+}
+
+input {
+	background-color: $color-primary-dark;
+  font-size: 14px;
+  border-radius: 3px;
+  text-indent: 12px;
+  border: solid 1px $color-contrast-dark;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+input:focus {
+  border: solid 1px $color-primary;
+}
+
+a{
+  cursor: pointer;
+  color: $color-primary;
+  font-size: 14px;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+span{
+  color: $color-text-dark;
+  font-size: 14px;
+}
+
+.outer-container {
+  width: 450px;
+  height: 570px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.main-container {
+  width: 450px;
+  height: 570px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  animation: show-bubble 0.75s;
+  filter: none;
+}
+
+@media (min-width: 510px) {
+  .main-container {
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.6));
+  }
+}
+
+@keyframes show-bubble {
+  0% {
+    width: 0;
+    height: 0;
+  }
+}
+
+.create-account-container {
+  width: 100%;
+  height: 85%;
+  background: $color-background-dark;
+  border: 2px solid $color-background-dark;
+  border-radius: 25px 25px 25px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-container {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: show-element 0.75s;
+}
+
+@keyframes show-element {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.header-primary {
+  margin-bottom: 6px;
+}
+
+.header-secondary {
+  margin-top: 6px;
+}
+
+.create-account-form {
+  height: 70%;
+  width: 85%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-direction: column;
+  animation: show-element 0.75s;
+}
+
+.email-input {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 16px;
+}
+
+.username-input {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 16px;
+}
+
+.password-input {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 10px;
+}
+
+.create-account-button {
+  cursor: pointer;
+  color: $color-text-light;
+  background: linear-gradient(0deg, $color-primary 0%, $color-accent 250%);
+  width: 100%;
+  height: 42px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+	border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: 400;
+  outline:0;
+}
+.create-account-button:hover {
+  background-color: $color-primary;
+}
+
+.login {
+  margin-left: 4px;
+}
+
+.triangle-pin {
+  margin-left: 20%;
+  width: 27.5%;
+  height: 15%;
+  background: $color-background-dark;
+  clip-path: polygon(0 100%, 0 -1%, 100% -1%);
+  -webkit-clip-path: polygon(0 100%, 0 -1%, 100% -1%);
+}

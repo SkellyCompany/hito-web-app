@@ -1,0 +1,18 @@
+<div class="outer_container">
+  <div class="main-container">
+    <div class="login-container">
+      <div class="header-container">
+        <h1 class="header-primary">Ready to chat?</h1>
+        <h2 class="header-secondary">Proceed to login to your account!</h2>
+      </div>
+      <form class="login-form" >
+        <input class="email-input" type="email" name="email" autocomplete="username" placeholder="Email" formControlName="email"/>
+        <input class="password-input" type="password" autocomplete="current-password" placeholder="Password" formControlName="password"/>
+        <a class="forgot-password" routerLink="/forgot-password">Forgot your password?</a>
+        <button type="submit" class="login-button">Login</button>
+        <span class="create-account">New here? <a routerLink="/create-account">Create account</a></span>
+      </form>
+    </div>
+    <div class="triangle-pin"></div>
+  </div>
+</div>
