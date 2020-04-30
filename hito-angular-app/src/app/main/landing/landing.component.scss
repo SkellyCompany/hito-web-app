@@ -25,7 +25,7 @@ $color-background-dark: #18181b;
   background: url(https://svgshare.com/i/KdB.svg) no-repeat;
 }
 
-.main-container {
+.router-container {
   width: 100vw;
   height: 100vh;
   padding-top: 80px;
@@ -35,14 +35,9 @@ $color-background-dark: #18181b;
   background: $color-background-dark;
 }
 
-.router-container {
-  width: 450px;
-  height: 500px;
-}
-
 //MEDIA
 @media (min-width: 480px) {
-  .main-container {
+  .router-container {
     background: transparent;
   }
 
@@ -58,14 +53,14 @@ $color-background-dark: #18181b;
     left: 24px;
   }
 
-  .main-container {
+  .router-container {
     justify-content: flex-start;
     padding-left: 200px;
   }
 }
 
 @media (min-height: 630px) {
-  .main-container {
+  .router-container {
     padding-top: 15px;
     align-items: center;
   }
