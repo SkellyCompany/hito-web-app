@@ -154,8 +154,12 @@ span{
   font-weight: 400;
   outline:0;
 }
-.login-button:hover {
+.create-account-button:hover {
   background-color: $color-primary;
+}
+
+.login {
+  margin-left: 4px;
 }
 
 .triangle-pin {
