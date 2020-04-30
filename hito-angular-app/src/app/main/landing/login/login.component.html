@@ -1,19 +1,16 @@
 <div class="main-container">
   <div class="login-container">
-    <form autocomplete="on">
-      <h1 class="login-primary-header">Ready to chat?</h1>
-      <h2 class="login-secondary-header">Proceed to login to your account!</h2>
-      <label>Email</label>
-      <input type="email" name="email" autocomplete="username" placeholder="Email" formControlName="email"/>
-      <label>Password</label>
-      <input type="password" autocomplete="current-password" placeholder="Password" formControlName="password"/>
+    <div class="header-container">
+      <h1 class="header-primary">Ready to chat?</h1>
+      <h2 class="header-secondary">Proceed to login to your account!</h2>
+    </div>
+    <form class="login-form" >
+      <input class="email-input" type="email" name="email" autocomplete="username" placeholder="Email" formControlName="email"/>
+      <input class="password-input" type="password" autocomplete="current-password" placeholder="Password" formControlName="password"/>
       <a>Forgot your password?</a>
       <button type="submit" class="login-button">Login</button>
       <span>New here? <a routerLink="/register">Create account</a></span>
-      <p style="color: red;"></p>
     </form>
   </div>
-
-  <div class="triangle-pin">
-  </div>
+  <div class="triangle-pin"></div>
 </div>
