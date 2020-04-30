@@ -23,6 +23,7 @@ input {
   border-radius: 3px;
   padding-left: 12px;
   border: solid 1px $color-contrast-dark;
+  box-sizing: border-box;
 }
 
 a{
@@ -88,13 +89,13 @@ span{
 }
 
 .email-input {
-  width: calc(100% - 12px);
+  width: 100%;
   height: 42px;
   margin-bottom: 20px;
 }
 
 .password-input {
-  width: calc(100% - 12px);
+  width: 100%;
   height: 42px;
   margin-bottom: 10px;
 }
@@ -122,6 +123,6 @@ span{
   width: 27.5%;
   height: 15%;
   background: $color-background-dark;
-  clip-path: polygon(0 100%, 0 0, 100% 0);
-  -webkit-clip-path: polygon(0 100%, 0 0, 100% 0);
+  clip-path: polygon(0 100%, 0 -1%, 100% -1%);
+  -webkit-clip-path: polygon(0 100%, 0 -1%, 100% -1%);
 }
