@@ -1,16 +1,19 @@
-<div class="main-container">
-  <div class="create-account-container">
-    <div class="header-container">
-      <h1 class="header-primary">Don't have an account?</h1>
-      <h2 class="header-secondary">Then it's time to create one!</h2>
+<div class="outer-container">
+  <div class="main-container">
+    <div class="create-account-container">
+      <div class="header-container">
+        <h1 class="header-primary">Don't have an account?</h1>
+        <h2 class="header-secondary">Then it's time to create one!</h2>
+      </div>
+      <form class="create-account-form" >
+        <input class="email-input" placeholder="Email" formControlName="email"/>
+        <input class="username-input" placeholder="Username" formControlName="usermame"/>
+        <input class="password-input" placeholder="Password" formControlName="password"/>
+        <button type="submit" class="create-account-button">Continue</button>
+        <span>Already have an account? <a routerLink="/login">Login</a></span>
+      </form>
     </div>
-    <form class="create-account-form" >
-      <input class="email-input" placeholder="Email" formControlName="email"/>
-      <input class="username-input" placeholder="Username" formControlName="usermame"/>
-      <input class="password-input" placeholder="Password" formControlName="password"/>
-      <button type="submit" class="create-account-button">Continue</button>
-      <span>Already have an account? <a routerLink="/login">Login</a></span>
-    </form>
+    <div class="triangle-pin"></div>
   </div>
-  <div class="triangle-pin"></div>
 </div>
+

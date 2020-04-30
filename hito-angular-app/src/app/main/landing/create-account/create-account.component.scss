@@ -46,6 +46,15 @@ span{
   font-size: 14px;
 }
 
+.outer-container {
+  width: 450px;
+  height: 570px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
 .main-container {
   width: 450px;
   height: 570px;
@@ -53,6 +62,15 @@ span{
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  animation: show-bubble 0.75s;
+}
+
+
+@keyframes show-bubble {
+  0% {
+    width: 0;
+    height: 0;
+  }
 }
 
 .create-account-container {
@@ -74,6 +92,16 @@ span{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: show-element 0.75s;
+}
+
+@keyframes show-element {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .header-primary {
@@ -91,6 +119,7 @@ span{
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-direction: column;
+  animation: show-element 0.75s;
 }
 
 .email-input {
