@@ -21,9 +21,14 @@ input {
 	background-color: $color-primary-dark;
   font-size: 14px;
   border-radius: 3px;
-  padding-left: 12px;
+  text-indent: 12px;
   border: solid 1px $color-contrast-dark;
   box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+input:focus {
+  border: solid 1px $color-primary;
 }
 
 a{
@@ -43,14 +48,14 @@ span{
 
 .main-container {
   width: 450px;
-  height: 600px;
+  height: 570px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
 
-.login-container {
+.create-account-container {
   width: 100%;
   height: 85%;
   background: $color-background-dark;
@@ -63,7 +68,7 @@ span{
 }
 
 .header-container {
-  height: 35%;
+  height: 30%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -79,8 +84,8 @@ span{
   margin-top: 6px;
 }
 
-.login-form {
-  height: 65%;
+.create-account-form {
+  height: 70%;
   width: 85%;
 	display: flex;
 	align-items: flex-start;
@@ -91,13 +96,13 @@ span{
 .email-input {
   width: 100%;
   height: 42px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .username-input {
   width: 100%;
   height: 42px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .password-input {
@@ -106,7 +111,7 @@ span{
   margin-bottom: 10px;
 }
 
-.login-button {
+.create-account-button {
   cursor: pointer;
   color: $color-text-light;
   background-color: $color-primary;
