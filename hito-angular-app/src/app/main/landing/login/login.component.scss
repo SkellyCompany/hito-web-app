@@ -30,65 +30,88 @@ $color-secondary-dark: #333333;
   -webkit-clip-path: polygon(0 100%, 0 0, 100% 0);
 }
 
-.test {
+//General
+.login-primary-header {
+  color: #fff;
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 100;
+}
+.login-secondary-header {
+  color: #72767d;
+  font-size: 18px;
+  line-height: 22px;
+  padding-bottom: 3%;
+  padding-top: 2%;
+}
+label {
+  color: #8E9297;
+  text-transform: uppercase;
+  font-size: 12px;
+	font-weight: 100;
+	line-height: 20px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  width: 108%;
+  padding-top: 2%;
+}
+span{
+  color: #72767d;
+  text-align: left;
+  width: 108%;
+  font-size: 14px;
+}
+a{
+  cursor: pointer;
+  color: $color-pink;
+  text-align: left;
+  width: 108%;
+  font-size: 14px;
+}
+a:hover{
+  text-decoration: underline;
+}
+
+.login-button {
+  cursor: pointer;
+  color: #fff;
+  background-color: $color-pink;
+	border: none;
+	padding: 14px 5px;
+	margin: 10px 0;
+  width: 107%;
+  border-radius: 3px;
+  margin-top: 6%;
+  font-size: 16px;
+  font-weight: 600;
+  outline:0;
+}
+.login-button:hover {
+  background-color: #30728f;
+}
+form {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	padding: 0 50px;
 	height: 100%;
 	text-align: center;
 }
-
-
-//
 input {
 	background-color: #E8F0FE;
   border: none;
   color: #000;
 	padding: 12px 15px;
 	margin: 8px 0;
-  width: 80%;
+  width: 100%;
   font-size: 14px;
   border-radius: 3px;
 }
-span{
-  color: #72767d;
-  text-align: left;
-  width: 80%;
-  font-size: 14px;
-}
-h1 {
-  pointer-events: none;
-  color: #fff;
-  line-height: 32px;
-  padding-bottom: 10%;
-}
-
-a{
-  cursor: pointer;
-  color: $color-pink;
-  text-align: left;
-
-  width: 80%;
-  font-size: 14px;
-}
-a:hover{
-  text-decoration: underline;
-}
-.login-button {
-  cursor: pointer;
-  color: #fff;
-  background-color: $color-pink;
-	border: none;
-	padding: 12px 15px;
-	margin: 8px 0;
-  width: 87%;
-  border-radius: 3px;
-  margin-top: 6%;
-  font-size: 16px;
-  font-weight: 600;
-  transition: all .2s ease-in-out;
-}
-.login-button {
-
+.form-container {
+  position: absolute;
+	top: 0;
+	height: 100%;
+  transition: all 0.6s ease-in-out;
+  width: 100%;
 }
