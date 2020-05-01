@@ -5,10 +5,10 @@
         <h1 class="header-primary">Don't have an account?</h1>
         <h2 class="header-secondary">Then it's time to create one!</h2>
       </div>
-      <form class="create-account-form" >
+      <form [formGroup]="createAccountForm" class="create-account-form" (ngSubmit)="createUser(createAccountForm.value)">
         <input class="email-input" placeholder="Email" formControlName="email"/>
-        <input class="username-input" placeholder="Username" formControlName="usermame"/>
-        <input class="password-input" placeholder="Password" formControlName="password"/>
+        <input class="username-input" placeholder="Username" formControlName="username"/>
+        <input class="password-input" type="password" placeholder="Password" formControlName="password"/>
         <button type="submit" class="create-account-button">Continue</button>
         <span class="login">Already have an account? <a routerLink="/login">Login</a></span>
       </form>

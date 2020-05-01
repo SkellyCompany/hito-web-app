@@ -5,7 +5,7 @@
         <h1 class="header-primary">Ready to chat?</h1>
         <h2 class="header-secondary">Proceed to login to your account!</h2>
       </div>
-      <form class="login-form" >
+      <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login(loginForm.value)">
         <input class="email-input" type="email" name="email" autocomplete="username" placeholder="Email" formControlName="email"/>
         <input class="password-input" type="password" autocomplete="current-password" placeholder="Password" formControlName="password"/>
         <a class="forgot-password" routerLink="/forgot-password">Forgot your password?</a>
