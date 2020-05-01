@@ -1,9 +1,11 @@
 import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthState } from 'src/app/shared/state-management/auth.state';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  isSubmitted: boolean;
+  hasSubmittedForm: boolean;
+  @Select(AuthState.loggedInUser)
+  loggedInUser$: Observable<AuthUser>;
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -22,7 +26,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
     ])
-  });
+  }, { updateOn: 'submit' }
+  );
 
   constructor(private store: Store, private router: Router) { }
 
@@ -30,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(authUser: AuthUser) {
-    this.isSubmitted = true;
+    this.hasSubmittedForm = true;
     this.store.dispatch(new Login(authUser)).subscribe(user => {
       this.router.navigate(['/app']);
     });

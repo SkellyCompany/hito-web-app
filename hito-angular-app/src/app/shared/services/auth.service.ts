@@ -1,8 +1,11 @@
-import { User } from 'src/app/shared/models/user';
 import { UserService } from './user.service';
 import { AuthUser } from '../models/auth-user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable, from } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from '../models/user';
+import { } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +16,29 @@ export class AuthService {
   constructor(private angularFireAuth: AngularFireAuth, private userService: UserService) { }
 
   createUser(authUser: AuthUser) {
-      this.angularFireAuth.createUserWithEmailAndPassword(authUser.email , authUser.password).then(result => {
-        const user: User = {
-          uid: result.user.uid,
-          username: authUser.username
-        };
-        this.userService.createUser(user);
-      }).catch(error => {
-        const errorMessage = this.getCreateAccountErrorMessage(error.code);
-        throw new Error(errorMessage);
-      });
-  }
-
-  login(user: AuthUser) {
-    this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password)
+    this.angularFireAuth.createUserWithEmailAndPassword(authUser.email , authUser.password).then(result => {
+    const user: User = {
+      uid: result.user.uid,
+      username: authUser.username
+    };
+    this.userService.createUser(user);
+    })
     .catch(error => {
-      const errorMessage = this.getLoginErrorMessage(error.code);
+      const errorMessage = this.getCreateAccountErrorMessage(error.code);
       throw new Error(errorMessage);
     });
+  }
+
+  login(user: AuthUser): Observable<AuthUser> {
+    return from(this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password))
+    .pipe(
+      map(credentials => {
+        return {
+          email: credentials.user.email,
+          username: credentials.user.displayName
+        };
+      })
+    );
   }
 
   resetPassword(user: AuthUser) {

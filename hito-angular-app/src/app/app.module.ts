@@ -10,6 +10,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -40,6 +41,9 @@ import { MainComponent } from './core/main/main.component';
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({
+      key: [AuthState]
+  }),
   ],
   providers: [],
   bootstrap: [AppComponent]

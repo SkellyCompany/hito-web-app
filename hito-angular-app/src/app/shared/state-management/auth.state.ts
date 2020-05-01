@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AuthUser } from '../models/auth-user';
 import { CreateUser, Login, ResetPassword } from './auth.action';
-import {tap} from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 export interface AuthStateModel {
     loggedInUser: AuthUser;
@@ -32,10 +32,15 @@ export class AuthState {
   }
 
   @Action(Login)
-  login({getState, patchState}: StateContext<AuthStateModel>, {payload}: Login) {
-    this.authService.login(payload).pipe(
-      tap()
-    );
+  login({getState, setState}: StateContext<AuthStateModel>, {payload}: Login) {
+    console.log("a");
+    var t: any = 1;
+    t =2;
+    return this.authService.login(payload).pipe(map(x => {
+      t = 3;
+      console.log("as"+t);
+      getState().loggedInUser = x;
+    }));
   }
 
   @Action(ResetPassword)
