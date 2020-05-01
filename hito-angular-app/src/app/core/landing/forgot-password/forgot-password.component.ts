@@ -11,12 +11,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  hasSubmittedForm: boolean;
+
   forgotPasswordForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.email
     ]),
-  });
+  }, { updateOn: 'submit' });
 
   constructor(private store: Store) { }
 
@@ -24,6 +26,9 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   forgotPassword(authUser: AuthUser) {
-    this.store.dispatch(new ResetPassword(authUser));
+    this.hasSubmittedForm = true;
+    if (this.forgotPasswordForm.valid) {
+      this.store.dispatch(new ResetPassword(authUser));
+    }
   }
 }

@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class CreateAccountComponent implements OnInit {
 
+  hasSubmittedForm: boolean;
+
   createAccountForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -22,9 +24,10 @@ export class CreateAccountComponent implements OnInit {
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(6),
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-6])[A-Za-z\d$@$!%*?&].{8,}')
     ])
-  });
+  }, { updateOn: 'submit' }
+  );
 
   constructor(private store: Store, private router: Router) { }
 
@@ -32,8 +35,11 @@ export class CreateAccountComponent implements OnInit {
   }
 
   createUser(authUser: AuthUser) {
-    this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
-      this.router.navigate(['/app']);
-    });
+    this.hasSubmittedForm = true;
+    if (this.createAccountForm.valid) {
+      this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
+        this.router.navigate(['/app']);
+      });
+    }
   }
 }

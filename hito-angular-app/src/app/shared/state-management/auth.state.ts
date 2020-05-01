@@ -33,13 +33,8 @@ export class AuthState {
 
   @Action(Login)
   login({getState, setState}: StateContext<AuthStateModel>, {payload}: Login) {
-    console.log("a");
-    var t: any = 1;
-    t =2;
-    return this.authService.login(payload).pipe(map(x => {
-      t = 3;
-      console.log("as"+t);
-      getState().loggedInUser = x;
+    return this.authService.login(payload).pipe(map(result => {
+      getState().loggedInUser = result;
     }));
   }
 

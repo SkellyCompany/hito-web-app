@@ -5,10 +5,42 @@
         <h1 class="header-primary">Don't have an account?</h1>
         <h2 class="header-secondary">Then it's time to create one!</h2>
       </div>
+      <div *ngIf="hasSubmittedForm">
+        <div style="color: #f21616;" *ngIf="createAccountForm.get('email').hasError('required')">
+          Email is required
+        </div>
+        <div style="color: #f21616;" *ngIf="createAccountForm.get('email').hasError('email')">
+          Invalid email adress
+        </div>
+        <div style="color: #f21616;" *ngIf="createAccountForm.get('username').hasError('required')">
+          Username is required
+        </div>
+        <div style="color: #f21616;" *ngIf="createAccountForm.get('password').hasError('required')">
+          Password is required
+        </div>
+        <div style="color: #f21616;" *ngIf="createAccountForm.get('password').hasError('pattern')">
+          The password is too weak
+        </div>
+      </div>
       <form [formGroup]="createAccountForm" class="create-account-form" (ngSubmit)="createUser(createAccountForm.value)">
-        <input class="email-input" placeholder="Email" formControlName="email"/>
-        <input class="username-input" placeholder="Username" formControlName="username"/>
-        <input class="password-input" type="password" placeholder="Password" formControlName="password"/>
+        <div style="width: 100%;" *ngIf="hasSubmittedForm && createAccountForm.get('email').invalid">
+          <input style="border: solid 1px #f21616;" class="email-input" placeholder="Email" formControlName="email"/>
+        </div>
+        <div style="width: 100%;" *ngIf="!hasSubmittedForm || createAccountForm.get('email').valid">
+          <input class="email-input" placeholder="Email" formControlName="email"/>
+        </div>
+        <div style="width: 100%;" *ngIf="hasSubmittedForm && createAccountForm.get('username').invalid">
+          <input style="border: solid 1px #f21616;" class="username-input" placeholder="Username" formControlName="username"/>
+        </div>
+        <div style="width: 100%;" *ngIf="!hasSubmittedForm || createAccountForm.get('username').valid">
+          <input class="username-input" placeholder="Username" formControlName="username"/>
+        </div>
+        <div style="width: 100%;" *ngIf="hasSubmittedForm && createAccountForm.get('password').invalid">
+          <input style="border: solid 1px #f21616;" class="password-input" type="password" placeholder="Password" formControlName="password"/>
+        </div>
+        <div style="width: 100%;" *ngIf="!hasSubmittedForm || createAccountForm.get('password').valid">
+          <input class="password-input" type="password" placeholder="Password" formControlName="password"/>
+        </div>
         <button type="submit" class="create-account-button">Continue</button>
         <span class="login">Already have an account? <a routerLink="/login">Login</a></span>
       </form>

@@ -36,8 +36,10 @@ export class LoginComponent implements OnInit {
 
   login(authUser: AuthUser) {
     this.hasSubmittedForm = true;
-    this.store.dispatch(new Login(authUser)).subscribe(user => {
-      this.router.navigate(['/app']);
-    });
+    if (this.loginForm.valid) {
+      this.store.dispatch(new Login(authUser)).subscribe(user => {
+        this.router.navigate(['/app']);
+      });
+    }
   }
 }
