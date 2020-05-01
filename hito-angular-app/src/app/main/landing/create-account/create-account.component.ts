@@ -1,7 +1,7 @@
-import { User } from './../../../shared/models/user';
+import { AuthUser } from '../../../shared/models/auth-user';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CreateUser } from 'src/app/shared/state-management/user.action';
+import { CreateUser } from 'src/app/shared/state-management/auth.action';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -30,7 +30,7 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createUser(user: User) {
-    this.store.dispatch(new CreateUser(user));
+  createUser(authUser: AuthUser) {
+    this.store.dispatch(new CreateUser(authUser));
   }
 }

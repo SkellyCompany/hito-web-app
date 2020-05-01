@@ -1,7 +1,7 @@
-import { ResetPassword } from './../../../shared/state-management/user.action';
+import { ResetPassword } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { User } from 'src/app/shared/models/user';
+import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -23,7 +23,7 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  forgotPassword(user: User) {
-    this.store.dispatch(new ResetPassword(user));
+  forgotPassword(authUser: AuthUser) {
+    this.store.dispatch(new ResetPassword(authUser));
   }
 }

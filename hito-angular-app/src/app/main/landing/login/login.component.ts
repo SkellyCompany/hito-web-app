@@ -1,7 +1,7 @@
-import { Login } from './../../../shared/state-management/user.action';
+import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { User } from 'src/app/shared/models/user';
+import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(user: User) {
+  login(authUser: AuthUser) {
     this.isSubmitted = true;
-    this.store.dispatch(new Login(user));
+    this.store.dispatch(new Login(authUser));
   }
 }
