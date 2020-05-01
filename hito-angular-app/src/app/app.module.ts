@@ -1,7 +1,7 @@
-import { ForgotPasswordComponent } from './main/landing/forgot-password/forgot-password.component';
-import { CreateAccountComponent } from './main/landing/create-account/create-account.component';
-import { LandingComponent } from './main/landing/landing.component';
-import { LoginComponent } from './main/landing/login/login.component';
+import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
+import { CreateAccountComponent } from './core/landing/create-account/create-account.component';
+import { LandingComponent } from './core/landing/landing.component';
+import { LoginComponent } from './core/landing/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,7 +15,8 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
-import { NotFoundComponent } from './main/not-found/not-found.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
+import { MainComponent } from './core/main/main.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NotFoundComponent } from './main/not-found/not-found.component';
     LoginComponent,
     CreateAccountComponent,
     ForgotPasswordComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

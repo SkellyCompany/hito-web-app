@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './main/not-found/not-found.component';
-import { LandingComponent } from './main/landing/landing.component';
-import { LoginComponent } from './main/landing/login/login.component';
-import { CreateAccountComponent } from './main/landing/create-account/create-account.component';
-import { ForgotPasswordComponent } from './main/landing/forgot-password/forgot-password.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
+import { LandingComponent } from './core/landing/landing.component';
+import { LoginComponent } from './core/landing/login/login.component';
+import { CreateAccountComponent } from './core/landing/create-account/create-account.component';
+import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
