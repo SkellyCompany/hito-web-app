@@ -19,6 +19,9 @@ export class AuthService {
           username: authUser.username
         };
         this.userService.createUser(user);
+      }).catch(error => {
+        const errorMessage = this.getCreateAccountErrorMessage(error.code);
+        throw new Error(errorMessage);
       });
   }
 
@@ -26,7 +29,7 @@ export class AuthService {
     this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password)
     .catch(error => {
       const errorMessage = this.getLoginErrorMessage(error.code);
-      alert(errorMessage);
+      throw new Error(errorMessage);
     });
   }
 
@@ -34,7 +37,7 @@ export class AuthService {
     this.angularFireAuth.sendPasswordResetEmail(user.email)
     .catch(error => {
       const errorMessage = this.getResetPasswordErrorMessage(error.code);
-      alert(errorMessage);
+      throw new Error(errorMessage);
     });
   }
 
@@ -42,9 +45,6 @@ export class AuthService {
     switch (error) {
       case 'auth/invalid-email' : {
         return 'Email is invalid.';
-      }
-      case 'auth/wrong-password' : {
-        return 'Password is invalid.';
       }
       case 'auth/weak-password' : {
         return 'Password is too weak.';
@@ -58,14 +58,11 @@ export class AuthService {
 
   getLoginErrorMessage(error: any) {
     switch (error) {
-      case 'auth/invalid-email' : {
-        return 'Email is invalid or does not exist.';
+      case 'auth/user-not-found' : {
+        return 'User was not found.';
       }
       case 'auth/wrong-password' : {
         return 'Password is invalid.';
-      }
-      case 'auth/user-not-found' : {
-        return 'User was not found.';
       }
       default: {
         console.log(error);
@@ -76,9 +73,6 @@ export class AuthService {
 
   getResetPasswordErrorMessage(error: any) {
     switch (error) {
-      case 'auth/invalid-email' : {
-        return 'Email is invalid or does not exist.';
-      }
       case 'auth/user-not-found' : {
         return 'Email was not found.';
       }

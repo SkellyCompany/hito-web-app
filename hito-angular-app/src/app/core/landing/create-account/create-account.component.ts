@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUser } from 'src/app/shared/state-management/auth.action';
 import { Store } from '@ngxs/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-account',
@@ -25,12 +26,14 @@ export class CreateAccountComponent implements OnInit {
     ])
   });
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   createUser(authUser: AuthUser) {
-    this.store.dispatch(new CreateUser(authUser));
+    this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
+      this.router.navigate(['/app']);
+    });
   }
 }

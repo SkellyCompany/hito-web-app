@@ -1,3 +1,4 @@
+import { MainComponent } from './core/main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './core/not-found/not-found.component';
@@ -14,6 +15,10 @@ const routes: Routes = [
       { path: 'create-account', component: CreateAccountComponent},
       { path: 'forgot-password', component: ForgotPasswordComponent}
   ]},
+  {
+    path: 'app',
+    component: MainComponent
+  },
   {
     path: '**',
     component: NotFoundComponent

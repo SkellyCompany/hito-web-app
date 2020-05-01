@@ -1,15 +1,19 @@
-import { State, Action, StateContext } from '@ngxs/store';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AuthUser } from '../models/auth-user';
 import { CreateUser, Login, ResetPassword } from './auth.action';
+import {tap} from 'rxjs/operators';
 
 export interface AuthStateModel {
-    authUsers: AuthUser[];
+    loggedInUser: AuthUser;
 }
 
 @State<AuthStateModel>({
-    name: 'users'
+    name: 'auth',
+    defaults: {
+      loggedInUser: undefined
+    }
 })
 
 @Injectable()
@@ -17,21 +21,25 @@ export class AuthState {
 
   constructor(private authService: AuthService) {}
 
+  @Selector()
+  static loggedInUser(state: AuthStateModel) {
+    return state.loggedInUser;
+  }
+
   @Action(CreateUser)
   createUser({getState, patchState}: StateContext<AuthStateModel>, {payload}: CreateUser) {
-    try {
-      this.authService.createUser(payload);
-    } catch (e) {
-    }
+    this.authService.createUser(payload);
   }
 
   @Action(Login)
   login({getState, patchState}: StateContext<AuthStateModel>, {payload}: Login) {
-    return this.authService.login(payload);
+    this.authService.login(payload).pipe(
+      tap()
+    );
   }
 
   @Action(ResetPassword)
   resetPassword({getState, patchState}: StateContext<AuthStateModel>, {payload}: ResetPassword) {
-    return this.authService.resetPassword(payload);
+    this.authService.resetPassword(payload);
   }
 }

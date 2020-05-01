@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,13 +24,15 @@ export class LoginComponent implements OnInit {
     ])
   });
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   login(authUser: AuthUser) {
     this.isSubmitted = true;
-    this.store.dispatch(new Login(authUser));
+    this.store.dispatch(new Login(authUser)).subscribe(user => {
+      this.router.navigate(['/app']);
+    });
   }
 }
