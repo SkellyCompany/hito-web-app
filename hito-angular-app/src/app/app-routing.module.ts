@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ErrorComponent } from './main/error/error.component';
+import { NotFoundComponent } from './main/not-found/not-found.component';
 import { LandingComponent } from './main/landing/landing.component';
 import { LoginComponent } from './main/landing/login/login.component';
 import { CreateAccountComponent } from './main/landing/create-account/create-account.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
   ]},
   {
     path: '**',
-    component: ErrorComponent
+    component: NotFoundComponent
   }
 ];
 

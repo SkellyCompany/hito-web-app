@@ -1,3 +1,4 @@
+import { User } from 'src/app/shared/models/user';
 import { UserService } from './user.service';
 import { AuthUser } from '../models/auth-user';
 import { Injectable } from '@angular/core';
@@ -11,9 +12,13 @@ export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth, private userService: UserService) { }
 
-  createUser(user: AuthUser) {
-      this.angularFireAuth.createUserWithEmailAndPassword(user.email , user.password).then(result => {
-        this.userService.createUser("REPLACE", result);
+  createUser(authUser: AuthUser) {
+      this.angularFireAuth.createUserWithEmailAndPassword(authUser.email , authUser.password).then(result => {
+        const user: User = {
+          uid: result.user.uid,
+          username: authUser.username
+        };
+        this.userService.createUser(user);
       });
   }
 

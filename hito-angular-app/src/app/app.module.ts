@@ -15,7 +15,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
-import { ErrorComponent } from './main/error/error.component';
+import { NotFoundComponent } from './main/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { ErrorComponent } from './main/error/error.component';
     LoginComponent,
     CreateAccountComponent,
     ForgotPasswordComponent,
-    ErrorComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
