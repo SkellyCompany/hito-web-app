@@ -1,7 +1,7 @@
 $color-primary: #E2005C;
 $color-accent: #522A84;
 $color-background-dark: #18181b;
-$color-primary-dark: #121215;
+$color-deep-dark: #121215;
 $color-contrast-dark: #333336;
 $color-text-light: #fff;
 $color-text-dark: #72767d;
@@ -18,7 +18,7 @@ h2 {
 }
 
 input {
-	background-color: $color-primary-dark;
+	background-color: $color-deep-dark;
   font-size: 14px;
   border-radius: 3px;
   text-indent: 12px;
