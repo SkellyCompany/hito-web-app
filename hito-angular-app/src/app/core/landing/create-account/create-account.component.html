@@ -18,7 +18,7 @@
           <label>Username</label>
           <input class="username-input" formControlName="username"/>
         </div>
-        <div class="input-container" *ngIf="hasSubmittedForm && createAccountForm.get('password').invalid">
+        <div class="input-container" *ngIf="hasSubmittedForm && createAccountForm.get('username').invalid">
           <label class="error-label">Username<span class="error-message"> - {{usernameErrorMessage}}</span></label>
           <input class="username-input error-input" formControlName="username"/>
         </div>

@@ -28,9 +28,13 @@ export class AuthState {
   }
 
   @Action(CreateUser)
-  createUser({getState, patchState}: StateContext<AuthStateModel>, {payload}: CreateUser) {
+  createUser({getState, patchState,  dispatch}: StateContext<AuthStateModel>, {payload}: CreateUser) {
     return this.authService.createUser(payload).pipe(map(authUser => {
       getState().loggedInUser = authUser;
+      }),
+      catchError(error => {
+        dispatch(new ErrorOccurred(error));
+        throw new Error(error);
       })
     );
   }
@@ -49,7 +53,10 @@ export class AuthState {
   }
 
   @Action(ResetPassword)
-  resetPassword({getState, patchState}: StateContext<AuthStateModel>, {payload}: ResetPassword) {
-    this.authService.resetPassword(payload);
+  resetPassword({getState, patchState, dispatch}: StateContext<AuthStateModel>, {payload}: ResetPassword) {
+    this.authService.resetPassword(payload).catch(error => {
+      dispatch(new ErrorOccurred(error));
+      throw new Error(error);
+    });
   }
 }

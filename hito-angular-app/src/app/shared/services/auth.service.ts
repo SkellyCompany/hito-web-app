@@ -2,7 +2,7 @@ import { UserService } from './user.service';
 import { AuthUser } from '../models/auth-user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, from } from 'rxjs';
+import { Observable, from, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { } from 'firebase';
@@ -31,7 +31,7 @@ export class AuthService {
         }),
         catchError(error => {
           const errorMessage = this.getCreateAccountErrorMessage(error.code);
-          throw new Error(errorMessage);
+          return throwError(errorMessage);
         })
       );
   }
@@ -47,26 +47,23 @@ export class AuthService {
         }),
         catchError(error => {
           const errorMessage = this.getLoginErrorMessage(error.code);
-          throw new Error(errorMessage);
+          return throwError(errorMessage);
         }
       ));
   }
 
   resetPassword(user: AuthUser) {
-    this.angularFireAuth.sendPasswordResetEmail(user.email)
+    return this.angularFireAuth.sendPasswordResetEmail(user.email)
     .catch(error => {
       const errorMessage = this.getResetPasswordErrorMessage(error.code);
-      throw new Error(errorMessage);
+      throw errorMessage;
     });
   }
 
-  getCreateAccountErrorMessage(error: any) {
+  getCreateAccountErrorMessage(error: any): string {
     switch (error) {
-      case 'auth/invalid-email' : {
-        return 'Email is invalid.';
-      }
-      case 'auth/weak-password' : {
-        return 'Password is too weak.';
+      case 'auth/email-already-in-use' : {
+        return 'Email is already used.';
       }
       default: {
         console.log(error);
@@ -75,7 +72,7 @@ export class AuthService {
     }
   }
 
-  getLoginErrorMessage(error: any) {
+  getLoginErrorMessage(error: any): string {
     switch (error) {
       case 'auth/user-not-found' : {
         return 'User was not found.';
@@ -90,7 +87,7 @@ export class AuthService {
     }
   }
 
-  getResetPasswordErrorMessage(error: any) {
+  getResetPasswordErrorMessage(error: any): string {
     switch (error) {
       case 'auth/user-not-found' : {
         return 'Email was not found.';

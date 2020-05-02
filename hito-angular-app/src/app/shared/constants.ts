@@ -1,8 +1,8 @@
 export const routingConstants = {
   slash: '/',
   login: 'login',
-  createAccount: 'createAccount',
-  forgotPassword: 'forgotPassword',
+  createAccount: 'create-account',
+  forgotPassword: 'forgot-password',
   app: 'app'
 };
 
