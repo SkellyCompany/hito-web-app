@@ -1,9 +1,10 @@
+import { ErrorOccurred } from './error.action';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AuthUser } from '../models/auth-user';
 import { CreateUser, Login, ResetPassword } from './auth.action';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 
 export interface AuthStateModel {
     loggedInUser: AuthUser;
@@ -28,14 +29,22 @@ export class AuthState {
 
   @Action(CreateUser)
   createUser({getState, patchState}: StateContext<AuthStateModel>, {payload}: CreateUser) {
-    this.authService.createUser(payload);
+    return this.authService.createUser(payload).pipe(map(authUser => {
+      getState().loggedInUser = authUser;
+      })
+    );
   }
 
   @Action(Login)
-  login({getState, setState}: StateContext<AuthStateModel>, {payload}: Login) {
-    return this.authService.login(payload).pipe(map(result => {
-      getState().loggedInUser = result;
-    }));
+  login({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: Login) {
+    return this.authService.login(payload).pipe(
+      map(authUser => {
+      getState().loggedInUser = authUser;
+      }),
+      catchError(error => {
+        throw new Error(error);
+      })
+    );
   }
 
   @Action(ResetPassword)

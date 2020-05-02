@@ -11,23 +11,18 @@ import { map } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate {
   @Select(AuthState.loggedInUser)
-  authUser$: Observable<AuthUser>;
+  loggedInUser$: Observable<AuthUser>;
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(private store: Store) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.authUser$
+  canActivate() {
+      return this.loggedInUser$
       .pipe(
-        map(authUser => {
-          console.log("1");
-          if (authUser === undefined) {
-            console.log("2");
+        map(loggedInUser => {
+          if (loggedInUser === null) {
             return false;
           }
-          console.log("3");
           return true;
-        })
-      );  }
+      }));
+    }
 }

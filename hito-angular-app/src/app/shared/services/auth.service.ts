@@ -3,7 +3,7 @@ import { AuthUser } from '../models/auth-user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { } from 'firebase';
 
@@ -15,30 +15,41 @@ export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth, private userService: UserService) { }
 
-  createUser(authUser: AuthUser) {
-    this.angularFireAuth.createUserWithEmailAndPassword(authUser.email , authUser.password).then(result => {
-    const user: User = {
-      uid: result.user.uid,
-      username: authUser.username
-    };
-    this.userService.createUser(user);
-    })
-    .catch(error => {
-      const errorMessage = this.getCreateAccountErrorMessage(error.code);
-      throw new Error(errorMessage);
-    });
+  createUser(authUser: AuthUser): Observable<AuthUser> {
+    return from(this.angularFireAuth.createUserWithEmailAndPassword(authUser.email , authUser.password))
+      .pipe(
+        map(credentials => {
+          const user: User = {
+          uid: credentials.user.uid,
+          username: authUser.username
+          };
+          this.userService.createUser(user);
+          return {
+            email: credentials.user.email,
+            username: credentials.user.displayName
+          };
+        }),
+        catchError(error => {
+          const errorMessage = this.getCreateAccountErrorMessage(error.code);
+          throw new Error(errorMessage);
+        })
+      );
   }
 
   login(user: AuthUser): Observable<AuthUser> {
-    return from(this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password))
-    .pipe(
-      map(credentials => {
-        return {
-          email: credentials.user.email,
-          username: credentials.user.displayName
-        };
-      })
-    );
+      return from(this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password))
+      .pipe(
+        map(credentials => {
+          return {
+            email: credentials.user.email,
+            username: credentials.user.displayName
+          };
+        }),
+        catchError(error => {
+          const errorMessage = this.getLoginErrorMessage(error.code);
+          throw new Error(errorMessage);
+        }
+      ));
   }
 
   resetPassword(user: AuthUser) {

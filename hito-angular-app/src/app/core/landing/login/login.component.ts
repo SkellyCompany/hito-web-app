@@ -15,6 +15,8 @@ import { AuthState } from 'src/app/shared/state-management/auth.state';
 export class LoginComponent implements OnInit {
 
   hasSubmittedForm: boolean;
+  emailErrorMessage: string;
+  passwordErrorMessage: string;
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -34,10 +36,23 @@ export class LoginComponent implements OnInit {
 
   login(authUser: AuthUser) {
     this.hasSubmittedForm = true;
+    this.validateForm();
     if (this.loginForm.valid) {
       this.store.dispatch(new Login(authUser)).subscribe(user => {
         this.router.navigate(['/app']);
       });
+    }
+  }
+
+  validateForm() {
+    if (this.loginForm.get('email').hasError('required')) {
+      this.emailErrorMessage = 'Email is required';
+    }
+    if (this.loginForm.get('email').hasError('email')) {
+      this.emailErrorMessage = 'Email is not formatted correctly';
+    }
+    if (this.loginForm.get('password').hasError('required')) {
+      this.passwordErrorMessage = 'Password is required';
     }
   }
 }

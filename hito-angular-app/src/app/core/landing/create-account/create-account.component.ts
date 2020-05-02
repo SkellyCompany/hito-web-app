@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 export class CreateAccountComponent implements OnInit {
 
   hasSubmittedForm: boolean;
+  emailErrorMessage: string;
+  usernameErrorMessage: string;
+  passwordErrorMessage: string;
 
   createAccountForm = new FormGroup({
     email: new FormControl('', [
@@ -36,10 +39,26 @@ export class CreateAccountComponent implements OnInit {
 
   createUser(authUser: AuthUser) {
     this.hasSubmittedForm = true;
+    this.validateForm();
     if (this.createAccountForm.valid) {
       this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
         this.router.navigate(['/app']);
       });
+    }
+  }
+
+  validateForm() {
+    if (this.createAccountForm.get('email').hasError('required')) {
+      this.emailErrorMessage = 'Email is required';
+    }
+    if (this.createAccountForm.get('email').hasError('email')) {
+      this.emailErrorMessage = 'Email is not formatted correctly';
+    }
+    if (this.createAccountForm.get('username').hasError('required')) {
+      this.usernameErrorMessage = 'Username is required';
+    }
+    if (this.createAccountForm.get('password').hasError('required')) {
+      this.passwordErrorMessage = 'Password is required';
     }
   }
 }
