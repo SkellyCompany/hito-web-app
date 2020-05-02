@@ -15,8 +15,6 @@ import { AuthState } from 'src/app/shared/state-management/auth.state';
 export class LoginComponent implements OnInit {
 
   hasSubmittedForm: boolean;
-  @Select(AuthState.loggedInUser)
-  loggedInUser$: Observable<AuthUser>;
 
   loginForm = new FormGroup({
     email: new FormControl('', [
