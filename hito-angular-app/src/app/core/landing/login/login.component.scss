@@ -1,24 +1,24 @@
 $color-primary: #E2005C;
 $color-accent: #522A84;
-$color-background-dark: #18181b;
-$color-primary-dark: #121215;
+$color-dark: #18181b;
+$color-deep-dark: #121215;
 $color-contrast-dark: #333336;
-$color-text-light: #fff;
-$color-text-dark: #72767d;
+$color-white: #fff;
+$color-light-grey: #72767d;
 
 h1 {
-  color: $color-text-light;
+  color: $color-white;
   font-size: 26px;
   font-weight: 100;
 }
 
 h2 {
-  color: $color-text-dark;
+  color: $color-light-grey;
   font-size: 18px;
 }
 
 input {
-	background-color: $color-primary-dark;
+	background-color: $color-deep-dark;
   font-size: 14px;
   border-radius: 3px;
   text-indent: 12px;
@@ -42,7 +42,7 @@ a:hover{
 }
 
 span{
-  color: $color-text-dark;
+  color: $color-light-grey;
   font-size: 14px;
 }
 
@@ -82,8 +82,8 @@ span{
 .login-container {
   width: 100%;
   height: 85%;
-  background: $color-background-dark;
-  border: 2px solid $color-background-dark;
+  background: $color-dark;
+  border: 2px solid $color-dark;
   border-radius: 25px 25px 25px 25px;
   display: flex;
   flex-direction: column;
@@ -150,8 +150,8 @@ span{
   margin-top: 30px;
   margin-bottom: 10px;
   cursor: pointer;
-  color: $color-text-light;
-  background: linear-gradient(0deg, $color-primary 0%, $color-accent 250%);
+  color: $color-white;
+  background: linear-gradient(0deg, $color-primary 0%, $color-accent 150%);
 	border: none;
   border-radius: 3px;
   font-size: 16px;
@@ -170,7 +170,7 @@ span{
   margin-left: 20%;
   width: 27.5%;
   height: 15%;
-  background: $color-background-dark;
+  background: $color-dark;
   clip-path: polygon(0 100%, 0 -1%, 100% -1%);
   -webkit-clip-path: polygon(0 100%, 0 -1%, 100% -1%);
 }
