@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUser } from 'src/app/shared/state-management/auth.action';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
+import { routingConstants, validationConstants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-create-account',
@@ -42,23 +43,23 @@ export class CreateAccountComponent implements OnInit {
     this.validateForm();
     if (this.createAccountForm.valid) {
       this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
-        this.router.navigate(['/app']);
+        this.router.navigate(['/' + routingConstants.app]);
       });
     }
   }
 
   validateForm() {
     if (this.createAccountForm.get('email').hasError('required')) {
-      this.emailErrorMessage = 'Email is required';
+      this.emailErrorMessage = validationConstants.emailRequired;
     }
     if (this.createAccountForm.get('email').hasError('email')) {
-      this.emailErrorMessage = 'Email is not formatted correctly';
+      this.emailErrorMessage = validationConstants.emailEmail;
     }
     if (this.createAccountForm.get('username').hasError('required')) {
-      this.usernameErrorMessage = 'Username is required';
+      this.usernameErrorMessage = validationConstants.usernameRequired;
     }
     if (this.createAccountForm.get('password').hasError('required')) {
-      this.passwordErrorMessage = 'Password is required';
+      this.passwordErrorMessage = validationConstants.passwordRequired;
     }
   }
 }

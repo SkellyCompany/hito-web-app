@@ -14,7 +14,6 @@
           <label class="error-label">Email<span class="error-message"> - {{emailErrorMessage}}</span></label>
           <input class="email-input error-input" type="email" name="email" autocomplete="username" formControlName="email"/>
         </div>
-
         <div class="input-container" *ngIf="!hasSubmittedForm || createAccountForm.get('username').valid">
           <label>Username</label>
           <input class="username-input" formControlName="username"/>
@@ -23,7 +22,6 @@
           <label class="error-label">Username<span class="error-message"> - {{usernameErrorMessage}}</span></label>
           <input class="username-input error-input" formControlName="username"/>
         </div>
-
         <div class="input-container" *ngIf="!hasSubmittedForm || createAccountForm.get('password').valid">
           <label>Password</label>
           <input class="password-input" type="password" autocomplete="current-password" formControlName="password"/>

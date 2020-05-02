@@ -42,6 +42,7 @@ export class AuthState {
       getState().loggedInUser = authUser;
       }),
       catchError(error => {
+        dispatch(new ErrorOccurred(error));
         throw new Error(error);
       })
     );

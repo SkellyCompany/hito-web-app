@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { validationConstants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-forgot-password',
@@ -36,10 +37,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   validateForm() {
     if (this.forgotPasswordForm.get('email').hasError('required')) {
-      this.emailErrorMessage = 'Email is required';
+      this.emailErrorMessage = validationConstants.emailRequired;
     }
     if (this.forgotPasswordForm.get('email').hasError('email')) {
-      this.emailErrorMessage = 'Email is not formatted correctly';
+      this.emailErrorMessage = validationConstants.emailEmail;
     }
   }
 }

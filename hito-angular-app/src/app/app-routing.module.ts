@@ -1,3 +1,4 @@
+import { routingConstants } from './shared/constants';
 import { AuthGuard } from './shared/auth-guard/auth.guard';
 import { MainComponent } from './core/main/main.component';
 import { NgModule } from '@angular/core';
@@ -9,15 +10,15 @@ import { CreateAccountComponent } from './core/landing/create-account/create-acc
 import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: routingConstants.login, pathMatch: 'full' },
   { path: '', component: LandingComponent,
     children: [
-      { path: 'login', component: LoginComponent},
-      { path: 'create-account', component: CreateAccountComponent},
-      { path: 'forgot-password', component: ForgotPasswordComponent}
+      { path: routingConstants.login, component: LoginComponent},
+      { path: routingConstants.createAccount, component: CreateAccountComponent},
+      { path: routingConstants.forgotPassword, component: ForgotPasswordComponent}
   ]},
   {
-    path: 'app',
+    path: routingConstants.app,
     component: MainComponent,
     canActivate: [AuthGuard]
   },

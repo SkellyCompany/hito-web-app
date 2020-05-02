@@ -1,11 +1,10 @@
+import { routingConstants, validationConstants } from './../../../shared/constants';
 import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthState } from 'src/app/shared/state-management/auth.state';
 
 @Component({
   selector: 'app-login',
@@ -39,20 +38,20 @@ export class LoginComponent implements OnInit {
     this.validateForm();
     if (this.loginForm.valid) {
       this.store.dispatch(new Login(authUser)).subscribe(user => {
-        this.router.navigate(['/app']);
+        this.router.navigate(['/' + routingConstants.app]);
       });
     }
   }
 
   validateForm() {
     if (this.loginForm.get('email').hasError('required')) {
-      this.emailErrorMessage = 'Email is required';
+      this.emailErrorMessage = validationConstants.emailRequired;
     }
     if (this.loginForm.get('email').hasError('email')) {
-      this.emailErrorMessage = 'Email is not formatted correctly';
+      this.emailErrorMessage = validationConstants.emailEmail;
     }
     if (this.loginForm.get('password').hasError('required')) {
-      this.passwordErrorMessage = 'Password is required';
+      this.passwordErrorMessage = validationConstants.passwordRequired;
     }
   }
 }
