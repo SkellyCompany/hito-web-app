@@ -14,3 +14,7 @@ export const validationConstants = {
   passwordRequired: 'Password is required',
   passwordWeak: 'Password is too weak'
 };
+
+export const firebaseCollectionsConstants = {
+  users: 'users'
+}

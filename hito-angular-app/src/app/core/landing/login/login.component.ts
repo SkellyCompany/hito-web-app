@@ -2,9 +2,9 @@ import { routingConstants, validationConstants } from './../../../shared/constan
 import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AuthUser } from 'src/app/shared/models/auth-user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginInput } from 'src/app/shared/models/input-models/login-input.model';
 
 @Component({
   selector: 'app-login',
@@ -33,12 +33,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(authUser: AuthUser) {
+  login(loginInput: LoginInput) {
     this.hasSubmittedForm = true;
     this.validateForm();
     if (this.loginForm.valid) {
-      this.store.dispatch(new Login(authUser)).subscribe(user => {
-        this.router.navigate(['/' + routingConstants.app]);
+      this.store.dispatch(new Login(loginInput)).subscribe(() => {
+        console.log("AAAAAAAAAAAAAAAAA");
+        //this.router.navigate(['/' + routingConstants.app]);
       });
     }
   }

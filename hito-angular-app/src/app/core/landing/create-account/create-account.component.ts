@@ -1,4 +1,4 @@
-import { AuthUser } from '../../../shared/models/auth-user';
+import { CreateAccountInput } from '../../../shared/models/input-models/create-account-input.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUser } from 'src/app/shared/state-management/auth.action';
@@ -38,12 +38,12 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createUser(authUser: AuthUser) {
+  createUser(createAccountInput: CreateAccountInput) {
     this.hasSubmittedForm = true;
     this.validateForm();
     if (this.createAccountForm.valid) {
-      this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
-        this.router.navigate(['/' + routingConstants.app]);
+      this.store.dispatch(new CreateUser(createAccountInput)).subscribe(user => {
+        // Refactor add route change here
       });
     }
   }
