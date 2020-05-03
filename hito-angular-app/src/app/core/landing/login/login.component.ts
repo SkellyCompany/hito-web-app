@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
     this.validateForm();
     if (this.loginForm.valid) {
       this.store.dispatch(new Login(loginInput)).subscribe(() => {
-        console.log("AAAAAAAAAAAAAAAAA");
-        //this.router.navigate(['/' + routingConstants.app]);
+        // Refactor add route change here
       });
     }
   }

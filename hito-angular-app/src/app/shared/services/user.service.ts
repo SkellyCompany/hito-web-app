@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private angularFirestore: AngularFirestore) { }
 
-  createUser(user: User): Promise<any> {
-    return this.angularFirestore.collection<User>(firebaseCollectionsConstants.users).add(user);
+  createUser(user: User){
+    return this.angularFirestore.collection<User>(firebaseCollectionsConstants.users).doc(user.uid).set(user);
   }
 
   getUser(uid: string): Observable<User> {

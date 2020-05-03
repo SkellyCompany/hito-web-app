@@ -39,9 +39,8 @@ export class AuthState {
         username: payload.username,
         email: userCredential.user.email
       };
-      return this.userService.createUser(user).then(() => {
-        return this.userService.getUser('Z8jSe1mr2uwSRu7ppNr9').subscribe(userResult => {
-          console.log("HAIz" + userResult.username);
+      this.userService.createUser(user).then(x => {
+        this.userService.getUser(user.uid).subscribe(userResult => {
           setState({...getState(), loggedInUser: userResult});
           this.router.navigate(['/' + routingConstants.app]);
         });
@@ -54,8 +53,7 @@ export class AuthState {
   @Action(Login)
   login({getState, setState, dispatch }: StateContext<AuthStateModel>, {payload}: Login) {
     return this.authService.login(payload).then(userCredential => {
-      console.log("1111");
-      return this.userService.getUser(userCredential.user.uid).subscribe(userResult => {
+      this.userService.getUser(userCredential.user.uid).subscribe(userResult => {
         setState({...getState(), loggedInUser: userResult});
         this.router.navigate(['/' + routingConstants.app]);
       });
