@@ -9,6 +9,7 @@ export const routingConstants = {
 export const validationConstants = {
   emailRequired: 'Email is required',
   emailEmail: 'Email is not formatted correctly',
+  emailNotFound: 'Email not found',
   usernameRequired: 'Username is required',
   passwordRequired: 'Password is required',
   passwordWeak: 'Password is too weak'

@@ -27,7 +27,7 @@ export class ErrorState {
   @Action(ErrorOccurred)
   errorOccoured({getState, patchState, dispatch}: StateContext<ErrorStateModel>, action: ErrorOccurred) {
     let errors = getState().errors;
-    action.error.message = "";
+    action.error.message = '';
     errors = [...errors];
     errors.push(action.error);
     patchState({

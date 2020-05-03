@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AuthUser } from '../models/auth-user';
 import { CreateUser, Login, ResetPassword } from './auth.action';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 export interface AuthStateModel {
     loggedInUser: AuthUser;
