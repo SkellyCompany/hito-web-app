@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { MainComponent } from './core/main/main.component';
+import { ErrorState } from './shared/state-management/error.state';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { MainComponent } from './core/main/main.component';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState]
+      key: [AuthState, ErrorState]
   }),
   ],
   providers: [],

@@ -1,5 +1,6 @@
+import { routingConstants } from './../constants';
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthUser } from '../models/auth-user';
 import { AuthState } from '../state-management/auth.state';
@@ -13,16 +14,17 @@ export class AuthGuard implements CanActivate {
   @Select(AuthState.loggedInUser)
   loggedInUser$: Observable<AuthUser>;
 
-  constructor(private store: Store) {}
+  constructor(private router: Router) {}
 
   canActivate() {
-      return this.loggedInUser$
-      .pipe(
-        map(loggedInUser => {
-          if (loggedInUser === null) {
-            return false;
-          }
-          return true;
-      }));
-    }
+    return this.loggedInUser$
+    .pipe(
+      map(loggedInUser => {
+        if (loggedInUser === undefined) {
+          this.router.navigate(['/' + routingConstants.login]);
+          return false;
+        }
+        return true;
+    }));
+  }
 }
