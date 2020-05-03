@@ -1,33 +1,32 @@
+import { routingConstants } from './../constants';
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthUser } from '../models/auth-user';
 import { AuthState } from '../state-management/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   @Select(AuthState.loggedInUser)
-  authUser$: Observable<AuthUser>;
+  loggedInUser$: Observable<User>;
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(private router: Router) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.authUser$
-      .pipe(
-        map(authUser => {
-          console.log("1");
-          if (authUser === undefined) {
-            console.log("2");
-            return false;
-          }
-          console.log("3");
-          return true;
-        })
-      );  }
+  canActivate() {
+    return this.loggedInUser$
+    .pipe(
+      map(loggedInUser => {
+        console.log("TUD");
+        if (loggedInUser === undefined) {
+          this.router.navigate(['/' + routingConstants.login]);
+          return false;
+        }
+        console.log("TUO");
+        return true;
+    }));
+  }
 }

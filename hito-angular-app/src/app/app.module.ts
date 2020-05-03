@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -18,6 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { MainComponent } from './core/main/main.component';
+import { ErrorState } from './shared/state-management/error.state';
+import { NavbarComponent } from './core/main/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { MainComponent } from './core/main/main.component';
     CreateAccountComponent,
     ForgotPasswordComponent,
     NotFoundComponent,
-    MainComponent
+    MainComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +41,13 @@ import { MainComponent } from './core/main/main.component';
     AngularFireAuthModule,
     AppRoutingModule,
     NgxsModule.forRoot([
-      AuthState
+      AuthState, ErrorState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState]
+      key: ['auth', ErrorState]
   }),
   ],
   providers: [],

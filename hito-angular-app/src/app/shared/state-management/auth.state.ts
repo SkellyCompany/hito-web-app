@@ -1,12 +1,17 @@
+import { UserService } from './../services/user.service';
+import { ErrorOccurred } from './error.action';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { AuthUser } from '../models/auth-user';
 import { CreateUser, Login, ResetPassword } from './auth.action';
-import { map, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { User } from '../models/user.model';
+import { from } from 'rxjs';
+import { Router } from '@angular/router';
+import { routingConstants } from '../constants';
 
 export interface AuthStateModel {
-    loggedInUser: AuthUser;
+    loggedInUser: User;
 }
 
 @State<AuthStateModel>({
@@ -19,7 +24,7 @@ export interface AuthStateModel {
 @Injectable()
 export class AuthState {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
 
   @Selector()
   static loggedInUser(state: AuthStateModel) {
@@ -27,19 +32,41 @@ export class AuthState {
   }
 
   @Action(CreateUser)
-  createUser({getState, patchState}: StateContext<AuthStateModel>, {payload}: CreateUser) {
-    this.authService.createUser(payload);
+  createUser({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateUser) {
+    return this.authService.createUser(payload).then(userCredential => {
+      const user: User = {
+        uid: userCredential.user.uid,
+        username: payload.username,
+        email: userCredential.user.email
+      };
+      this.userService.createUser(user).then(x => {
+        this.userService.getUser(user.uid).subscribe(userResult => {
+          setState({...getState(), loggedInUser: userResult});
+          this.router.navigate(['/' + routingConstants.app]);
+        });
+      }).catch(error => {
+        dispatch(new ErrorOccurred(error));
+      });
+    });
   }
 
   @Action(Login)
-  login({getState, setState}: StateContext<AuthStateModel>, {payload}: Login) {
-    return this.authService.login(payload).pipe(map(result => {
-      getState().loggedInUser = result;
-    }));
+  login({getState, setState, dispatch }: StateContext<AuthStateModel>, {payload}: Login) {
+    return this.authService.login(payload).then(userCredential => {
+      this.userService.getUser(userCredential.user.uid).subscribe(userResult => {
+        setState({...getState(), loggedInUser: userResult});
+        this.router.navigate(['/' + routingConstants.app]);
+      });
+    }).catch(error => {
+      dispatch(new ErrorOccurred(error));
+    });
   }
 
   @Action(ResetPassword)
-  resetPassword({getState, patchState}: StateContext<AuthStateModel>, {payload}: ResetPassword) {
-    this.authService.resetPassword(payload);
+  resetPassword({dispatch}: StateContext<AuthStateModel>, {payload}: ResetPassword) {
+    this.authService.resetPassword(payload).catch(error => {
+      dispatch(new ErrorOccurred(error));
+      throw new Error(error);
+    });
   }
 }

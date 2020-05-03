@@ -1,11 +1,11 @@
+import { CreateAccountInput } from './../models/input-models/create-account-input.model';
+import { ResetPasswordInput } from '../models/input-models/reset-password-input.model';
+import { LoginInput } from '../models/input-models/login-input.model';
 import { UserService } from './user.service';
-import { AuthUser } from '../models/auth-user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { User } from '../models/user';
-import { } from 'firebase';
+import { Observable, from, throwError } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,47 +15,37 @@ export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth, private userService: UserService) { }
 
-  createUser(authUser: AuthUser) {
-    this.angularFireAuth.createUserWithEmailAndPassword(authUser.email , authUser.password).then(result => {
-    const user: User = {
-      uid: result.user.uid,
-      username: authUser.username
-    };
-    this.userService.createUser(user);
-    })
-    .catch(error => {
-      const errorMessage = this.getCreateAccountErrorMessage(error.code);
-      throw new Error(errorMessage);
+  createUser(createAccountInput: CreateAccountInput): Promise<firebase.auth.UserCredential> {
+    return this.angularFireAuth.createUserWithEmailAndPassword(createAccountInput.email , createAccountInput.password)
+      .catch(error => {
+        const errorMessage = this.getCreateAccountErrorMessage(error.code);
+        throw errorMessage;
     });
   }
 
-  login(user: AuthUser): Observable<AuthUser> {
-    return from(this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password))
-    .pipe(
-      map(credentials => {
-        return {
-          email: credentials.user.email,
-          username: credentials.user.displayName
-        };
-      })
-    );
+  login(loginInput: LoginInput): Promise<firebase.auth.UserCredential> {
+    return this.angularFireAuth.signInWithEmailAndPassword(loginInput.email, loginInput.password)
+    .catch(error => {
+      const errorMessage = this.getLoginErrorMessage(error.code);
+      throw errorMessage;
+    });
   }
 
-  resetPassword(user: AuthUser) {
-    this.angularFireAuth.sendPasswordResetEmail(user.email)
+  resetPassword(forgotPasswordInput: ResetPasswordInput): Promise<void> {
+    return this.angularFireAuth.sendPasswordResetEmail(forgotPasswordInput.email)
     .catch(error => {
       const errorMessage = this.getResetPasswordErrorMessage(error.code);
-      throw new Error(errorMessage);
+      throw errorMessage;
     });
   }
 
-  getCreateAccountErrorMessage(error: any) {
+  getCreateAccountErrorMessage(error: any): string {
     switch (error) {
-      case 'auth/invalid-email' : {
-        return 'Email is invalid.';
+      case 'auth/email-already-in-use' : {
+        return 'Email is already used.';
       }
-      case 'auth/weak-password' : {
-        return 'Password is too weak.';
+      case 'auth/network-request-failed' : {
+        return 'There has been a connectivity issue.';
       }
       default: {
         console.log(error);
@@ -64,7 +54,7 @@ export class AuthService {
     }
   }
 
-  getLoginErrorMessage(error: any) {
+  getLoginErrorMessage(error: any): string {
     switch (error) {
       case 'auth/user-not-found' : {
         return 'User was not found.';
@@ -72,6 +62,9 @@ export class AuthService {
       case 'auth/wrong-password' : {
         return 'Password is invalid.';
       }
+      case 'auth/network-request-failed' : {
+        return 'There has been a connectivity issue.';
+      }
       default: {
         console.log(error);
         return 'There has been an error, try again later.';
@@ -79,10 +72,13 @@ export class AuthService {
     }
   }
 
-  getResetPasswordErrorMessage(error: any) {
+  getResetPasswordErrorMessage(error: any): string {
     switch (error) {
       case 'auth/user-not-found' : {
         return 'Email was not found.';
+      }
+      case 'auth/network-request-failed' : {
+        return 'There has been a connectivity issue.';
       }
       default: {
         console.log(error);

@@ -1,9 +1,10 @@
-import { AuthUser } from '../../../shared/models/auth-user';
+import { CreateAccountInput } from '../../../shared/models/input-models/create-account-input.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUser } from 'src/app/shared/state-management/auth.action';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
+import { routingConstants, validationConstants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-create-account',
@@ -13,6 +14,9 @@ import { Router } from '@angular/router';
 export class CreateAccountComponent implements OnInit {
 
   hasSubmittedForm: boolean;
+  emailErrorMessage: string;
+  usernameErrorMessage: string;
+  passwordErrorMessage: string;
 
   createAccountForm = new FormGroup({
     email: new FormControl('', [
@@ -34,12 +38,28 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createUser(authUser: AuthUser) {
+  createUser(createAccountInput: CreateAccountInput) {
     this.hasSubmittedForm = true;
+    this.validateForm();
     if (this.createAccountForm.valid) {
-      this.store.dispatch(new CreateUser(authUser)).subscribe(user => {
-        this.router.navigate(['/app']);
+      this.store.dispatch(new CreateUser(createAccountInput)).subscribe(user => {
+        // Refactor add route change here
       });
+    }
+  }
+
+  validateForm() {
+    if (this.createAccountForm.get('email').hasError('required')) {
+      this.emailErrorMessage = validationConstants.emailRequired;
+    }
+    if (this.createAccountForm.get('email').hasError('email')) {
+      this.emailErrorMessage = validationConstants.emailEmail;
+    }
+    if (this.createAccountForm.get('username').hasError('required')) {
+      this.usernameErrorMessage = validationConstants.usernameRequired;
+    }
+    if (this.createAccountForm.get('password').hasError('required')) {
+      this.passwordErrorMessage = validationConstants.passwordRequired;
     }
   }
 }

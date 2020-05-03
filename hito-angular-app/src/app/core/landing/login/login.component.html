@@ -5,29 +5,22 @@
         <h1 class="header-primary">Ready to chat?</h1>
         <h2 class="header-secondary">Proceed to login to your account!</h2>
       </div>
-      <div *ngIf="hasSubmittedForm">
-        <div style="color: #f21616;" *ngIf="loginForm.get('email').hasError('required')">
-          Email is required
-        </div>
-        <div style="color: #f21616;" *ngIf="loginForm.get('email').hasError('email')">
-          Invalid email adress
-        </div>
-        <div style="color: #f21616;" *ngIf="loginForm.get('password').hasError('required')">
-          Password is required
-        </div>
-      </div>
       <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login(loginForm.value)">
-        <div style="width: 100%;" *ngIf="hasSubmittedForm && loginForm.get('email').invalid">
-          <input style="border: solid 1px #f21616;" class="email-input" type="email" name="email" autocomplete="username" placeholder="Email" formControlName="email"/>
+        <div class="input-container" *ngIf="!hasSubmittedForm || loginForm.get('email').valid">
+          <label>Email</label>
+          <input class="email-input" type="email" name="email" autocomplete="username" formControlName="email"/>
         </div>
-        <div style="width: 100%;" *ngIf="!hasSubmittedForm || loginForm.get('email').valid">
-          <input class="email-input" type="email" name="email" autocomplete="username" placeholder="Email" formControlName="email"/>
+        <div class="input-container" *ngIf="hasSubmittedForm && loginForm.get('email').invalid">
+          <label class="error-label">Email<span class="error-message"> - {{emailErrorMessage}}</span></label>
+          <input class="email-input error-input" type="email" name="email" autocomplete="username" formControlName="email"/>
         </div>
-        <div style="width: 100%;" *ngIf="hasSubmittedForm && loginForm.get('password').invalid">
-          <input style="border: solid 1px #f21616;" class="password-input" type="password" autocomplete="current-password" placeholder="Password" formControlName="password"/>
+        <div class="input-container" *ngIf="!hasSubmittedForm || loginForm.get('password').valid">
+          <label> Password </label>
+          <input class="password-input" type="password" autocomplete="current-password" formControlName="password"/>
         </div>
-        <div style="width: 100%;" *ngIf="!hasSubmittedForm || loginForm.get('password').valid">
-          <input class="password-input" type="password" autocomplete="current-password" placeholder="Password" formControlName="password"/>
+        <div class="input-container" *ngIf="hasSubmittedForm && loginForm.get('password').invalid">
+          <label class="error-label">Password<span class="error-message"> - {{passwordErrorMessage}}</span></label>
+          <input class="password-input error-input" type="password" autocomplete="current-password" formControlName="password"/>
         </div>
         <a class="forgot-password" routerLink="/forgot-password">Forgot your password?</a>
         <button type="submit" class="login-button">Login</button>
