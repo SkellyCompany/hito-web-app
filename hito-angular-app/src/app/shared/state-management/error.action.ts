@@ -1,4 +1,4 @@
-import { ErrorMessage } from './../models/error-message';
+import { ErrorMessage } from '../models/error-message.model';
 
 export class ErrorOccurred {
   static readonly type = '[ErrorMessage] Error Occurred';
