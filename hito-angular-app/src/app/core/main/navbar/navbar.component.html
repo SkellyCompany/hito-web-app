@@ -1,0 +1,19 @@
+<div class="main-container">
+  <div class="profile-container">
+
+  </div>
+  <div class="actions-container">
+    <i class="las la-users"
+       (click)="onActionClick(GROUP_CHAT_ACTION)"
+       [ngClass]="activeAction === GROUP_CHAT_ACTION ? 'action-active' : ''"></i>
+    <i class="las la-map-pin"
+       (click)="onActionClick(LOCAL_CHAT_ACTION)"
+       [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-active-animated' : ''"></i>
+    <i class="las la-history"
+       (click)="onActionClick(HISTORY_ACTION)"
+       [ngClass]="activeAction === HISTORY_ACTION ? 'action-active' : ''" ></i>
+  </div>
+  <div class="logo-container">
+
+  </div>
+</div>

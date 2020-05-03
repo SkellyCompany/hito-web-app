@@ -1,0 +1,90 @@
+$color-primary: #E2005C;
+$color-accent: #522A84;
+$color-dark: #18181b;
+$color-deep-dark: #121215;
+$color-contrast-dark: #333336;
+$color-white: #fff;
+$color-light-grey: #81858b;
+.radio_item{
+  display: none !important;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $color-dark;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.profile-container {
+  display: none;
+  height: 100%;
+}
+
+.actions-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.las:hover {
+  cursor: pointer;
+}
+
+.la-users {
+  font-size: 34px;
+}
+
+.la-map-pin {
+  font-size: 36px;
+}
+
+.la-history {
+  font-size: 30px;
+}
+
+.action-active {
+  color: #E2005C;
+}
+
+.action-active-animated {
+  color: #E2005C;
+  //add animation
+}
+
+.logo-container {
+  display: none;
+  height: 100%;
+}
+
+@media(min-width: 480px) {
+  .main-container {
+    flex-direction: column;
+    border-radius: 0px 15px 15px 0px;
+  }
+
+  .profile-container {
+    display: unset;
+    width: 100%;
+    height: 80px;
+  }
+
+  .actions-container {
+    width: 100%;
+    height: 300px;
+    flex-direction: column;
+  }
+
+  .logo-container {
+    display: unset;
+    width: 100%;
+    height: 80px;
+  }
+}

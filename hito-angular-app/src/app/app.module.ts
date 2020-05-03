@@ -19,6 +19,7 @@ import { AuthState } from './shared/state-management/auth.state';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { MainComponent } from './core/main/main.component';
 import { ErrorState } from './shared/state-management/error.state';
+import { NavbarComponent } from './core/main/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ErrorState } from './shared/state-management/error.state';
     CreateAccountComponent,
     ForgotPasswordComponent,
     NotFoundComponent,
-    MainComponent
+    MainComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,38 @@
+$color-primary: #E2005C;
+$color-accent: #522A84;
+$color-dark: #18181b;
+$color-deep-dark: #121215;
+$color-contrast-dark: #333336;
+$color-white: #fff;
+$color-light-grey: #81858b;
+
+.navbar-container {
+  background-color: $color-deep-dark;
+  position: fixed;
+  height: 85px;
+  //width: calc(100vw - 12px);
+  width: 100vw;
+  padding-top: 6px;
+  //padding-left: 6px;
+  //padding-right: 6px;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 1;
+}
+
+@media(min-width: 480px) {
+  .navbar-container {
+    position: fixed;
+    height: 100vh;
+    //height: calc(100vh - 12px);
+    width: 75px;
+    //padding: 6px 6px 6px 0px;
+    padding-right: 6px;
+    padding-top: 0px;
+    left:0;
+    top:0;
+    bottom:0;
+    z-index: 1;
+  }
+}
