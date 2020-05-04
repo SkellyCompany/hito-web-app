@@ -22,6 +22,7 @@ import { MainComponent } from './core/main/main.component';
 import { ErrorState } from './shared/state-management/error.state';
 import { NavbarComponent } from './core/main/navbar/navbar.component';
 import { TopbarComponent } from './core/main/topbar/topbar.component';
+import { UserListComponent } from './core/main/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TopbarComponent } from './core/main/topbar/topbar.component';
     NotFoundComponent,
     MainComponent,
     NavbarComponent,
-    TopbarComponent
+    TopbarComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
