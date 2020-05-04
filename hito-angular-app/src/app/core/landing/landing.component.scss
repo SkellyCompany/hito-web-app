@@ -18,11 +18,10 @@ $color-background-dark: #18181b;
 
 .hito-logo {
   position: fixed;
+  height: 30px;
+  width: 74px;
+  left: calc(50% - 74px / 2);
   top: 24px;
-  left: calc(50% - 75px/2);
-  width: 130px;
-  height: 36px;
-  background: url(https://svgshare.com/i/KdB.svg) no-repeat;
 }
 
 .router-container {
@@ -48,8 +47,6 @@ $color-background-dark: #18181b;
 
 @media (min-width:850px) {
   .hito-logo {
-    position: fixed;
-    top: 24px;
     left: 24px;
   }
 
