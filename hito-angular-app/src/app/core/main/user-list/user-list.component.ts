@@ -12,4 +12,8 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getNumber() {
+    return 10;
+  }
+
 }
