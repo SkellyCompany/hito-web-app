@@ -6,14 +6,16 @@
     <i class="las la-users"
        (click)="onActionClick(GROUP_CHAT_ACTION)"
        [ngClass]="activeAction === GROUP_CHAT_ACTION ? 'action-active' : ''"></i>
-    <i class="las la-map-pin"
-       (click)="onActionClick(LOCAL_CHAT_ACTION)"
-       [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-active-animated' : ''"></i>
+    <div [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-animated-container' : ''">
+      <i class="las la-map-pin"
+         (click)="onActionClick(LOCAL_CHAT_ACTION)"
+         [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-active-animated' : ''"></i>
+    </div>
     <i class="las la-history"
        (click)="onActionClick(HISTORY_ACTION)"
        [ngClass]="activeAction === HISTORY_ACTION ? 'action-active' : ''" ></i>
   </div>
   <div class="logo-container">
-
+    <img class="logo" src="assets/images/logo-name.png">
   </div>
 </div>
