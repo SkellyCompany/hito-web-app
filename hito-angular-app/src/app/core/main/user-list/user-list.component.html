@@ -4,7 +4,7 @@
     <input class="search-input" placeholder="Search people">
   </div>
   <div class="users-container">
-    <h2 class="user-header">Contacts</h2>
+    <h2 class="user-header">People</h2>
     <ul class="user-list">
       <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
           <span *ngIf="contact === selectedContact">

@@ -10,7 +10,7 @@ export class UserListComponent implements OnInit {
 
   selectedContact: Contact;
   contacts: Contact[] = [{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},
-  {name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},];
+  {name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"}];
 
   constructor() { }
 

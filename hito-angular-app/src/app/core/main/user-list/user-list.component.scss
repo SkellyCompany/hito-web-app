@@ -20,17 +20,15 @@ $color-light-grey: #81858b;
 
 .search-container {
   width: 90%;
-  height: 12%;
-  position: relative;
+  height: 10%;
+  padding-top: 2%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .la-search {
-  padding-top: 20px;
-  position: absolute;
-  top: 29px;
+  top: 24px;
   left: 8px;
   width: 14px;
 }
@@ -44,7 +42,6 @@ $color-light-grey: #81858b;
   box-sizing: border-box;
   transition: border 0.2s;
   height: 42px;
-  align-self: center;
   width: 100%;
 }
 
@@ -54,7 +51,8 @@ $color-light-grey: #81858b;
 
 .users-container {
   width: 95%;
-  height: 88%;
+  height: 85%;
+  padding-top: 3%;
 }
 
 .users-inner-container {
@@ -72,53 +70,35 @@ $color-light-grey: #81858b;
 }
 
 .user-list {
-  height:100%;
+  height:calc(100% - 26px);
   width:100%;
-  overflow-y:scroll;
-  scroll-padding-left: 500px;
-
+  padding-right: 4px;
+  overflow: hidden;
 }
 .user-list:hover {
   overflow-y:scroll;
 }
-
 .user-list::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
   border-radius: 15pt;
-  scroll-padding-left: 500px;
-  background-color: transparent;
-}
-.user-list::-webkit-scrollbar-track {
-  background-color: transparent;
-  border: 4px solid rgba(0, 0, 0, 0);
-  scroll-padding-left: 500px;
-
 }
 .user-list::-webkit-scrollbar-thumb {
-  width: 1px;
   background-color: $color-contrast-dark;
-  scroll-padding-left: 500px;
 }
-
 
 .user-selection {
   width: 100%;
   height: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
+  margin-right: 50%;
   margin-bottom: 5px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center ;
-  justify-content: flex-start;
   cursor: pointer;
 }
-
 .user-selection:hover {
   background-color: $color-deep-dark;
 }
-
 .user-selection-active {
   background-color: $color-deep-dark;
 }
@@ -136,7 +116,6 @@ $color-light-grey: #81858b;
 .user-selection-left-part {
   padding-right: 5px;
 }
-
 .user-selection-right-part {
   padding-left: 5px;
 }
@@ -155,3 +134,4 @@ $color-light-grey: #81858b;
   font-size: 14px;
   color: $color-white;
 }
+
