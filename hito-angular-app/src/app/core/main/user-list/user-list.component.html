@@ -6,117 +6,33 @@
   <div class="users-container">
     <h2 class="user-header">Contacts</h2>
     <ul class="user-list">
-      <li>
-        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>
-        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>
-        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>
-        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>
-        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>
-        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>        <div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div><div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div><div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div><div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div><div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div><div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div><div class="user-selection">
-          <div class="user-selection-left-part">
-            <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-          </div>
-          <div class="user-selection-right-part">
-            <p class="username">Kippo</p>
-            <p class="address">Address 84 st</p>
-          </div>
-        </div>
+      <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
+          <span *ngIf="contact === selectedContact">
+            <div class="user-selection user-selection-active">
+              <div class="user-selection-inner">
+                <div class="user-selection-left-part">
+                  <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
+                </div>
+                <div class="user-selection-right-part">
+                  <p class="username">Kippo</p>
+                  <p class="address">Address 84 st</p>
+                </div>
+              </div>
+            </div>
+          </span>
+          <span *ngIf="contact !== selectedContact">
+            <div class="user-selection">
+              <div class="user-selection-inner">
+                <div class="user-selection-left-part">
+                  <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
+                </div>
+                <div class="user-selection-right-part">
+                  <p class="username">Kippo</p>
+                  <p class="address">Address 84 st</p>
+                </div>
+              </div>
+            </div>
+          </span>
       </li>
     </ul>
   </div>

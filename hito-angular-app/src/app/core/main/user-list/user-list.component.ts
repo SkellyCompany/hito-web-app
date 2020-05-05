@@ -1,3 +1,4 @@
+import { Contact } from './../../../shared/models/contact.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,13 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
+  selectedContact: Contact;
+  contacts: Contact[] = [{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},
+  {name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},{name: "Kiddo"},];
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  getNumber() {
-    return 10;
+  onSelect(contact: Contact) {
+    this.selectedContact = contact;
   }
 
 }
