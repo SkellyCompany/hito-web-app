@@ -31,6 +31,33 @@ $color-light-grey: #81858b;
   margin-left: 20px;
 }
 
+.profile-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-picture {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: solid 2px $color-contrast-dark;
+  margin-right: 20px;
+}
+.profile-picture:hover {
+  cursor: pointer;
+  border: solid 2px $color-primary;
+}
+
+.la-cog {
+  position: fixed;
+  padding-left: 30px;
+  padding-top: 30px;
+  pointer-events: none;
+}
+
 @media(min-width: 480px) {
   .main-container {
     display: unset;
