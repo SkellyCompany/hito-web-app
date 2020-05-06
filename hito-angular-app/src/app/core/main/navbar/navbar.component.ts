@@ -1,6 +1,9 @@
+import { InitLocalChatData, InitHistoryData } from './../../../shared/state-management/pagination.action';
 import { Logout } from './../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { PaginationQuery } from 'src/app/shared/models/pagination-query.model';
+import { firebaseCollectionsConstants } from 'src/app/shared/constants';
 
 enum NavbarAction {
   GROUP_CHAT = 0,
@@ -38,17 +41,16 @@ export class NavbarComponent implements OnInit {
 
   onActionClick(action: NavbarAction) {
     this.activeAction = action;
-  //   if(action === this.GROUP_CHAT_ACTION
-  //     && this.selectedAction !== this.GROUP_CHAT_ACTION) {
-  //
-  //   }
-  //   else if(action === this.LOCAL_CHAT_ACTION
-  //     && this.selectedAction !== this.LOCAL_CHAT_ACTION) {
-  //
-  //   }
-  //   else if(action === this.HISTORY_ACTION
-  //     && this.selectedAction !== this.HISTORY_ACTION) {
-  //
-  //   }
+    const paginationQuery: PaginationQuery = { path: firebaseCollectionsConstants.users, field: 'username', limit: 12 };
+    if (action === this.GROUP_CHAT_ACTION) {
+      this.store.dispatch(new InitLocalChatData(paginationQuery)).subscribe(() => {
+      });
+    } else if (action === this.LOCAL_CHAT_ACTION) {
+      this.store.dispatch(new InitLocalChatData(paginationQuery)).subscribe(() => {
+      });
+    } else{
+      this.store.dispatch(new InitHistoryData(paginationQuery)).subscribe(() => {
+      });
+    }
   }
 }

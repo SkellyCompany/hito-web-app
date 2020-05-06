@@ -19,10 +19,23 @@ export class PaginationService {
 
   constructor(private angularFirestore: AngularFirestore) { }
 
-  init(paginationQuery: PaginationQuery): Observable<any> {
+  initHistoryData(paginationQuery: PaginationQuery): Observable<any> {
+    this._data.next([]);
     this.query = paginationQuery;
     const initialData = this.angularFirestore.collection(this.query.path, ref =>
-      ref.orderBy(this.query.field).limit(this.query.limit));
+      ref.orderBy(this.query.field).limit(3));
+
+    this.updateData(initialData);
+
+    return this.data = this._data.asObservable()
+      .pipe(scan((acc, val) => acc.concat(val)));
+  }
+
+  initLocalChatData(paginationQuery: PaginationQuery): Observable<any> {
+    this._data.next([]);
+    this.query = paginationQuery;
+    const initialData = this.angularFirestore.collection(this.query.path, ref =>
+      ref.orderBy(this.query.field).limit(5));
 
     this.updateData(initialData);
 

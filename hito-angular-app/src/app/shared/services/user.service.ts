@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,14 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.angularFirestore.collection<User>(firebaseCollectionsConstants.users).valueChanges();
+  }
+
+  getUsersInHistory() {
+    return this.angularFirestore.collection(firebaseCollectionsConstants.histories).get().pipe(map(x => {
+      console.log("A");
+      x.docs.forEach(doc => {
+        console.log(doc.id, doc.data());
+      });
+    }));
   }
 }
