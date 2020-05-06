@@ -23,13 +23,21 @@ $color-light-grey: #81858b;
 }
 
 .profile-picture {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: solid 2px $color-primary;
+  border: solid 2px $color-contrast-dark;
 }
 .profile-picture:hover {
   cursor: pointer;
+  border: solid 2px $color-primary;
+}
+
+.la-cog {
+  position: fixed;
+  padding-left: 30px;
+  padding-top: 30px;
+  pointer-events: none;
 }
 
 .actions-container {
@@ -118,12 +126,6 @@ $color-light-grey: #81858b;
     border-radius: 0px 15px 15px 0px;
   }
 
-  .profile-container {
-    display: unset;
-    width: 100%;
-    height: 80px;
-  }
-
   .actions-container {
     width: 100%;
     height: 200px;
@@ -140,7 +142,7 @@ $color-light-grey: #81858b;
 
   .profile-container {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     width: 100%;
     height: 80px;
