@@ -2,7 +2,8 @@ import { firebaseCollectionsConstants } from './../constants';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

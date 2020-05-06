@@ -1,9 +1,8 @@
-import { routingConstants, validationConstants } from './../../../shared/constants';
+import { validationConstants } from './../../../shared/constants';
 import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoginInput } from 'src/app/shared/models/input-models/login-input.model';
 
 @Component({
@@ -28,7 +27,7 @@ export class LoginComponent implements OnInit {
   }, { updateOn: 'submit' }
   );
 
-  constructor(private store: Store, private router: Router) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }

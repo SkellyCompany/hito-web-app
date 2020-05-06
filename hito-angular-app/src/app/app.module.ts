@@ -1,3 +1,5 @@
+import { UserState } from './shared/state-management/user.state';
+import { PaginationState } from './shared/state-management/pagination.state';
 import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
 import { CreateAccountComponent } from './core/landing/create-account/create-account.component';
 import { LandingComponent } from './core/landing/landing.component';
@@ -47,13 +49,13 @@ import { ScrollableDirective } from './shared/directives/scrollable.directive';
     AngularFireAuthModule,
     AppRoutingModule,
     NgxsModule.forRoot([
-      AuthState, ErrorState
+      AuthState, ErrorState, PaginationState, UserState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: ['auth', ErrorState]
+      key: [AuthState, ErrorState, PaginationState, UserState]
   }),
   ],
   providers: [],

@@ -1,13 +1,8 @@
+import { PaginationQuery } from './../models/pagination-query.model';
 import { scan, tap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
-
-interface QueryConfig {
-  path: string;
-  field: string;
-  limit?: number;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -17,30 +12,25 @@ export class PaginationService {
   private _done = new BehaviorSubject(false);
   private _data = new BehaviorSubject([]);
 
-  private query: QueryConfig;
+  private query: PaginationQuery;
 
   data: Observable<any>;
   done: Observable<boolean> = this._done.asObservable();
 
   constructor(private angularFirestore: AngularFirestore) { }
 
-  init(path, field) {
-    this.query = {
-      path,
-      field,
-      limit: 12,
-    };
+  init(paginationQuery: PaginationQuery): Observable<any> {
+    this.query = paginationQuery;
     const initialData = this.angularFirestore.collection(this.query.path, ref =>
       ref.orderBy(this.query.field).limit(this.query.limit));
 
     this.updateData(initialData);
 
-    this.data = this._data.asObservable()
+    return this.data = this._data.asObservable()
       .pipe(scan((acc, val) => acc.concat(val)));
   }
 
   private updateData(col: AngularFirestoreCollection<any>) {
-
     if (!this._done.value) {
       return col.snapshotChanges().pipe(
         tap(arr => {
@@ -73,5 +63,9 @@ export class PaginationService {
     const nextPageData = this.angularFirestore.collection(this.query.path, ref =>
       ref.orderBy(this.query.field).limit(this.query.limit).startAfter(cursor));
     this.updateData(nextPageData);
+  }
+
+  getData() {
+    return this.data;
   }
 }
