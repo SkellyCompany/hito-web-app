@@ -1,14 +1,12 @@
-import { map, scan, tap, take } from 'rxjs/operators';
-import { Injectable, Query } from '@angular/core';
+import { scan, tap, take } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { firebaseCollectionsConstants } from '../constants';
 
 interface QueryConfig {
   path: string;
   field: string;
   limit?: number;
-  reverse?: boolean;
 }
 
 @Injectable({
@@ -17,37 +15,31 @@ interface QueryConfig {
 export class PaginationService {
 
   private _done = new BehaviorSubject(false);
-  private _loading = new BehaviorSubject(false);
   private _data = new BehaviorSubject([]);
 
   private query: QueryConfig;
 
   data: Observable<any>;
   done: Observable<boolean> = this._done.asObservable();
-  loading: Observable<boolean> = this._done.asObservable();
-
-
 
   constructor(private angularFirestore: AngularFirestore) { }
 
-  init(path, field, opts?) {
+  init(path, field) {
     this.query = {
       path,
       field,
       limit: 12,
-      reverse: false,
-      ...opts
     };
     const initialData = this.angularFirestore.collection(this.query.path, ref =>
-      ref.orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc').limit(this.query.limit));
+      ref.orderBy(this.query.field).limit(this.query.limit));
 
-    this.mapAndUpdate(initialData);
+    this.updateData(initialData);
 
     this.data = this._data.asObservable()
       .pipe(scan((acc, val) => acc.concat(val)));
   }
 
-  private mapAndUpdate(col: AngularFirestoreCollection<any>) {
+  private updateData(col: AngularFirestoreCollection<any>) {
 
     if (!this._done.value) {
       return col.snapshotChanges().pipe(
@@ -68,8 +60,6 @@ export class PaginationService {
     }
   }
 
-
-
   private getCursor() {
     const current = this._data.value;
     if (current.length) {
@@ -78,10 +68,10 @@ export class PaginationService {
     return null;
   }
 
-  more() {
+  loadNextPage() {
     const cursor = this.getCursor();
-    const more = this.angularFirestore.collection(this.query.path, ref =>
-      ref.orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc').limit(this.query.limit).startAfter(cursor));
-    this.mapAndUpdate(more);
+    const nextPageData = this.angularFirestore.collection(this.query.path, ref =>
+      ref.orderBy(this.query.field).limit(this.query.limit).startAfter(cursor));
+    this.updateData(nextPageData);
   }
 }

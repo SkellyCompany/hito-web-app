@@ -5,7 +5,7 @@
   </form>
   <div class="users-container">
     <h2 class="user-header">People</h2>
-    <ul class="user-list" scrollable (scrollPosition)="scrollHandler($event)" *ngIf="( users | async)?.length > 0">
+    <ul class="user-list" appScrollable (scrollPosition)="scrollHandler($event)" *ngIf="( users | async)?.length > 0">
       <li *ngFor="let user of users | async" (click)="onSelect(user)">
         <span>
           <div class="user-selection" [ngClass]="user === selectedUser ? 'user-selection-active' : ''">

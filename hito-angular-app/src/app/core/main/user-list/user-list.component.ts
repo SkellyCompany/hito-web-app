@@ -20,13 +20,13 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, public paginationService: PaginationService) { }
 
   ngOnInit(): void {
-    this.paginationService.init('users', 'username', {reverse: false});
+    this.paginationService.init('users', 'username');
     this.users = this.paginationService.data;
   }
 
-  scrollHandler(e) {
+  scrollHandler(e: string) {
     if (e === 'bottom') {
-      this.paginationService.more();
+      this.paginationService.loadNextPage();
       this.users = this.paginationService.data;
     }
   }
