@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="profile-container">
     <img class="profile-picture" src="assets/images/default-user-profile.png" (click)="toggleProfilePopup()"
-    [ngClass]="profilePopupShown ? 'some' : ''">
+    [ngClass]="profilePopupShown ? 'picture-popup-active' : ''">
     <i class="las la-cog picture-cog" [ngClass]="profilePopupShown ? 'picture-cog-popup' : ''"></i>
     <div class="profile-popup"
         [ngClass]="profilePopupShown ? 'profile-popup-shown' : ''">
