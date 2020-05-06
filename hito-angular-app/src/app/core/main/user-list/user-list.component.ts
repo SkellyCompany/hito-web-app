@@ -4,6 +4,7 @@ import { UserService } from './../../../shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-user-list',
@@ -17,11 +18,11 @@ export class UserListComponent implements OnInit {
   searchForm = new FormGroup({
     username: new FormControl('')
   });
-  constructor(private userService: UserService, public paginationService: PaginationService) { }
-
+  constructor(private store: Store, private userService: UserService, public paginationService: PaginationService) {     this.paginationService.init('users', 'username');
+  this.users = this.paginationService.data;}
+  // USE NGXS INSTEAD OF DIRECT SERVICES
   ngOnInit(): void {
-    this.paginationService.init('users', 'username');
-    this.users = this.paginationService.data;
+
   }
 
   scrollHandler(e: string) {
