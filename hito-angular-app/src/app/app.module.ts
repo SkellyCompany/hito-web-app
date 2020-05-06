@@ -26,6 +26,7 @@ import { NavbarComponent } from './core/main/navbar/navbar.component';
 import { TopbarComponent } from './core/main/topbar/topbar.component';
 import { UserListComponent } from './core/main/user-list/user-list.component';
 import { ScrollableDirective } from './shared/directives/scrollable.directive';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ScrollableDirective } from './shared/directives/scrollable.directive';
     NavbarComponent,
     TopbarComponent,
     UserListComponent,
-    ScrollableDirective
+    ScrollableDirective,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

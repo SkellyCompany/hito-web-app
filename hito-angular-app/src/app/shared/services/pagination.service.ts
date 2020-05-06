@@ -1,5 +1,6 @@
+import { UserService } from './user.service';
 import { PaginationQuery } from './../models/pagination-query.model';
-import { scan, tap, take } from 'rxjs/operators';
+import { scan, tap, take, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -17,7 +18,7 @@ export class PaginationService {
   data: Observable<any>;
   done: Observable<boolean> = this._done.asObservable();
 
-  constructor(private angularFirestore: AngularFirestore) { }
+  constructor(private angularFirestore: AngularFirestore, private userService: UserService) { }
 
   initHistoryData(paginationQuery: PaginationQuery): Observable<any> {
     this._data.next([]);
@@ -34,6 +35,8 @@ export class PaginationService {
   initLocalChatData(paginationQuery: PaginationQuery): Observable<any> {
     this._data.next([]);
     this.query = paginationQuery;
+    const test = this.userService.getUsersInHistory();
+    console.log(test.valueChanges());
     const initialData = this.angularFirestore.collection(this.query.path, ref =>
       ref.orderBy(this.query.field).limit(5));
 

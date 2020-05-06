@@ -31,11 +31,6 @@ export class UserService {
   }
 
   getUsersInHistory() {
-    return this.angularFirestore.collection(firebaseCollectionsConstants.histories).get().pipe(map(x => {
-      console.log("A");
-      x.docs.forEach(doc => {
-        console.log(doc.id, doc.data());
-      });
-    }));
+    return this.angularFirestore.collection(firebaseCollectionsConstants.histories, ref => ref.where('users', 'array-contains', 'dog'));
   }
 }
