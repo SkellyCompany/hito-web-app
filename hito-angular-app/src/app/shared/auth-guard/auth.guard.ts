@@ -20,12 +20,10 @@ export class AuthGuard implements CanActivate {
     return this.loggedInUser$
     .pipe(
       map(loggedInUser => {
-        console.log("TUD");
         if (loggedInUser === undefined) {
           this.router.navigate(['/' + routingConstants.login]);
           return false;
         }
-        console.log("TUO");
         return true;
     }));
   }

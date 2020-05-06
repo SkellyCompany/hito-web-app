@@ -23,6 +23,7 @@ import { ErrorState } from './shared/state-management/error.state';
 import { NavbarComponent } from './core/main/navbar/navbar.component';
 import { TopbarComponent } from './core/main/topbar/topbar.component';
 import { UserListComponent } from './core/main/user-list/user-list.component';
+import { ScrollableDirective } from './shared/directives/scrollable.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserListComponent } from './core/main/user-list/user-list.component';
     MainComponent,
     NavbarComponent,
     TopbarComponent,
-    UserListComponent
+    UserListComponent,
+    ScrollableDirective
   ],
   imports: [
     BrowserModule,

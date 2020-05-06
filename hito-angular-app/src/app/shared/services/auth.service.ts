@@ -1,11 +1,8 @@
 import { CreateAccountInput } from './../models/input-models/create-account-input.model';
 import { ResetPasswordInput } from '../models/input-models/reset-password-input.model';
 import { LoginInput } from '../models/input-models/login-input.model';
-import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, from, throwError } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +10,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 
 export class AuthService {
 
-  constructor(private angularFireAuth: AngularFireAuth, private userService: UserService) { }
+  constructor(private angularFireAuth: AngularFireAuth) { }
 
   createUser(createAccountInput: CreateAccountInput): Promise<firebase.auth.UserCredential> {
     return this.angularFireAuth.createUserWithEmailAndPassword(createAccountInput.email , createAccountInput.password)
