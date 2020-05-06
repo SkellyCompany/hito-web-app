@@ -1,9 +1,8 @@
 import { PaginationService } from './../services/pagination.service';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { Init, LoadNextPage } from './pagination.action';
+import { LoadNextPage, InitLocalChatData, InitHistoryData } from './pagination.action';
 import { User } from '../models/user.model';
-import { Observable } from 'rxjs';
 
 export class PaginationStateModel {
   loadedUsers: User[];
@@ -27,15 +26,17 @@ export class PaginationState {
     return state.loadedUsers;
   }
 
-  @Action(Init)
-  init({getState, setState}: StateContext<PaginationStateModel>, {payload}: Init) {
-    this.paginationService.init(payload).subscribe(userResult => {
+  @Action(InitLocalChatData)
+  InitLocalChatData({getState, setState}: StateContext<PaginationStateModel>, {payload}: InitLocalChatData) {
+    this.paginationService.initLocalChatData(payload).subscribe(userResult => {
       setState({...getState(), loadedUsers: userResult});
     });
   }
 
-  @Action(LoadNextPage)
-  loadNextPage({}: StateContext<PaginationStateModel>) {
-    this.paginationService.loadNextPage();
+  @Action(InitHistoryData)
+  InitHistoryData({getState, setState}: StateContext<PaginationStateModel>, {payload}: InitHistoryData) {
+    this.paginationService.initHistoryData(payload).subscribe(userResult => {
+      setState({...getState(), loadedUsers: userResult});
+    });
   }
 }

@@ -16,5 +16,6 @@ export const validationConstants = {
 };
 
 export const firebaseCollectionsConstants = {
-  users: 'users'
+  users: 'users',
+  histories: 'histories'
 }
