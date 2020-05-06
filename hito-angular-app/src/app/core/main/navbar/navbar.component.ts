@@ -1,4 +1,6 @@
+import { Logout } from './../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 enum NavbarAction {
   GROUP_CHAT = 0,
@@ -21,10 +23,14 @@ export class NavbarComponent implements OnInit {
 
   selectedAction: NavbarAction;
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.onActionClick(NavbarAction.LOCAL_CHAT)
+    this.onActionClick(NavbarAction.LOCAL_CHAT);
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
   }
 
   onActionClick(action: NavbarAction) {

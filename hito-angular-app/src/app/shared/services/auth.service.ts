@@ -28,6 +28,13 @@ export class AuthService {
     });
   }
 
+  logout() {
+    return this.angularFireAuth.signOut()
+    .catch(error => {
+      throw error;
+    });
+  }
+
   resetPassword(forgotPasswordInput: ResetPasswordInput): Promise<void> {
     return this.angularFireAuth.sendPasswordResetEmail(forgotPasswordInput.email)
     .catch(error => {
