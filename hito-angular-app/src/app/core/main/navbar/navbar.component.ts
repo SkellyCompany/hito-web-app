@@ -19,14 +19,17 @@ export class NavbarComponent implements OnInit {
   readonly LOCAL_CHAT_ACTION: NavbarAction = NavbarAction.LOCAL_CHAT;
   readonly HISTORY_ACTION: NavbarAction = NavbarAction.HISTORY;
 
+  profilePopupShown = false;
   activeAction: NavbarAction;
-
-  selectedAction: NavbarAction;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.onActionClick(NavbarAction.LOCAL_CHAT);
+  }
+
+  toggleProfilePopup() {
+    this.profilePopupShown = !this.profilePopupShown;
   }
 
   logout() {

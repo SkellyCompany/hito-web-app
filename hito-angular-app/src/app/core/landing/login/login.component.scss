@@ -36,6 +36,7 @@ input {
   text-indent: 12px;
   border: solid 1px $color-contrast-dark;
   box-sizing: border-box;
+  -webkit-user-select:text;
   transition: border 0.2s;
 }
 
