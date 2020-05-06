@@ -84,10 +84,10 @@ $color-light-grey: #81858b;
 }
 .user-list::-webkit-scrollbar {
   width: 5px;
-  border-radius: 15pt;
 }
 .user-list::-webkit-scrollbar-thumb {
   background-color: $color-contrast-dark;
+  border-radius: 15pt;
 }
 
 .user-selection {
