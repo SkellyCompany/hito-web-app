@@ -1,3 +1,5 @@
+import { UserState } from './shared/state-management/user.state';
+import { PaginationState } from './shared/state-management/pagination.state';
 import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
 import { CreateAccountComponent } from './core/landing/create-account/create-account.component';
 import { LandingComponent } from './core/landing/landing.component';
@@ -23,6 +25,8 @@ import { ErrorState } from './shared/state-management/error.state';
 import { NavbarComponent } from './core/main/navbar/navbar.component';
 import { TopbarComponent } from './core/main/topbar/topbar.component';
 import { UserListComponent } from './core/main/user-list/user-list.component';
+import { ScrollableDirective } from './shared/directives/scrollable.directive';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,9 @@ import { UserListComponent } from './core/main/user-list/user-list.component';
     MainComponent,
     NavbarComponent,
     TopbarComponent,
-    UserListComponent
+    UserListComponent,
+    ScrollableDirective,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -45,13 +51,13 @@ import { UserListComponent } from './core/main/user-list/user-list.component';
     AngularFireAuthModule,
     AppRoutingModule,
     NgxsModule.forRoot([
-      AuthState, ErrorState
+      AuthState, ErrorState, PaginationState, UserState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: ['auth', ErrorState]
+      key: [AuthState, ErrorState, PaginationState, UserState]
   }),
   ],
   providers: [],

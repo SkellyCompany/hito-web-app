@@ -14,6 +14,12 @@ export class Login {
   constructor(public payload: LoginInput) {}
 }
 
+export class Logout {
+  static readonly type = '[AuthUser] Logout';
+
+  constructor() {}
+}
+
 export class ResetPassword {
   static readonly type = '[AuthUser] Reset Password';
 

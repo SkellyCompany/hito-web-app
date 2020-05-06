@@ -3,10 +3,8 @@ import { ErrorOccurred } from './error.action';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { CreateUser, Login, ResetPassword } from './auth.action';
-import { map, catchError } from 'rxjs/operators';
+import { CreateUser, Login, ResetPassword, Logout } from './auth.action';
 import { User } from '../models/user.model';
-import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { routingConstants } from '../constants';
 
@@ -58,6 +56,17 @@ export class AuthState {
         this.router.navigate(['/' + routingConstants.app]);
       });
     }).catch(error => {
+      dispatch(new ErrorOccurred(error));
+    });
+  }
+
+  @Action(Logout)
+  logout({getState, setState, dispatch }: StateContext<AuthStateModel>) {
+    return this.authService.logout().then(() => {
+      setState({...getState(), loggedInUser: undefined});
+      this.router.navigate(['/' + routingConstants.login]);
+    })
+    .catch(error => {
       dispatch(new ErrorOccurred(error));
     });
   }

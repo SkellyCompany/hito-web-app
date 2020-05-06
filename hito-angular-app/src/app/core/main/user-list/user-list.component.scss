@@ -20,8 +20,7 @@ $color-light-grey: #81858b;
 
 .search-container {
   width: 100%;
-  height: 10%;
-  padding-top: 5%;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,16 +43,19 @@ $color-light-grey: #81858b;
   border: solid 1px $color-primary;
 }
 
-.la-search{
+.la-search {
   position: relative;
   color: $color-white;
   z-index: 1;
   left:25px;
 }
+.la-search:hover {
+  cursor: pointer;
+}
 
 .users-container {
   width: 95%;
-  height: 85%;
+  height: 90%;
   margin-bottom: 2%;
 }
 
@@ -82,10 +84,10 @@ $color-light-grey: #81858b;
 }
 .user-list::-webkit-scrollbar {
   width: 5px;
-  border-radius: 15pt;
 }
 .user-list::-webkit-scrollbar-thumb {
   background-color: $color-contrast-dark;
+  border-radius: 15pt;
 }
 
 .user-selection {
@@ -136,4 +138,3 @@ $color-light-grey: #81858b;
   font-size: 14px;
   color: $color-white;
 }
-

@@ -1,39 +1,28 @@
 <div class="main-container">
-  <div class="search-container">
-      <i class="las la-search"></i>
-    <input class="search-input" placeholder="Search people">
-  </div>
+  <form [formGroup]="searchForm" class="search-container" (ngSubmit)="searchUser()">
+    <i class="las la-search" (click)="searchUser()"></i>
+    <input class="search-input" placeholder="Search people" formControlName="username">
+  </form>
   <div class="users-container">
     <h2 class="user-header">People</h2>
-    <ul class="user-list">
-      <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
-          <span *ngIf="contact === selectedContact">
-            <div class="user-selection user-selection-active">
-              <div class="user-selection-inner">
-                <div class="user-selection-left-part">
-                  <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-                </div>
-                <div class="user-selection-right-part">
-                  <p class="username">Kippo</p>
-                  <p class="address">Address 84 st</p>
-                </div>
+    <ul class="user-list" appScrollable (scrollPosition)="scrollHandler($event)" *ngIf="( users | async)?.length > 0">
+      <li *ngFor="let user of users | async" (click)="onSelect(user)">
+        <span>
+          <div class="user-selection" [ngClass]="user === selectedUser ? 'user-selection-active' : ''">
+            <div class="user-selection-inner">
+              <div class="user-selection-left-part">
+                <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
+              </div>
+              <div class="user-selection-right-part">
+                <p class="username">{{user.username}}</p>
+                <p class="address">Address 84 st</p>
               </div>
             </div>
-          </span>
-          <span *ngIf="contact !== selectedContact">
-            <div class="user-selection">
-              <div class="user-selection-inner">
-                <div class="user-selection-left-part">
-                  <img class="profile-picture" src="https://i.imgur.com/lCvzw5H.png">
-                </div>
-                <div class="user-selection-right-part">
-                  <p class="username">Kippo</p>
-                  <p class="address">Address 84 st</p>
-                </div>
-              </div>
-            </div>
-          </span>
+          </div>
+        </span>
       </li>
     </ul>
+    <app-loading></app-loading>
   </div>
 </div>
+
