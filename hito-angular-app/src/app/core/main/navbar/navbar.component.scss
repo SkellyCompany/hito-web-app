@@ -91,7 +91,7 @@ $color-error: #ff0033;
 .action-active {
   color: $color-primary;
   transition: color 0.15s;
-  animation: pulse 0.4s;
+  animation: pulse 0.25s;
 }
 
 @keyframes small-pulse {
