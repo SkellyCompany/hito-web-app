@@ -206,16 +206,23 @@ $color-error: #ff0033;
   .popup-cog-shown {
     visibility: visible;
     animation: show 0.3s;
-    transition: transform 0.2s;
+    transition: transform 0.2s, color 0.2s;
   }
 
   .popup-cog-shown:hover {
-    
+    color: #ffffffaa
   }
 
   .logout-shown {
     visibility: visible;
+    transition: color 0.2s;
   }
+
+  .logout-shown:hover {
+    color: #ff0033aa;
+  }
+
+  //.logout-shown: active
 
   .logout-hidden {
     visibility: hidden;

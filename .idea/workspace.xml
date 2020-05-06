@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="44dcb7b5-ad81-4124-a664-3dc9e052728f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/landing/create-account/create-account.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/landing/create-account/create-account.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/landing/forgot-password/forgot-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/landing/forgot-password/forgot-password.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/landing/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/landing/login/login.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/topbar/topbar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/topbar/topbar.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/user-list/user-list.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/user-list/user-list.component.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
