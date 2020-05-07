@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements AfterViewInit {
 
-  constructor() { }
+  private readonly BODY_COLOR = "#121215"
 
-  ngOnInit(): void {
+  constructor(private elementRef: ElementRef){
+
+  }
+
+  ngAfterViewInit(){
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = this.BODY_COLOR;
   }
 
 }
