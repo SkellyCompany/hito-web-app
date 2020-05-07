@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44dcb7b5-ad81-4124-a664-3dc9e052728f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/main.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/main.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/main.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/main.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/user-list/user-list.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/user-list/user-list.component.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,5 +77,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/hito-angular-app/src/app/core/main/user-list/user-list.component.html</url>
+          <line>7</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

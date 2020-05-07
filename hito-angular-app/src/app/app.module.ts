@@ -23,7 +23,6 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 import { MainComponent } from './core/main/main.component';
 import { ErrorState } from './shared/state-management/error.state';
 import { NavbarComponent } from './core/main/navbar/navbar.component';
-import { TopbarComponent } from './core/main/topbar/topbar.component';
 import { UserListComponent } from './core/main/user-list/user-list.component';
 import { ScrollableDirective } from './shared/directives/scrollable.directive';
 import { LoadingComponent } from './shared/components/loading/loading.component';
@@ -39,7 +38,6 @@ import { ChatComponent } from './core/main/chat/chat.component';
     NotFoundComponent,
     MainComponent,
     NavbarComponent,
-    TopbarComponent,
     UserListComponent,
     ScrollableDirective,
     LoadingComponent,

@@ -7,20 +7,20 @@ $color-white: #fff;
 $color-light-grey: #81858b;
 
 .main-container {
-  width: 100%;
+  width: 300px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 0px 15px 15px 0px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: $color-dark;
   border-radius: 15px 15px 15px 15px;
 }
 
+
 .search-container {
   width: 100%;
-  height: 84px;
+  min-height: 84px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,4 +137,17 @@ $color-light-grey: #81858b;
 .user-list .address{
   font-size: 14px;
   color: $color-white;
+}
+
+@media(min-width: 300px) {
+  .main-container {
+    width: 100vw;
+  }
+}
+
+@media(min-width: 480px) {
+  .main-container {
+    background-color: $color-dark;
+    width: 375px;
+  }
 }
