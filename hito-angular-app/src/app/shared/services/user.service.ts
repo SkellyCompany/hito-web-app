@@ -30,7 +30,10 @@ export class UserService {
     return this.angularFirestore.collection<User>(firebaseCollectionsConstants.users).valueChanges();
   }
 
-  getUsersInHistory() {
-    return this.angularFirestore.collection(firebaseCollectionsConstants.histories, ref => ref.where('users', 'array-contains', 'dog'));
+  getUsersInHistory(): Observable<User[]> {
+    return this.angularFirestore.collection<User>(firebaseCollectionsConstants.users).valueChanges();
+    // return this.angularFirestore.collection<User>(firebaseCollectionsConstants.histories).doc<User>('l6BPbIz7efoe6eupWfcMKSlbF5Aw2')
+    // .collection('historyUser').doc<User>('3iU9F8hazFFYmrhEYyFB')
+    // .valueChanges();
   }
 }

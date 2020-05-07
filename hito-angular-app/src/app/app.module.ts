@@ -27,6 +27,7 @@ import { TopbarComponent } from './core/main/topbar/topbar.component';
 import { UserListComponent } from './core/main/user-list/user-list.component';
 import { ScrollableDirective } from './shared/directives/scrollable.directive';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { ChatComponent } from './core/main/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     TopbarComponent,
     UserListComponent,
     ScrollableDirective,
-    LoadingComponent
+    LoadingComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
