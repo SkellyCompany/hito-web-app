@@ -24,7 +24,7 @@ export class PaginationService {
     this._data.next([]);
     this.query = paginationQuery;
     const initialData = this.angularFirestore.collection(this.query.path, ref =>
-      ref.orderBy(this.query.field).limit(3));
+      ref.orderBy(this.query.field).limit(12));
 
     this.updateData(initialData);
 

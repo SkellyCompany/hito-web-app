@@ -1,1 +1,36 @@
-<p>chat works!</p>
+<div class="main-container">
+  <div class="topbar-container">
+    <div class="profile-container">
+      <img class="profile-picture" src="assets/images/default-user-profile.png">
+      <h2 class="profile-name">Geggy</h2>
+    </div>
+    <div class="options-container">
+      <i class="las la-ellipsis-h"></i>
+    </div>
+  </div>
+  <div class="chat-container">
+    <ul class="chat-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      <li *ngFor="let message of messages" >
+        <div class="user-information-container">
+          <div class="message-profile-container">
+            <img class ="message-profile" src="assets/images/default-user-profile.png">
+          </div>
+          <div class="message-user-container">
+            <div>
+              <span class="username">Kippo</span>
+              <span class="post-time"> Today at 14:46 </span>
+            </div>
+            <div>
+              <p >{{message}}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+    <form class="message-container" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
+      <input class="message-input" placeholder="Send message" formControlName="text">
+      <i class="las la-paper-plane"></i>
+      <!-- <button class="message-button" type="submit">Send</button> -->
+    </form>
+</div>
