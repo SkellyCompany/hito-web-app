@@ -22,7 +22,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ErrorState } from './shared/state-management/error.state';
-import { ScrollableDirective } from './shared/directives/scrollable.directive';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,7 @@ import { ScrollableDirective } from './shared/directives/scrollable.directive';
     LoginComponent,
     CreateAccountComponent,
     ForgotPasswordComponent,
-    NotFoundComponent,
-    ScrollableDirective,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

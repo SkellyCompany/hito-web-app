@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

@@ -43,14 +43,11 @@ export class NavbarComponent implements OnInit {
     this.activeAction = action;
     const paginationQuery: PaginationQuery = { path: firebaseCollectionsConstants.users, field: 'username', limit: 12 };
     if (action === this.GROUP_CHAT_ACTION) {
-      this.store.dispatch(new InitLocalChatData(paginationQuery)).subscribe(() => {
-      });
+      this.store.dispatch(new InitLocalChatData(paginationQuery));
     } else if (action === this.LOCAL_CHAT_ACTION) {
-      this.store.dispatch(new InitLocalChatData(paginationQuery)).subscribe(() => {
-      });
-    } else{
-      this.store.dispatch(new InitHistoryData(paginationQuery)).subscribe(() => {
-      });
+      this.store.dispatch(new InitLocalChatData(paginationQuery));
+    } else {
+      this.store.dispatch(new InitHistoryData(paginationQuery));
     }
   }
 }

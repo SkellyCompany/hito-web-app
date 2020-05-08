@@ -35,11 +35,9 @@ export class PaginationService {
   initLocalChatData(paginationQuery: PaginationQuery): Observable<any> {
     this._data.next([]);
     this.query = paginationQuery;
-    this.userService.getUsersInHistory().subscribe(userResult => {
-      console.log(userResult[5].username);
-    });
+    //const cursor = this.getRandomCursor();
     const initialData = this.angularFirestore.collection(this.query.path, ref =>
-      ref.orderBy(this.query.field).limit(5));
+      ref.limit(5));
 
     this.updateData(initialData);
 
@@ -67,6 +65,15 @@ export class PaginationService {
     }
   }
 
+  private getRandomCursor() {
+    const current = this._data.value;
+    const randomNumber =  Math.floor(Math.random() * (current.length - 1 + 1) + 1);
+    if (current.length) {
+      return current[current.length - randomNumber].doc;
+    }
+    return null;
+  }
+
   private getCursor() {
     const current = this._data.value;
     if (current.length) {
@@ -78,7 +85,7 @@ export class PaginationService {
   loadNextPage() {
     const cursor = this.getCursor();
     const nextPageData = this.angularFirestore.collection(this.query.path, ref =>
-      ref.orderBy(this.query.field).limit(this.query.limit).startAfter(cursor));
+      ref.orderBy(this.query.field).limit(this.query.limit) );
     this.updateData(nextPageData);
   }
 
