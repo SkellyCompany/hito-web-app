@@ -11,18 +11,18 @@
   </div>
   <div class="chat-container">
     <ul class="chat-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <li *ngFor="let message of messages" >
+      <li *ngFor="let message of messages | async" >
         <div class="user-information-container">
           <div class="message-profile-container">
             <img class ="message-profile" src="assets/images/default-user-profile.png">
           </div>
           <div class="message-user-container">
             <div>
-              <span class="username">Kippo</span>
-              <span class="post-time"> Today at 14:46 </span>
+              <span class="username">{{message.username}}</span>
+              <span class="post-time">{{timeConverter(message.postTime)}}</span>
             </div>
             <div>
-              <p >{{message}}</p>
+              <p >{{message.text}}</p>
             </div>
           </div>
         </div>
