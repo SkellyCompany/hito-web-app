@@ -37,7 +37,6 @@ export class UserListComponent implements OnInit {
     if (e === 'bottom') {
       this.store.dispatch(new LoadNextPage()).subscribe(() => {
         this.users = this.loadedUsers$;
-        console.log('here');
       });
     }
   }
