@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ChatComponent } from './chat/chat.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ScrollableDirective } from 'src/app/shared/directives/scrollable.directive';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     UserListComponent,
     ChatComponent,
-    LoadingComponent
+    LoadingComponent,
+    ScrollableDirective,
   ],
   imports: [
     CommonModule,
