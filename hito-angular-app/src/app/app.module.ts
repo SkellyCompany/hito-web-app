@@ -1,3 +1,4 @@
+import { MainModule } from './core/main/main.module';
 import { UserState } from './shared/state-management/user.state';
 import { PaginationState } from './shared/state-management/pagination.state';
 import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
@@ -20,13 +21,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
 import { NotFoundComponent } from './core/not-found/not-found.component';
-import { MainComponent } from './core/main/main.component';
 import { ErrorState } from './shared/state-management/error.state';
-import { NavbarComponent } from './core/main/navbar/navbar.component';
-import { UserListComponent } from './core/main/user-list/user-list.component';
 import { ScrollableDirective } from './shared/directives/scrollable.directive';
-import { LoadingComponent } from './shared/components/loading/loading.component';
-import { ChatComponent } from './core/main/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -36,16 +32,12 @@ import { ChatComponent } from './core/main/chat/chat.component';
     CreateAccountComponent,
     ForgotPasswordComponent,
     NotFoundComponent,
-    MainComponent,
-    NavbarComponent,
-    UserListComponent,
     ScrollableDirective,
-    LoadingComponent,
-    ChatComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    MainModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

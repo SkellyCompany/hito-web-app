@@ -14,7 +14,6 @@ $color-light-grey: #81858b;
   width: 100vw;
   height: calc(100vh - 160px);
   box-sizing: border-box;
-  z-index: 0;
 }
 
 .chat-container {
@@ -39,14 +38,11 @@ $color-light-grey: #81858b;
     width: 350px;
   }
   .chat-container {
-    position: fixed;
     bottom: 0px;
     top: 0px;
     left: 420px;
     height: 100vh;
     width: calc(100% - 420px);
-    padding-bottom: 0px;
-    padding-top: 0px;
   }
 }
 
