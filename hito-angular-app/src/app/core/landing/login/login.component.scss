@@ -60,7 +60,7 @@ span{
 }
 
 .outer_container {
-  width: 100vw;
+  width: 300px;
   height: 550px;
   display: flex;
   flex-direction: column;
@@ -184,10 +184,6 @@ span{
   font-weight: 400;
 }
 
-.login-button:hover {
-  background-color: $color-primary;
-}
-
 .create-account {
   margin-left: 4px;
 }
@@ -201,11 +197,14 @@ span{
   -webkit-clip-path: polygon(0 100%, 0 -1%, 100% -1%);
 }
 
+@media (min-width: 300px) {
+  .outer_container {
+    width: 100vw;
+  }
+}
+
 @media (min-width: 450px) {
   .outer_container {
-    width: 450px;
-  }
-  .main-container {
     width: 450px;
   }
 }

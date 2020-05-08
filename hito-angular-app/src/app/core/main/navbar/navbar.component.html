@@ -1,30 +1,50 @@
-<div class="main-container">
-  <div class="profile-container">
+<div class="main-bar-container">
+  <div class="profile-main-container">
     <img class="profile-picture" src="assets/images/default-user-profile.png" (click)="toggleProfilePopup()"
-    [ngClass]="profilePopupShown ? 'picture-popup-active' : ''">
-    <i class="las la-cog picture-cog" [ngClass]="profilePopupShown ? 'picture-cog-popup' : ''"></i>
+        [ngClass]="profilePopupShown ? 'picture-popup-active' : ''">
+    <i class="las la-cog picture-cog" [ngClass]="profilePopupShown ? 'picture-cog-main-popup' : ''"></i>
     <div class="profile-popup"
-        [ngClass]="profilePopupShown ? 'profile-popup-shown' : ''">
+         [ngClass]="profilePopupShown ? 'profile-popup-shown' : ''">
       <i class="las la-cog popup-cog"
-        [ngClass]="profilePopupShown ? 'popup-cog-shown' : ''"></i>
+         [ngClass]="profilePopupShown ? 'popup-cog-shown' : ''"></i>
       <i class="las la-power-off" (click)="logout()"
-        [ngClass]="profilePopupShown ? 'logout-shown' : 'logout-hidden'"></i>
+         [ngClass]="profilePopupShown ? 'logout-shown' : 'logout-hidden'"></i>
     </div>
   </div>
   <div class="actions-container">
     <i class="las la-users"
        (click)="onActionClick(GROUP_CHAT_ACTION)"
-       [ngClass]="activeAction === GROUP_CHAT_ACTION ? 'action-active' : ''"></i>
+       [ngClass]="activeAction === GROUP_CHAT_ACTION ? 'action-active' : ''">
+    </i>
     <div [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-animated-container' : ''">
       <i class="las la-map-pin"
          (click)="onActionClick(LOCAL_CHAT_ACTION)"
-         [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-active-animated' : ''"></i>
+         [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-active-animated' : ''">
+      </i>
     </div>
     <i class="las la-history"
        (click)="onActionClick(HISTORY_ACTION)"
-       [ngClass]="activeAction === HISTORY_ACTION ? 'action-active' : ''" ></i>
+       [ngClass]="activeAction === HISTORY_ACTION ? 'action-active' : ''" >
+    </i>
   </div>
-  <div class="logo-container">
+  <div class="logo-main-container">
     <img class="logo" src="assets/images/logo-name.png">
+  </div>
+</div>
+<div class="top-bar-container">
+  <div class="logo-top-container">
+    <img class="logo" src="assets/images/logo-name.png">
+  </div>
+  <div class="profile-top-container">
+    <img class="profile-picture" src="assets/images/default-user-profile.png" (click)="toggleProfilePopup()"
+         [ngClass]="profilePopupShown ? 'picture-popup-active' : ''">
+    <i class="las la-cog picture-cog" [ngClass]="profilePopupShown ? 'picture-cog-top-popup' : ''"></i>
+    <div class="profile-popup"
+         [ngClass]="profilePopupShown ? 'profile-popup-shown' : ''">
+      <i class="las la-cog popup-cog"
+         [ngClass]="profilePopupShown ? 'popup-cog-shown' : ''"></i>
+      <i class="las la-power-off" (click)="logout()"
+         [ngClass]="profilePopupShown ? 'logout-shown' : 'logout-hidden'"></i>
+    </div>
   </div>
 </div>

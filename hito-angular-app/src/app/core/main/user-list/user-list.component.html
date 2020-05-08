@@ -1,5 +1,5 @@
 <div class="main-container">
-  <form [formGroup]="searchForm" class="search-container" (ngSubmit)="searchUser()">
+  <form class="search-container"[formGroup]="searchForm" (ngSubmit)="searchUser()">
     <i class="las la-search" (click)="searchUser()"></i>
     <input class="search-input" placeholder="Search people" formControlName="username">
   </form>
@@ -22,7 +22,7 @@
         </span>
       </li>
     </ul>
-    <app-loading></app-loading>
+    <app-loading *ngIf="( users | async)?.length <= 0"></app-loading>
   </div>
 </div>
 

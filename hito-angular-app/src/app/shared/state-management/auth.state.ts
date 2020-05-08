@@ -37,7 +37,7 @@ export class AuthState {
         username: payload.username,
         email: userCredential.user.email
       };
-      this.userService.createUser(user).then(x => {
+      this.userService.createUser(user).then(() => {
         this.userService.getUser(user.uid).subscribe(userResult => {
           setState({...getState(), loggedInUser: userResult});
           this.router.navigate(['/' + routingConstants.app]);

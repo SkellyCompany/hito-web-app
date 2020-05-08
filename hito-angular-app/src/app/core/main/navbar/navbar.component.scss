@@ -7,18 +7,20 @@ $color-white: #fff;
 $color-light-grey: #81858b;
 $color-error: #ff0033;
 
-.main-container {
-  width: 100%;
-  height: 375px;
+.main-bar-container {
+  position: fixed;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $color-dark;
+  width: 300px;
+  height: 75px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $color-dark;
   border-radius: 15px 15px 0px 0px;
+  z-index: 1;
 }
 
-.profile-container {
+.profile-main-container {
   display: none;
 }
 
@@ -33,8 +35,38 @@ $color-error: #ff0033;
   justify-content: space-between;
 }
 
+.action-animated-container {
+  color: #E2005C;
+  border-radius: 50%;
+  animation: pulse-circle 0.9s infinite;
+}
+
+@keyframes pulse-circle {
+  13% {
+    box-shadow: none;
+    border: none;
+  }
+  14% {
+    padding: 0;
+    border: 0;
+    box-shadow: inset 0 0 10px #E2005C;
+  }
+
+  100% {
+    padding: 12px;
+    border: 1px solid #E2005C00;
+    box-shadow: inset 0 0 40px #E2005C00;
+  }
+}
+
 .las:hover {
   cursor: pointer;
+  color: #ffffffaa;
+}
+
+.las {
+  color: #ffffff;
+  transition: color 0.2s;
 }
 
 .la-cog {
@@ -58,71 +90,252 @@ $color-error: #ff0033;
   font-size: 30px;
 }
 
-.action-animated-container {
-  color: #E2005C;
-  border-radius: 50%;
-  animation: pulse-circle 0.9s infinite
-}
-
-@keyframes pulse-circle {
-  13% {
-    box-shadow: none;
-    border: none;
-  }
-  14% {
-    padding: 0;
-    border: 0;
-    box-shadow: inset 0 0 10px #E2005C;
-  }
-
-  100% {
-    padding: 12px;
-    border: 1px solid #E2005C00;
-    box-shadow: inset 0 0 40px #E2005C00;
-  }
-}
-
 .action-active {
-  color: #E2005C;
+  color: $color-primary;
+  transition: color 0.15s;
+  animation: pulse 0.3s;
+}
+
+.action-active:hover {
+  color: $color-primary;
+  transition: color 0.2s;
 }
 
 .action-active-animated {
-  position: relative;
-  color: #E2005C;
+  color: $color-primary;
+  transition: color 0.15s;
   animation: pulse 0.9s infinite;
+}
+
+.action-active-animated:hover {
+  color: $color-primary;
+  transition: color 0.2s;
 }
 
 @keyframes pulse {
   30% {
     transform: scale(0.85);
   }
-  100% {
-  }
 }
 
-.logo-container {
+.logo-main-container {
   display: none;
 }
 
-@media(min-height: 375px) {
-  .main-container {
-    height: 100%;
+.top-bar-container {
+  position: fixed;
+  width: 300px;
+  height: 75px;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: $color-dark;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.logo-top-container {
+  height: 100%;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 40px;
+  height: 28px;
+}
+
+.profile-top-container {
+  height: 100%;
+  width: 160px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+.profile-picture {
+  width: 42px;
+  height: 42px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: solid 2px $color-deep-dark;
+  transition: border 0.15s;
+  z-index: 1;
+}
+
+.profile-picture:hover {
+  cursor: pointer;
+  border: solid 2px $color-contrast-dark;
+}
+
+.picture-popup-active:hover {
+  border-color: $color-deep-dark;
+}
+
+.picture-cog {
+  transform: scale(0.66);
+  pointer-events: none;
+  margin-right: -22px;
+  margin-top: 32px;
+  transition: transform 0.3s;
+  z-index: 1;
+}
+
+.picture-cog-top-popup {
+  transform: scale(1) translate(-29px, -16px) rotate(-180deg);
+  visibility: hidden;
+  animation: hide 0.3s;
+}
+
+.profile-popup {
+  position: absolute;
+  height: 46px;
+  right: 43px;
+  width: 0px;
+  padding-right: 13px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 40px 0px 0px 40px;
+  background: $color-deep-dark;
+  transition: width 0.3s;
+}
+
+.profile-popup-shown {
+  width: 100px;
+}
+
+.popup-cog {
+  visibility: hidden;
+}
+
+.popup-cog-shown {
+  visibility: visible;
+  animation: show 0.3s;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.logout-shown {
+    visibility: visible;
+    transition: color 0.2s;
+}
+
+.logout-shown:hover {
+  color: #ff0033aa;
+}
+
+.logout-hidden {
+  visibility: hidden;
+}
+
+@keyframes show {
+  0% {
+    visibility: hidden;
+  }
+  99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@keyframes hide {
+  0% {
+    visibility: visible;
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
+@media(min-width: 300px) {
+  .main-bar-container {
+    width: 100vw;
+  }
+  .top-bar-container {
+    width: 100vw;
   }
 }
 
 @media(min-width: 480px) {
-  .main-container {
+  .main-bar-container {
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 375px;
+    width: 75px;
+    right: unset;
+    left: 0;
+    top:0;
+    bottom: 0;
     border-radius: 0px 15px 15px 0px;
+  }
+
+  .profile-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 160px;
+  }
+
+  .profile-picture {
+    margin-top: 20px;
+    margin-right: 0px;
+  }
+
+  .picture-cog {
+    margin-top: -20px;
+    margin-left: 30px;
+    margin-right: 0px;
+  }
+
+  .picture-cog-main-popup {
+    transform: scale(1) translate(-15px, 27px) rotate(-180deg);
+    visibility: hidden;
+    animation: hide 0.3s;
+  }
+
+  .profile-popup {
+    height: 0px;
+    width: 46px;
+    top: 43px;
+    right: unset;
+    padding-right: 0px;
+    padding-top: 13px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 0px 0px 40px 40px;
+    transition: height 0.3s;
+  }
+
+  .profile-popup-shown {
+    width: 46px;
+    height: 100px;
   }
 
   .actions-container {
     width: 100%;
-    height: 200px;
+    height: 180px;
     flex-direction: column;
   }
 
-  .logo-container {
+  .logo-main-container {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -136,112 +349,13 @@ $color-error: #ff0033;
     margin-bottom: 15px;
   }
 
-  .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 160px;
+  .top-bar-container {
+    display: none;
   }
+}
 
-  .profile-picture {
-    width: 42px;
-    height: 42px;
-    margin-top: 20px;
-    border-radius: 50%;
-    border: solid 2px $color-deep-dark;
-    transition: border 0.15s;
-    z-index: 1;
-  }
-
-  .profile-picture:hover {
-    cursor: pointer;
-    border: solid 2px $color-contrast-dark;
-  }
-
-  .picture-popup-active:hover {
-    border-color: $color-deep-dark;
-  }
-
-  .picture-cog {
-    transform: scale(0.66);
-    margin-top: calc(-100% + 50px);
-    pointer-events: none;
-    margin-left: 25px;
-    z-index: 1;
-    transition: transform 0.3s;
-  }
-
-  .picture-cog-popup {
-    transform: scale(1) translate(-13px, 32px) rotate(-180deg);
-    visibility: hidden;
-    animation: hide 0.3s;
-  }
-
-  .profile-popup {
-    position: fixed;
-    height: 0px;
-    width: 46px;
-    margin-top: 42px;
-    padding-top: 13px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    border-radius: 0px 0px 40px 40px;
-    background: $color-deep-dark;
-    transition: height 0.3s;
-  }
-
-  .profile-popup-shown {
-    height: 100px;
-  }
-
-  .popup-cog {
-    visibility: hidden;
-    margin-top: 9px;
-  }
-
-  .popup-cog-shown {
-    visibility: visible;
-    animation: show 0.3s;
-    transition: transform 0.2s;
-  }
-
-  .popup-cog-shown:hover {
-    
-  }
-
-  .logout-shown {
-    visibility: visible;
-  }
-
-  .logout-hidden {
-    visibility: hidden;
-  }
-
-  @keyframes show {
-    0% {
-      visibility: hidden;
-    }
-    99% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: visible;
-    }
-  }
-
-  @keyframes hide {
-    0% {
-      visibility: visible;
-    }
-    99% {
-      visibility: visible;
-    }
-    100% {
-      visibility: hidden;
-    }
+@media(min-width: 480px) and (min-height: 375px) {
+  .main-bar-container {
+    height: 100vh;
   }
 }

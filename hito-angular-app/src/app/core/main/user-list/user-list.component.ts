@@ -35,8 +35,10 @@ export class UserListComponent implements OnInit {
 
   scrollHandler(e: string) {
     if (e === 'bottom') {
-      this.store.dispatch(new LoadNextPage());
-      this.users = this.loadedUsers$;
+      this.store.dispatch(new LoadNextPage()).subscribe(() => {
+        this.users = this.loadedUsers$;
+        console.log('here');
+      });
     }
   }
 

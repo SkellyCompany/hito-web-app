@@ -39,4 +39,9 @@ export class PaginationState {
       setState({...getState(), loadedUsers: userResult});
     });
   }
+
+  @Action(LoadNextPage)
+  LoadNextPage({}: StateContext<PaginationStateModel>) {
+    this.paginationService.loadNextPage();
+  }
 }

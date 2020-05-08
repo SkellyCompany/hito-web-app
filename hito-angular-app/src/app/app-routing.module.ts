@@ -1,6 +1,4 @@
 import { routingConstants } from './shared/constants';
-import { AuthGuard } from './shared/auth-guard/auth.guard';
-import { MainComponent } from './core/main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './core/not-found/not-found.component';
@@ -19,8 +17,7 @@ const routes: Routes = [
   ]},
   {
     path: routingConstants.app,
-    component: MainComponent,
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./core/main/main.module').then(m => m.MainModule)
   },
   {
     path: '**',
