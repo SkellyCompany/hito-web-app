@@ -12,20 +12,27 @@
   <div class="chat-container">
     <ul class="chat-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <li *ngFor="let message of messages | async" >
-        <div class="message-container">
-          <div class="message-profile-container">
-            <img class ="message-profile" src="assets/images/default-user-profile.png">
-          </div>
-          <div class="message-data-container">
-            <div class="message-header-container">
-              <span class="username">{{message.username}}</span>
-              <span class="post-time">{{timeConverter(message.postTime)}}</span>
+        <span *ngIf="!isPreviousUsernameEqual(message.username, false)">
+          <div class="message-container">
+            <div class="message-profile-container">
+              <img class ="message-profile" src="assets/images/default-user-profile.png">
             </div>
-            <div>
-              <p>{{message.text}}</p>
+            <div class="message-data-container">
+              <div class="message-header-container">
+                <span class="username">{{message.username}}</span>
+                <span class="post-time">{{timeConverter(message.postTime)}}</span>
+              </div>
+              <div>
+                <p>{{message.text}}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </span>
+        <span *ngIf="isPreviousUsernameEqual(message.username, true)">
+          <div>
+            <p>{{message.text}}</p>
+          </div>
+        </span>
       </li>
     </ul>
   </div>
