@@ -17,6 +17,11 @@ $color-light-grey: #81858b;
   border-radius: 15px 15px 15px 15px;
 }
 
+/*
+    ##########
+    SEARCH BAR
+    ##########
+*/
 
 .search-container {
   width: calc(100% - 36px);
@@ -54,6 +59,12 @@ $color-light-grey: #81858b;
   cursor: pointer;
 }
 
+/*
+    #########
+    USER LIST
+    #########
+*/
+
 .users-container {
   width: 100%;
   height: calc(100% - 84px);
@@ -77,6 +88,7 @@ $color-light-grey: #81858b;
   margin-left: 5px;
   overflow: hidden;
 }
+
 .user-list:hover {
   overflow-y:scroll;
 }
@@ -141,6 +153,12 @@ $color-light-grey: #81858b;
 .loading-container {
   margin-top: 50px;
 }
+
+/*
+    #############
+    MEDIA QUERIES
+    #############
+*/
 
 @media(min-width: 300px) {
   .main-container {

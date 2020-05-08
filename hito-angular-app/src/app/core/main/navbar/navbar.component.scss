@@ -7,6 +7,12 @@ $color-white: #fff;
 $color-light-grey: #81858b;
 $color-error: #ff0033;
 
+/*
+    ########
+    MAIN BAR
+    ########
+*/
+
 .main-bar-container {
   position: fixed;
   display: flex;
@@ -121,6 +127,12 @@ $color-error: #ff0033;
 .logo-main-container {
   display: none;
 }
+
+/*
+    #######
+    TOP BAR
+    #######
+*/
 
 .top-bar-container {
   position: fixed;
@@ -260,6 +272,12 @@ $color-error: #ff0033;
     visibility: hidden;
   }
 }
+
+/*
+    #############
+    MEDIA QUERIES
+    #############
+*/
 
 @media(min-width: 300px) {
   .main-bar-container {
