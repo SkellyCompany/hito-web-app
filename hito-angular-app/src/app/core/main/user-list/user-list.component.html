@@ -22,7 +22,9 @@
         </span>
       </li>
     </ul>
-    <app-loading *ngIf="( users | async)?.length <= 0"></app-loading>
+    <div class="loading-container" *ngIf="( users | async)?.length <= 0">
+      <app-loading></app-loading>
+    </div>
   </div>
 </div>
 
