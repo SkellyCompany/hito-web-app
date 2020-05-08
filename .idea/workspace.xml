@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44dcb7b5-ad81-4124-a664-3dc9e052728f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat/chat.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat/chat.component.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,7 +56,7 @@
       <workItem from="1588694909820" duration="3000" />
       <workItem from="1588718513962" duration="1996000" />
       <workItem from="1588949183146" duration="91000" />
-      <workItem from="1588949299464" duration="8055000" />
+      <workItem from="1588949299464" duration="8218000" />
     </task>
     <servers />
   </component>
