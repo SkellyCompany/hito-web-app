@@ -144,6 +144,12 @@ $color-light-grey: #81858b;
   font-size: 15px;
   width: 100%;
   word-break: break-all;
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .input-message-container {
