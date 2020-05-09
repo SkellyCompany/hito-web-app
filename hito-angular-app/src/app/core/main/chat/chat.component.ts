@@ -1,11 +1,12 @@
+import { ChatConversation } from './../../../shared/models/ui-models/chat-conversation.model';
+import { ChatConversationState } from './../../../shared/state-management/chat-conversation.state';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MessageService } from 'src/app/shared/services/message.service';
-import { Message } from 'src/app/shared/models/message.model';
+import { Message } from 'src/app/shared/models/data-models/message.model';
 import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 import { AuthState } from 'src/app/shared/state-management/auth.state';
-import { User } from 'src/app/shared/models/user.model';
+import { User } from 'src/app/shared/models/data-models/user.model';
 
 @Component({
   selector: 'app-chat',
@@ -13,17 +14,27 @@ import { User } from 'src/app/shared/models/user.model';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+
   @Select(AuthState.loggedInUser)
   loggedInUser$: Observable<User>;
-  messages: Observable<Message[]>;
-  previousUsername: string;
 
+  @Select(ChatConversationState.loadedChatConversation)
+  chatConversation$: Observable<ChatConversation>;
+
+  conversationName: string;
+  messages: Message[];
+  previousUsername: string;
   messageForm = new FormGroup({
     text: new FormControl('')
   });
 
-  constructor(private store: Store, private messageService: MessageService) {
-    this.messages = this.messageService.getMessages();
+  constructor(private store: Store) {
+    this.chatConversation$.subscribe(chatConversation => {
+      if (chatConversation !== undefined) {
+        this.conversationName = chatConversation.name;
+        this.messages = chatConversation.messages;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -34,7 +45,6 @@ export class ChatComponent implements OnInit {
     this.loggedInUser$.subscribe(loggedInUser => message.username = loggedInUser.username);
     const today = new Date();
     message.postTime = today;
-    this.messageService.addMessage(message);
   }
 
   timeConverter(timestamp): string {

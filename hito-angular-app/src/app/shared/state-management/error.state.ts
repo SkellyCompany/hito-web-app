@@ -1,5 +1,5 @@
 import { ErrorOccurred } from './error.action';
-import { ErrorMessage } from '../models/error-message.model';
+import { ErrorMessage } from '../models/ui-models/error-message.model';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 

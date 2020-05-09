@@ -1,4 +1,4 @@
-import { ResetPasswordInput } from '../../../shared/models/input-models/reset-password-input.model';
+import { ResetPasswordInput } from '../../../shared/models/ui-models/input-models/reset-password-input.model';
 import { ResetPassword } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';

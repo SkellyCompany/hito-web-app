@@ -1,9 +1,8 @@
-
-<div class="main-container">
+<div class="main-container" *ngIf="messages" >
   <div class="topbar-container">
     <div class="profile-container">
       <img class="profile-picture" src="assets/images/default-user-profile.png">
-      <h2 class="profile-name">Geggy</h2>
+      <h2 class="profile-name">{{conversationName}}</h2>
     </div>
     <div class="options-container">
       <i class="las la-ellipsis-h"></i>
@@ -11,7 +10,7 @@
   </div>
   <div class="chat-container">
     <ul class="chat-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <li *ngFor="let message of messages | async" >
+      <li *ngFor="let message of messages" >
         <div class="full-message-container" *ngIf="!shouldPostQuickMessage(message.username, message.postTime)">
           <div class="message-profile-container">
             <img class ="message-profile" src="assets/images/default-user-profile.png">

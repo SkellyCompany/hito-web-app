@@ -4,7 +4,7 @@ import { AuthState } from 'src/app/shared/state-management/auth.state';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { routingConstants } from 'src/app/shared/constants';
-import { User } from 'src/app/shared/models/user.model';
+import { User } from 'src/app/shared/models/data-models/user.model';
 
 @Component({
   selector: 'app-landing',

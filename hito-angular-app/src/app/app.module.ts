@@ -1,3 +1,4 @@
+import { ChatConversationState } from './shared/state-management/chat-conversation.state';
 import { ChatListState } from './shared/state-management/chat-list.state';
 import { MainModule } from './core/main/main.module';
 import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
@@ -40,13 +41,13 @@ import { ErrorState } from './shared/state-management/error.state';
     AngularFireAuthModule,
     AppRoutingModule,
     NgxsModule.forRoot([
-      AuthState, ErrorState, ChatListState
+      AuthState, ErrorState, ChatListState, ChatConversationState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState, ErrorState, ChatListState]
+      key: [AuthState, ErrorState, ChatListState, ChatConversationState]
   }),
   ],
   providers: [],

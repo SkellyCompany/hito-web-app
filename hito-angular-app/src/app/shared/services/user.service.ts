@@ -1,6 +1,6 @@
 import { firestoreCollectionsConstants } from './../constants';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { User } from '../models/data-models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
 

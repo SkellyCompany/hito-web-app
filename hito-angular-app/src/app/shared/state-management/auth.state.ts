@@ -4,7 +4,7 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CreateUser, Login, ResetPassword, Logout } from './auth.action';
-import { User } from '../models/user.model';
+import { User } from '../models/data-models/user.model';
 import { Router } from '@angular/router';
 import { routingConstants } from '../constants';
 

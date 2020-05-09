@@ -1,9 +1,9 @@
-import { User } from './../../../shared/models/user.model';
+import { User } from '../../../shared/models/data-models/user.model';
 import { AuthState } from './../../../shared/state-management/auth.state';
 import { Logout } from './../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { InitHistoryData, InitLocalUsersData } from 'src/app/shared/state-management/chat-list.action';
+import { LoadHistoryData, LoadLocalUsersData } from 'src/app/shared/state-management/chat-list.action';
 import { Observable } from 'rxjs';
 
 enum NavbarAction {
@@ -53,9 +53,9 @@ export class NavbarComponent implements OnInit {
     // if (action === this.GROUP_CHAT_ACTION) {
     //   this.store.dispatch(new InitLocalChatData());
     if (action === this.LOCAL_USERS_ACTION) {
-      this.store.dispatch(new InitLocalUsersData());
+      this.store.dispatch(new LoadLocalUsersData(this.loggedInUser.username));
     } else {
-      this.store.dispatch(new InitHistoryData(this.loggedInUser.username));
+      this.store.dispatch(new LoadHistoryData(this.loggedInUser.username));
     }
   }
 }

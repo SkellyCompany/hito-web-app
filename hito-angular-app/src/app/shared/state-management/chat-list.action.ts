@@ -4,13 +4,13 @@ export class FindChatListItems {
   constructor(public payload: string) {}
 }
 
-export class InitLocalUsersData {
+export class LoadLocalUsersData {
   static readonly type = '[Chat-List] Init Local Users Data';
 
-  constructor() {}
+  constructor(public payload: string) {}
 }
 
-export class InitHistoryData {
+export class LoadHistoryData {
   static readonly type = '[Chat-List] Init History Data';
 
   constructor(public payload: string) {}

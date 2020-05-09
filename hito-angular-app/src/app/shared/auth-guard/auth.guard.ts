@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthState } from '../state-management/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
-import { User } from '../models/user.model';
+import { User } from '../models/data-models/user.model';
 
 @Injectable({
   providedIn: 'root'

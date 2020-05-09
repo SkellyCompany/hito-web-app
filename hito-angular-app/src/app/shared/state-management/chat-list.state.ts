@@ -1,9 +1,9 @@
 import { UserService } from '../services/user.service';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { FindChatListItems, InitHistoryData, LoadNextPage, InitLocalUsersData } from './chat-list.action';
+import { FindChatListItems, LoadHistoryData, LoadNextPage, LoadLocalUsersData } from './chat-list.action';
 import { ConversationService } from '../services/conversation.service';
-import { ChatListItem } from '../models/chat-list-item.model';
+import { ChatListItem } from '../models/ui-models/chat-list-item.model';
 import { ChatListItemConverter } from '../models/converters/chat-list-item.converter';
 
 export class ChatListStateModel {
@@ -12,7 +12,7 @@ export class ChatListStateModel {
 }
 
 @State<ChatListStateModel>({
-  name: 'user',
+  name: 'chatList',
   defaults: {
     searchedChatListItems: undefined,
     loadedChatListItems: undefined
@@ -34,16 +34,16 @@ export class ChatListState {
     return state.loadedChatListItems;
   }
 
-  // @Action(InitLocalUsersData)
-  // InitLocalChatData({getState, setState}: StateContext<ChatListStateModel>) {
-  //   this.userService.getLocalUsers().subscribe(users => {
-  //     //Convert users to chat-list-items function
-  //     setState({...getState(), loadedChatListItems: users});
-  //   });
-  // }
+  @Action(LoadLocalUsersData)
+  LoadLocalChatData({getState, setState}: StateContext<ChatListStateModel>, {payload}: LoadLocalUsersData) {
+    this.userService.getLocalUsers().subscribe(users => {
+      const chatListItems = ChatListItemConverter.convertUsers(payload, users);
+      setState({...getState(), loadedChatListItems: chatListItems});
+    });
+  }
 
-  @Action(InitHistoryData)
-  InitHistoryData({getState, setState}: StateContext<ChatListStateModel>, {payload}: InitHistoryData) {
+  @Action(LoadHistoryData)
+  LoadHistoryData({getState, setState}: StateContext<ChatListStateModel>, {payload}: LoadHistoryData) {
     this.conversationService.getUsersConversations(payload).subscribe(conversations => {
       const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
       setState({...getState(), loadedChatListItems: chatListItems});
