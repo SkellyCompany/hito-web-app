@@ -15,7 +15,7 @@ export const validationConstants = {
   passwordWeak: 'Password is too weak'
 };
 
-export const firebaseCollectionsConstants = {
+export const firestoreCollectionsConstants = {
   users: 'users',
-  histories: 'histories'
+  conversations: 'conversations'
 }

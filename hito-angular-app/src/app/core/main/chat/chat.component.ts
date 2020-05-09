@@ -49,16 +49,24 @@ export class ChatComponent implements OnInit {
     return time;
   }
 
-  isPreviousUsernameEqual(currentUsername: string, setPrevious?: boolean) {
-    if (this.previousUsername === currentUsername || this.previousUsername === '') {
-      if (setPrevious) {
-        this.previousUsername = currentUsername;
-      }
+  shouldPostQuickMessage(currentUsername: string, currentDate: Date): boolean {
+    // const isPreviousUsernameEqual = this.isPreviousUsernameEqual(currentUsername);
+    // this.previousUsername = currentUsername;
+    // const haveTenMinutesPassed =  this.haveTenMinutesPassed(currentDate);
+    // console.log(isPreviousUsernameEqual);
+    // return (isPreviousUsernameEqual && !haveTenMinutesPassed);
+    return false;
+  }
+
+  private isPreviousUsernameEqual(currentUsername: string) {
+    if (this.previousUsername === currentUsername || this.previousUsername === undefined) {
       return true;
     }
-    if (setPrevious) {
-      this.previousUsername = currentUsername;
-    }
+    return false;
+  }
+
+  private haveTenMinutesPassed(currentDate: Date): boolean {
+    //TO DO
     return false;
   }
 

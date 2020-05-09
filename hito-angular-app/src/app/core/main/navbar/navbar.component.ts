@@ -1,13 +1,14 @@
-import { InitLocalChatData, InitHistoryData } from './../../../shared/state-management/pagination.action';
+import { User } from './../../../shared/models/user.model';
+import { AuthState } from './../../../shared/state-management/auth.state';
 import { Logout } from './../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { PaginationQuery } from 'src/app/shared/models/pagination-query.model';
-import { firebaseCollectionsConstants } from 'src/app/shared/constants';
+import { Store, Select } from '@ngxs/store';
+import { InitHistoryData, InitLocalUsersData } from 'src/app/shared/state-management/chat-list.action';
+import { Observable } from 'rxjs';
 
 enum NavbarAction {
-  GROUP_CHAT = 0,
-  LOCAL_CHAT = 1,
+  LOCAL_GROUPS = 0,
+  LOCAL_USERS = 1,
   HISTORY = 2
 }
 
@@ -18,17 +19,25 @@ enum NavbarAction {
 })
 export class NavbarComponent implements OnInit {
 
-  readonly GROUP_CHAT_ACTION: NavbarAction = NavbarAction.GROUP_CHAT;
-  readonly LOCAL_CHAT_ACTION: NavbarAction = NavbarAction.LOCAL_CHAT;
+  @Select(AuthState.loggedInUser)
+  loggedInUser$: Observable<User>;
+
+  readonly LOCAL_GROUPS_ACTION: NavbarAction = NavbarAction.LOCAL_GROUPS;
+  readonly LOCAL_USERS_ACTION: NavbarAction = NavbarAction.LOCAL_USERS;
   readonly HISTORY_ACTION: NavbarAction = NavbarAction.HISTORY;
 
+  loggedInUser: User;
   profilePopupShown = false;
   activeAction: NavbarAction;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {
+    this.loggedInUser$.subscribe(loggedInUser => {
+      this.loggedInUser = loggedInUser;
+    });
+  }
 
   ngOnInit(): void {
-    this.onActionClick(NavbarAction.LOCAL_CHAT);
+    this.onActionClick(NavbarAction.LOCAL_USERS);
   }
 
   toggleProfilePopup() {
@@ -41,13 +50,12 @@ export class NavbarComponent implements OnInit {
 
   onActionClick(action: NavbarAction) {
     this.activeAction = action;
-    const paginationQuery: PaginationQuery = { path: firebaseCollectionsConstants.users, field: 'username', limit: 12 };
-    if (action === this.GROUP_CHAT_ACTION) {
-      this.store.dispatch(new InitLocalChatData(paginationQuery));
-    } else if (action === this.LOCAL_CHAT_ACTION) {
-      this.store.dispatch(new InitLocalChatData(paginationQuery));
+    // if (action === this.GROUP_CHAT_ACTION) {
+    //   this.store.dispatch(new InitLocalChatData());
+    if (action === this.LOCAL_USERS_ACTION) {
+      this.store.dispatch(new InitLocalUsersData());
     } else {
-      this.store.dispatch(new InitHistoryData(paginationQuery));
+      this.store.dispatch(new InitHistoryData(this.loggedInUser.username));
     }
   }
 }

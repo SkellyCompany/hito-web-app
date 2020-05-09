@@ -13,13 +13,13 @@
   </div>
   <div class="actions-container">
     <i class="las la-users"
-       (click)="onActionClick(GROUP_CHAT_ACTION)"
-       [ngClass]="activeAction === GROUP_CHAT_ACTION ? 'action-active' : ''">
+       (click)="onActionClick(LOCAL_GROUPS_ACTION)"
+       [ngClass]="activeAction === LOCAL_GROUPS_ACTION ? 'action-active' : ''">
     </i>
-    <div [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-animated-container' : ''">
+    <div [ngClass]="activeAction === LOCAL_USERS_ACTION ? 'action-animated-container' : ''">
       <i class="las la-map-pin"
-         (click)="onActionClick(LOCAL_CHAT_ACTION)"
-         [ngClass]="activeAction === LOCAL_CHAT_ACTION ? 'action-active-animated' : ''">
+         (click)="onActionClick(LOCAL_USERS_ACTION)"
+         [ngClass]="activeAction === LOCAL_USERS_ACTION ? 'action-active-animated' : ''">
       </i>
     </div>
     <i class="las la-history"

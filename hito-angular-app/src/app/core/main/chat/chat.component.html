@@ -12,7 +12,7 @@
   <div class="chat-container">
     <ul class="chat-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <li *ngFor="let message of messages | async" >
-        <div class="full-message-container" *ngIf="!isPreviousUsernameEqual(message.username, false)">
+        <div class="full-message-container" *ngIf="!shouldPostQuickMessage(message.username, message.postTime)">
           <div class="message-profile-container">
             <img class ="message-profile" src="assets/images/default-user-profile.png">
           </div>
@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="quick-message-container" *ngIf="isPreviousUsernameEqual(message.username, true)">
+        <div class="quick-message-container" *ngIf="shouldPostQuickMessage(message.username, message.postTime)">
           <p>{{message.text}}</p>
         </div>
       </li>
