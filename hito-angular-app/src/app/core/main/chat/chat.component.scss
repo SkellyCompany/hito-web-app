@@ -35,15 +35,15 @@ $color-light-grey: #81858b;
 
 .profile-container {
   height: 60px;
-  width: 112px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-left: 15px;
 }
 .profile-picture {
   width: 48px;
   height: 48px;
+  margin-right: 10px;
   border-radius: 50%;
   border: solid 2px $color-deep-dark;
 }
