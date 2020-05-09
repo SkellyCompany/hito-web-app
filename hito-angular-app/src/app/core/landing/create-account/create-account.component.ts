@@ -61,5 +61,8 @@ export class CreateAccountComponent implements OnInit {
     if (this.createAccountForm.get('password').hasError('required')) {
       this.passwordErrorMessage = validationConstants.passwordRequired;
     }
+    if (this.createAccountForm.get('password').hasError('pattern')) {
+      this.passwordErrorMessage = validationConstants.passwordWeak;
+    }
   }
 }
