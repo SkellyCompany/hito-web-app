@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="chat-container">
-    <ul class="chat-list" >
+    <ul id="chat-container" class="chat-list" >
       <li *ngFor="let message of chatConversation.messages; let i = index" >
         <div class="full-message-container" *ngIf="!shouldPostQuickMessage(i, message)">
           <div class="message-profile-container">
@@ -33,6 +33,6 @@
   </div>
   <form class="input-message-container" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
     <input class="input-message" placeholder="Send message" formControlName="text">
-      <i class="las la-paper-plane" (click)="sendMessage(messageForm.value)"></i>
+    <i class="las la-paper-plane" (click)="sendMessage(messageForm.value)"></i>
   </form>
 </div>

@@ -45,6 +45,8 @@ export class ChatComponent implements OnInit {
     message.username = this.loggedInUser.username;
     message.postTime = new Date();
     this.store.dispatch(new SendMessage(this.chatConversation.id, message));
+    const chatContainer = document.getElementById("chat-container");
+    chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 
   convertMessagePostTime(messagePostTime: Date): string {
@@ -54,8 +56,16 @@ export class ChatComponent implements OnInit {
     const month = months[postTime.getMonth()];
     const date = postTime.getDate();
     const hour = postTime.getHours();
-    const minute = postTime.getMinutes();
-    const time = ' ' + date + ' ' + month + ' ' + year + ' ' + hour + ':' + minute;
+
+    let convertedMinute;
+    let minute = postTime.getMinutes();
+    if(minute < 10) {
+      convertedMinute = "0" + minute;
+    } else {
+      convertedMinute = minute;
+    }
+
+    const time = ' ' + date + ' ' + month + ' ' + year + ' ' + hour + ':' + convertedMinute;
     return time;
   }
 
