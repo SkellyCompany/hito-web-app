@@ -22,14 +22,16 @@ export class ChatComponent implements OnInit {
   @Select(ChatConversationState.loadedChatConversation)
   chatConversation$: Observable<ChatConversation>;
 
+  loggedInUser: User;
   chatConversation: ChatConversation;
-  previousUsername: string;
-  previousDate: any;
   messageForm = new FormGroup({
     text: new FormControl('')
   });
 
   constructor(private store: Store) {
+    this.loggedInUser$.subscribe(loggedInUser => {
+      this.loggedInUser = loggedInUser;
+    });
     this.chatConversation$.subscribe(chatConversation => {
       this.chatConversation = chatConversation;
     });
@@ -40,9 +42,8 @@ export class ChatComponent implements OnInit {
 
   sendMessage(message: Message) {
     this.messageForm.reset();
-    this.loggedInUser$.subscribe(loggedInUser => message.username = loggedInUser.username);
-    const today = new Date();
-    message.postTime = today;
+    message.username = this.loggedInUser.username;
+    message.postTime = new Date();
     this.store.dispatch(new SendMessage(this.chatConversation.id, message));
   }
 
@@ -58,40 +59,23 @@ export class ChatComponent implements OnInit {
     return time;
   }
 
-  shouldPostQuickMessage(currentUsername: string, currentDate: Date, set: boolean): boolean {
-    const isPreviousUsernameEqual = this.isPreviousUsernameEqual(currentUsername, set);
-    const haveTenMinutesPassed =  this.haveTenMinutesPassed(currentDate);
-    return (isPreviousUsernameEqual);
+  shouldPostQuickMessage(messageIndex: number, message: Message): boolean {
+    return this.isPreviousUsernameEqual(messageIndex, message.username);
   }
 
-  isPreviousUsernameEqual(currentUsername: string, setPrevious?: boolean) {
-
-    if (this.previousUsername ) {
-      if (setPrevious) {
-        this.previousUsername = currentUsername;
-      }
+  isPreviousUsernameEqual(messageIndex: number, currentUsername: string) {
+    if (messageIndex === 0) {
       return false;
     }
-    if (setPrevious) {
-      this.previousUsername = currentUsername;
+    const lastSentMessage: Message = this.chatConversation.messages[messageIndex - 1];
+    if (lastSentMessage !== undefined && currentUsername === lastSentMessage.username) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   private haveTenMinutesPassed(currentDate): boolean {
-    const tenMinutes = 600;
-    // tslint:disable-next-line: new-parens
-    if (this.previousDate === undefined) {
-      this.previousDate = currentDate;
-      return false;
-    }
-    return true;
-    // if ((this.previousDate - currentDate) >= tenMinutes) {
-    //   this.previousDate = currentDate;
-    //   return false;
-    // }
-    // this.previousDate = currentDate;
-    // return true;
+    return false;
   }
 
 }
