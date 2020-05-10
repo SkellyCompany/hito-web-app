@@ -1,6 +1,6 @@
 import { ChatConversation } from './../../../shared/models/ui-models/chat-conversation.model';
 import { ChatConversationState } from './../../../shared/state-management/chat-conversation.state';
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Message } from 'src/app/shared/models/data-models/message.model';
 import { Observable } from 'rxjs';
@@ -34,10 +34,14 @@ export class ChatComponent implements OnInit {
     });
     this.chatConversation$.subscribe(chatConversation => {
       this.chatConversation = chatConversation;
+      if(chatConversation !== undefined) {
+        setTimeout(() => this.scrollMessagesDown(), 10);
+      }
     });
   }
 
   ngOnInit(): void {
+
   }
 
   sendMessage(message: Message) {
@@ -45,8 +49,13 @@ export class ChatComponent implements OnInit {
     message.username = this.loggedInUser.username;
     message.postTime = new Date();
     this.store.dispatch(new SendMessage(this.chatConversation.id, message));
+  }
+
+  scrollMessagesDown() {
     const chatContainer = document.getElementById("chat-container");
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    if (chatContainer !== null) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
   }
 
   convertMessagePostTime(messagePostTime: Date): string {
