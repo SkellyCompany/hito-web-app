@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PaginationService } from './pagination.service';
+import { ConversationService } from './conversation.service';
 
-describe('PaginationService', () => {
-  let service: PaginationService;
+describe('ConversationService', () => {
+  let service: ConversationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PaginationService);
+    service = TestBed.inject(ConversationService);
   });
 
   it('should be created', () => {

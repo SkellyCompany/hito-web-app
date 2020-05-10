@@ -3,7 +3,7 @@ import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginInput } from 'src/app/shared/models/input-models/login-input.model';
+import { LoginInput } from 'src/app/shared/models/ui-models/input-models/login-input.model';
 
 @Component({
   selector: 'app-login',

@@ -1,6 +1,6 @@
+import { ChatConversationState } from './shared/state-management/chat-conversation.state';
+import { ChatListState } from './shared/state-management/chat-list.state';
 import { MainModule } from './core/main/main.module';
-import { UserState } from './shared/state-management/user.state';
-import { PaginationState } from './shared/state-management/pagination.state';
 import { ForgotPasswordComponent } from './core/landing/forgot-password/forgot-password.component';
 import { CreateAccountComponent } from './core/landing/create-account/create-account.component';
 import { LandingComponent } from './core/landing/landing.component';
@@ -22,7 +22,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthState } from './shared/state-management/auth.state';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ErrorState } from './shared/state-management/error.state';
-import { ScrollableDirective } from './shared/directives/scrollable.directive';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,7 @@ import { ScrollableDirective } from './shared/directives/scrollable.directive';
     LoginComponent,
     CreateAccountComponent,
     ForgotPasswordComponent,
-    NotFoundComponent,
-    ScrollableDirective,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -43,13 +41,13 @@ import { ScrollableDirective } from './shared/directives/scrollable.directive';
     AngularFireAuthModule,
     AppRoutingModule,
     NgxsModule.forRoot([
-      AuthState, ErrorState, PaginationState, UserState
+      AuthState, ErrorState, ChatListState, ChatConversationState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState, ErrorState, PaginationState, UserState]
+      key: [AuthState, ErrorState]
   }),
   ],
   providers: [],

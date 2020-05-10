@@ -37,6 +37,8 @@ input {
   border: solid 1px $color-contrast-dark;
   box-sizing: border-box;
   -webkit-user-select:text;
+  -webkit-transform: translate3d(0,0,0);
+  position: relative;
   transition: border 0.2s;
 }
 

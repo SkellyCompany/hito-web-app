@@ -1,4 +1,4 @@
-import { CreateAccountInput } from '../../../shared/models/input-models/create-account-input.model';
+import { CreateAccountInput } from '../../../shared/models/ui-models/input-models/create-account-input.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUser } from 'src/app/shared/state-management/auth.action';
@@ -60,6 +60,9 @@ export class CreateAccountComponent implements OnInit {
     }
     if (this.createAccountForm.get('password').hasError('required')) {
       this.passwordErrorMessage = validationConstants.passwordRequired;
+    }
+    if (this.createAccountForm.get('password').hasError('pattern')) {
+      this.passwordErrorMessage = validationConstants.passwordWeak;
     }
   }
 }
