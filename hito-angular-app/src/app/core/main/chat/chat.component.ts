@@ -47,26 +47,27 @@ export class ChatComponent implements OnInit {
     this.store.dispatch(new SendMessage(this.chatConversation.id, message));
   }
 
-  timeConverter(timestamp): string {
-    const newDate = new Date(timestamp.seconds * 1000);
+  convertMessagePostTime(messagePostTime: Date): string {
+    const postTime = messagePostTime;
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const year = newDate.getFullYear();
-    const month = months[newDate.getMonth()];
-    const date = newDate.getDate();
-    const hour = newDate.getHours();
-    const minute = newDate.getMinutes();
+    const year = postTime.getFullYear();
+    const month = months[postTime.getMonth()];
+    const date = postTime.getDate();
+    const hour = postTime.getHours();
+    const minute = postTime.getMinutes();
     const time = ' ' + date + ' ' + month + ' ' + year + ' ' + hour + ':' + minute;
     return time;
   }
 
   shouldPostQuickMessage(messageIndex: number, message: Message): boolean {
-    return this.isPreviousUsernameEqual(messageIndex, message.username);
+    if(messageIndex === 0) {
+      return false;
+    }
+    return this.isPreviousUsernameEqual(messageIndex, message.username) &&
+      !this.haveTenMinutesPassed(messageIndex, message.postTime);
   }
 
   isPreviousUsernameEqual(messageIndex: number, currentUsername: string) {
-    if (messageIndex === 0) {
-      return false;
-    }
     const lastSentMessage: Message = this.chatConversation.messages[messageIndex - 1];
     if (lastSentMessage !== undefined && currentUsername === lastSentMessage.username) {
       return true;
@@ -74,8 +75,14 @@ export class ChatComponent implements OnInit {
     return false;
   }
 
-  private haveTenMinutesPassed(currentDate): boolean {
-    return false;
+  private haveTenMinutesPassed(messageIndex: number, messagePostTime): boolean {
+    const lastSentMessage: Message = this.chatConversation.messages[messageIndex - 1];
+    const deltaTimeMilliseconds: number = messagePostTime - lastSentMessage.postTime.getTime();
+    const deltaTimeMinutes = deltaTimeMilliseconds / 60000;
+    if(deltaTimeMinutes < 10) {
+      return false;
+    }
+    return true;
   }
 
 }

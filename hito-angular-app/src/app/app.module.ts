@@ -47,7 +47,7 @@ import { ErrorState } from './shared/state-management/error.state';
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState, ErrorState, ChatListState, ChatConversationState]
+      key: [AuthState, ErrorState]
   }),
   ],
   providers: [],
