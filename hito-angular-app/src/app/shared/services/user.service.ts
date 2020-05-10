@@ -2,7 +2,7 @@ import { firestoreCollectionsConstants } from './../constants';
 import { Injectable } from '@angular/core';
 import { User } from '../models/data-models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +20,13 @@ export class UserService {
     return this.angularFirestore.collection(firestoreCollectionsConstants.users).doc<User>(uid).valueChanges();
   }
 
-  findUser(username: string): Observable<User[]> {
+  findUsers(username: string): Observable<User[]> {
     return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref =>
     ref.orderBy('username').startAt(username).endAt(username + '\uf8ff')).valueChanges();
   }
 
   getLocalUsers(): Observable<User[]> {
-    // TO DO replace random with actual local users functions.
+    // TO DO replace with actual local users functions.
     return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users).valueChanges();
   }
 }

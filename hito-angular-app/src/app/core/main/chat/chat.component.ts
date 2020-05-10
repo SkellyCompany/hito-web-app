@@ -98,7 +98,7 @@ export class ChatComponent implements OnInit {
     const lastSentMessage: Message = this.chatConversation.messages[messageIndex - 1];
     const deltaTimeMilliseconds: number = messagePostTime - lastSentMessage.postTime.getTime();
     const deltaTimeMinutes = deltaTimeMilliseconds / 60000;
-    if(deltaTimeMinutes < 10) {
+    if (deltaTimeMinutes < 10) {
       return false;
     }
     return true;

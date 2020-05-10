@@ -29,7 +29,7 @@ export class ChatConversationState {
   @Action(LoadChatConversation)
   LoadChatConversation({getState, setState}: StateContext<ChatConversationStateModel>, {username, payload}: LoadChatConversation) {
     if (!payload || payload.length === 0) {
-      //TO DO - CREATE CONVERSATION AND UPDATE LOADEDCHATCONVERSATION
+      // TO DO - CREATE CONVERSATION AND UPDATE LOADED CHAT CONVERSATION
     } else {
       this.conversationService.getConversation(payload).subscribe(conversation => {
         this.conversationService.getMessages(payload).subscribe(messages => {
