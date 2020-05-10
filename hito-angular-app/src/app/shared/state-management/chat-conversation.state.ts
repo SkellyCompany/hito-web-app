@@ -3,7 +3,7 @@ import { ChatConversation } from './../models/ui-models/chat-conversation.model'
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { ConversationService } from '../services/conversation.service';
-import { LoadChatConversation } from './chat-conversation.action';
+import { LoadChatConversation, SendMessage } from './chat-conversation.action';
 
 export class ChatConversationStateModel {
   loadedChatConversation: ChatConversation;
@@ -40,6 +40,8 @@ export class ChatConversationState {
     }
   }
 
-
-
+  @Action(SendMessage)
+  SendMessage({getState, setState}: StateContext<ChatConversationStateModel>, {conversationId, payload}: SendMessage) {
+    this.conversationService.sendMessage(conversationId, payload);
+  }
 }

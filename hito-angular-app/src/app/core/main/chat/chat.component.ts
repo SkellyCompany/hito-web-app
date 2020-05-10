@@ -1,12 +1,13 @@
 import { ChatConversation } from './../../../shared/models/ui-models/chat-conversation.model';
 import { ChatConversationState } from './../../../shared/state-management/chat-conversation.state';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Message } from 'src/app/shared/models/data-models/message.model';
 import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 import { AuthState } from 'src/app/shared/state-management/auth.state';
 import { User } from 'src/app/shared/models/data-models/user.model';
+import { SendMessage } from 'src/app/shared/state-management/chat-conversation.action';
 
 @Component({
   selector: 'app-chat',
@@ -21,19 +22,16 @@ export class ChatComponent implements OnInit {
   @Select(ChatConversationState.loadedChatConversation)
   chatConversation$: Observable<ChatConversation>;
 
-  conversationName: string;
-  messages: Message[];
+  chatConversation: ChatConversation;
   previousUsername: string;
+  previousDate: any;
   messageForm = new FormGroup({
     text: new FormControl('')
   });
 
   constructor(private store: Store) {
     this.chatConversation$.subscribe(chatConversation => {
-      if (chatConversation !== undefined) {
-        this.conversationName = chatConversation.name;
-        this.messages = chatConversation.messages;
-      }
+      this.chatConversation = chatConversation;
     });
   }
 
@@ -45,6 +43,7 @@ export class ChatComponent implements OnInit {
     this.loggedInUser$.subscribe(loggedInUser => message.username = loggedInUser.username);
     const today = new Date();
     message.postTime = today;
+    this.store.dispatch(new SendMessage(this.chatConversation.id, message));
   }
 
   timeConverter(timestamp): string {
@@ -59,25 +58,40 @@ export class ChatComponent implements OnInit {
     return time;
   }
 
-  shouldPostQuickMessage(currentUsername: string, currentDate: Date): boolean {
-    // const isPreviousUsernameEqual = this.isPreviousUsernameEqual(currentUsername);
-    // this.previousUsername = currentUsername;
-    // const haveTenMinutesPassed =  this.haveTenMinutesPassed(currentDate);
-    // console.log(isPreviousUsernameEqual);
-    // return (isPreviousUsernameEqual && !haveTenMinutesPassed);
-    return false;
+  shouldPostQuickMessage(currentUsername: string, currentDate: Date, set: boolean): boolean {
+    const isPreviousUsernameEqual = this.isPreviousUsernameEqual(currentUsername, set);
+    const haveTenMinutesPassed =  this.haveTenMinutesPassed(currentDate);
+    return (isPreviousUsernameEqual);
   }
 
-  private isPreviousUsernameEqual(currentUsername: string) {
-    if (this.previousUsername === currentUsername || this.previousUsername === undefined) {
-      return true;
+  isPreviousUsernameEqual(currentUsername: string, setPrevious?: boolean) {
+
+    if (this.previousUsername ) {
+      if (setPrevious) {
+        this.previousUsername = currentUsername;
+      }
+      return false;
     }
-    return false;
+    if (setPrevious) {
+      this.previousUsername = currentUsername;
+    }
+    return true;
   }
 
-  private haveTenMinutesPassed(currentDate: Date): boolean {
-    //TO DO
-    return false;
+  private haveTenMinutesPassed(currentDate): boolean {
+    const tenMinutes = 600;
+    // tslint:disable-next-line: new-parens
+    if (this.previousDate === undefined) {
+      this.previousDate = currentDate;
+      return false;
+    }
+    return true;
+    // if ((this.previousDate - currentDate) >= tenMinutes) {
+    //   this.previousDate = currentDate;
+    //   return false;
+    // }
+    // this.previousDate = currentDate;
+    // return true;
   }
 
 }

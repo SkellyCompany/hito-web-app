@@ -27,4 +27,10 @@ export class ConversationService {
     .doc(conversationId).collection<Message>(firestoreCollectionsConstants.conversationMessages,
       ref => ref.orderBy('postTime', 'asc')).valueChanges();
   }
+
+  sendMessage(conversationId: string, message: Message) {
+    this.angularFirestore.collection(firestoreCollectionsConstants.conversations)
+    .doc(conversationId).collection<Message>(firestoreCollectionsConstants.conversationMessages)
+    .add(message);
+  }
 }

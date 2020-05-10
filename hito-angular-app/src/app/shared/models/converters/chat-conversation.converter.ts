@@ -15,6 +15,7 @@ export class ChatConversationConverter {
       }
     }
     const chatConversation: ChatConversation = {
+      id: conversation.id,
       name: conversationName,
       messages: messages
     };
