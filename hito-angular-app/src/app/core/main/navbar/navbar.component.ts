@@ -46,13 +46,6 @@ export class NavbarComponent implements OnInit {
 
   onActionClick(action: ChatListMode) {
     this.activeMode = action;
-    this.store.dispatch(new SetChatListMode(action));
-    // if (action === this.GROUP_CHAT_MODE) {
-    //   this.store.dispatch(new InitLocalChatData());
-    if (action === this.LOCAL_USERS_MODE) {
-      this.store.dispatch(new LoadLocalUsersData(this.loggedInUser.username));
-    } else {
-      this.store.dispatch(new LoadHistoryData(this.loggedInUser.username));
-    }
+    this.store.dispatch(new SetChatListMode(action, this.loggedInUser.username));
   }
 }

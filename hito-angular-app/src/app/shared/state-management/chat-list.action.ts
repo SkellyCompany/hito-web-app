@@ -27,5 +27,5 @@ export class LoadNextPage {
 export class SetChatListMode {
   static readonly type = '[Chat-List] Set Chat List Mode';
 
-  constructor(public payload: ChatListMode) {}
+  constructor(public payload: ChatListMode, public loggedInUserUsername: string) {}
 }

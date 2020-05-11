@@ -78,7 +78,15 @@ export class ChatListState {
   }
 
   @Action(SetChatListMode)
-  SetChatListMode({getState, setState}: StateContext<ChatListStateModel>, {payload}: SetChatListMode) {
+  SetChatListMode({getState, setState, dispatch}: StateContext<ChatListStateModel>, {payload, loggedInUserUsername}: SetChatListMode) {
+    // if (payload === ChatListMode.LOCAL_GROUPS) {
+        // Call loadGroups function
+    // }
+    if (payload === ChatListMode.LOCAL_USERS) {
+      dispatch(new LoadLocalUsersData(loggedInUserUsername));
+    } else {
+      dispatch(new LoadHistoryData(loggedInUserUsername));
+    }
     setState({...getState(), chatListMode: payload});
   }
 
