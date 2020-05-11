@@ -50,11 +50,11 @@ export class ChatListComponent implements OnInit {
   }
 
   scrollHandler(e: string) {
-    // if (e === 'bottom') {
-    //   this.store.dispatch(new LoadNextPage()).subscribe(() => {
-    //     this.chatListItems = this.loadedChatListItems$;
-    //   });
-    // }
+    if (e === 'bottom') {
+      this.store.dispatch(new LoadNextPage()).subscribe(() => {
+        this.chatListItems = this.loadedChatListItems$;
+      });
+    }
   }
 
   searchChatListItems() {

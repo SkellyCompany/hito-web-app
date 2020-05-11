@@ -48,28 +48,28 @@ export class ChatListState {
 
   @Action(LoadLocalUsersData)
   LoadLocalChatData({getState, setState}: StateContext<ChatListStateModel>, {payload}: LoadLocalUsersData) {
-    // const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
-    // this.paginationService.initLocalChatData(paginationQuery).subscribe(users => {
-    //   const chatListItems = ChatListItemConverter.convertUsers(payload, users);
-    //   setState({...getState(), loadedChatListItems: chatListItems});
-    // });
-    this.userService.getLocalUsers().subscribe(users => {
+    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
+    this.paginationService.initLocalChatData(paginationQuery).subscribe(users => {
       const chatListItems = ChatListItemConverter.convertUsers(payload, users);
       setState({...getState(), loadedChatListItems: chatListItems});
     });
+    // this.userService.getLocalUsers().subscribe(users => {
+    //   const chatListItems = ChatListItemConverter.convertUsers(payload, users);
+    //   setState({...getState(), loadedChatListItems: chatListItems});
+    // });
   }
 
   @Action(LoadHistoryData)
   LoadHistoryData({getState, setState}: StateContext<ChatListStateModel>, {payload}: LoadHistoryData) {
-    // const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.conversations, field: 'id'};
-    // this.paginationService.initLocalChatData(paginationQuery).subscribe(conversations => {
-    //   const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
-    //   setState({...getState(), loadedChatListItems: chatListItems});
-    // });
-    this.conversationService.getUsersConversations(payload).subscribe(conversations => {
+    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.conversations, field: 'id'};
+    this.paginationService.initLocalChatData(paginationQuery).subscribe(conversations => {
       const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
       setState({...getState(), loadedChatListItems: chatListItems});
     });
+    // this.conversationService.getUsersConversations(payload).subscribe(conversations => {
+    //   const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
+    //   setState({...getState(), loadedChatListItems: chatListItems});
+    // });
   }
 
   @Action(LoadNextPage)
@@ -83,6 +83,7 @@ export class ChatListState {
         // Call loadGroups function
     // }
     if (payload === ChatListMode.LOCAL_USERS) {
+      console.log("HERE");
       dispatch(new LoadLocalUsersData(loggedInUserUsername));
     } else {
       dispatch(new LoadHistoryData(loggedInUserUsername));
@@ -97,9 +98,7 @@ export class ChatListState {
     // }
     if (getState().chatListMode === ChatListMode.LOCAL_USERS) {
       this.userService.findUsers(searchedUser).subscribe(users => {
-        console.log(users);
         const chatListItems = ChatListItemConverter.convertUsers(payload, users);
-        console.log(chatListItems);
         setState({...getState(), searchedChatListItems: chatListItems});
       });
     } else {

@@ -1,6 +1,6 @@
 import { PaginationQuery } from './../models/ui-models/pagination-query.model';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { tap, scan, take } from 'rxjs/operators';
@@ -13,7 +13,6 @@ export class PaginationService {
   private _done = new BehaviorSubject(false);
   private _data = new BehaviorSubject([]);
 
-
   query: PaginationQuery;
   data: Observable<any>;
   done: Observable<boolean> = this._done.asObservable();
@@ -24,7 +23,6 @@ export class PaginationService {
     this._data.next([]);
     this.query = paginationQuery;
     const initialData = this.angularFirestore.collection(this.query.path, ref => ref.orderBy(this.query.field).limit(12));
-
     this.updateData(initialData);
 
     return this.data = this._data.asObservable()
