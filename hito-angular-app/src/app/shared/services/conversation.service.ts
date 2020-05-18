@@ -18,8 +18,6 @@ export class ConversationService {
   getUsersConversations(username: string): Observable<Conversation[]> {
     const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.conversations, field: 'id'};
     return this.paginationService.initLocalChatData(paginationQuery);
-    return this.angularFirestore.collection<Conversation>(firestoreCollectionsConstants.conversations,
-      ref => ref.where('users', 'array-contains', username)).valueChanges();
   }
 
   getConversation(id: string): Observable<Conversation> {

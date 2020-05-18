@@ -26,6 +26,7 @@ export class PaginationService {
     this.query = paginationQuery;
     const initialData = this.angularFirestore.collection(this.query.path, ref => ref.orderBy(this.query.field).limit(12));
     this.updateData(initialData);
+
     return this._data.asObservable()
       .pipe(scan((acc, val) => acc.concat(val)));
   }
@@ -42,7 +43,7 @@ export class PaginationService {
 
           this.data = values;
           this._data.next(values);
-
+          console.log(this.data);
           if (!values.length) {
             this.done = true;
           }

@@ -31,20 +31,24 @@ export class AuthState {
 
   @Action(CreateAccountAndLogin)
   createAccountAndLogin({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateAccountAndLogin) {
-    return this.authService.createUser(payload).then(userCredential => {
-      const user: User = {
-        uid: userCredential.user.uid,
-        username: payload.username,
-        email: userCredential.user.email
-      };
-      this.userService.createUser(user).then(() => {
-        this.userService.getUser(user.uid).subscribe(userResult => {
-          setState({...getState(), loggedInUser: userResult});
-          this.router.navigate(['/' + routingConstants.app]);
+    this.userService.isUsernameAvailable(payload.username).subscribe(available => {
+      if (available) {
+        return this.authService.createUser(payload).then(userCredential => {
+          const user: User = {
+            uid: userCredential.user.uid,
+            username: payload.username,
+            email: userCredential.user.email
+          };
+          return this.userService.createUser(user).then(() => {
+            this.userService.getUser(user.uid).subscribe(userResult => {
+              setState({...getState(), loggedInUser: userResult});
+              this.router.navigate(['/' + routingConstants.app]);
+            });
+          }).catch(error => {
+            dispatch(new ErrorOccurred(error));
+          });
         });
-      }).catch(error => {
-        dispatch(new ErrorOccurred(error));
-      });
+      }
     });
   }
 

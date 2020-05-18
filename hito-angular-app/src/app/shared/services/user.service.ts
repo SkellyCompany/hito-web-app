@@ -5,6 +5,7 @@ import { User } from '../models/data-models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { PaginationQuery } from '../models/ui-models/pagination-query.model';
+import { map, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,15 @@ export class UserService {
     // TO DO replace with actual local users functions.
     const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
     return this.paginationService.initLocalChatData(paginationQuery);
+  }
+
+  isUsernameAvailable(username: string): Observable<boolean> {
+    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref =>
+    ref.orderBy('username').startAt(username).endAt(username)).valueChanges().pipe(first(), map(doc => {
+      if (doc.length === 0) {
+        return true;
+      }
+      return false;
+    }));
   }
 }
