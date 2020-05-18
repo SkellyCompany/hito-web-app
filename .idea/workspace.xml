@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44dcb7b5-ad81-4124-a664-3dc9e052728f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat/chat.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat/chat.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat-list/chat-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat-list/chat-list.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/shared/models/converters/chat-list-item.converter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/shared/models/converters/chat-list-item.converter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/shared/models/ui-models/chat-list-item.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/shared/models/ui-models/chat-list-item.model.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
