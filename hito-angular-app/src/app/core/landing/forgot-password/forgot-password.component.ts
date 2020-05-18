@@ -1,4 +1,4 @@
-import { ResetPasswordInput } from '../../../shared/models/ui-models/input-models/reset-password-input.model';
+import { ResetPasswordDTO } from '../../../shared/models/dtos/reset-password-dto.model';
 import { ResetPassword } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  forgotPassword(forgotPasswordInput: ResetPasswordInput) {
+  forgotPassword(forgotPasswordInput: ResetPasswordDTO) {
     this.hasSubmittedForm = true;
     this.validateForm();
     if (this.forgotPasswordForm.valid) {

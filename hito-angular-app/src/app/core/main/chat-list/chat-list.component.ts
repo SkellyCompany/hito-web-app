@@ -24,11 +24,8 @@ export class ChatListComponent implements OnInit {
   searchedChatListItems$: Observable<ChatListItem[]>;
   @Select(ChatListState.loadedChatListItems)
   loadedChatListItems$: Observable<ChatListItem[]>;
-  @Select(ChatListState.chatListMode)
-  chatListMode$: Observable<ChatListMode>;
 
   loggedInUser: User;
-  chatListMode: ChatListMode;
   chatListItems: Observable<ChatListItem[]>;
   selectedChatListItem: ChatListItem;
 
@@ -39,9 +36,6 @@ export class ChatListComponent implements OnInit {
   constructor(private store: Store) {
     this.loggedInUser$.subscribe(loggedInUser => {
       this.loggedInUser = loggedInUser;
-    });
-    this.chatListMode$.subscribe(chatListMode => {
-      this.chatListMode = chatListMode;
     });
     this.chatListItems = this.loadedChatListItems$;
   }
@@ -58,9 +52,9 @@ export class ChatListComponent implements OnInit {
   }
 
   searchChatListItems() {
-    const name = this.searchForm.get('name').value;
-    if (name !== '') {
-      this.store.dispatch(new FindChatListItems(this.loggedInUser.username, name)).subscribe(() => {
+    const searchInput = this.searchForm.get('name').value;
+    if (searchInput !== '') {
+      this.store.dispatch(new FindChatListItems(this.loggedInUser.username, searchInput)).subscribe(() => {
         this.chatListItems = this.searchedChatListItems$;
       });
     } else {

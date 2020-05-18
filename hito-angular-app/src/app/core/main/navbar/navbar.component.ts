@@ -4,7 +4,6 @@ import { AuthState } from './../../../shared/state-management/auth.state';
 import { Logout } from './../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { LoadHistoryData, LoadLocalUsersData } from 'src/app/shared/state-management/chat-list.action';
 import { Observable } from 'rxjs';
 import { ChatListMode } from 'src/app/shared/global-enums/chat-list-mode.enum';
 
@@ -45,7 +44,9 @@ export class NavbarComponent implements OnInit {
   }
 
   onActionClick(action: ChatListMode) {
-    this.activeMode = action;
-    this.store.dispatch(new SetChatListMode(action, this.loggedInUser.username));
+    if (action !== this.activeMode) {
+      this.activeMode = action;
+      this.store.dispatch(new SetChatListMode(action, this.loggedInUser.username));
+    }
   }
 }

@@ -1,6 +1,6 @@
-import { CreateAccountInput } from '../models/ui-models/input-models/create-account-input.model';
-import { ResetPasswordInput } from '../models/ui-models/input-models/reset-password-input.model';
-import { LoginInput } from '../models/ui-models/input-models/login-input.model';
+import { CreateAccountDTO } from '../models/dtos/create-account-dto.model';
+import { ResetPasswordDTO } from '../models/dtos/reset-password-dto.model';
+import { LoginDTO } from '../models/dtos/login-dto.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth) { }
 
-  createUser(createAccountInput: CreateAccountInput): Promise<firebase.auth.UserCredential> {
+  createUser(createAccountInput: CreateAccountDTO): Promise<firebase.auth.UserCredential> {
     return this.angularFireAuth.createUserWithEmailAndPassword(createAccountInput.email , createAccountInput.password)
       .catch(error => {
         const errorMessage = this.getCreateAccountErrorMessage(error.code);
@@ -20,7 +20,7 @@ export class AuthService {
     });
   }
 
-  login(loginInput: LoginInput): Promise<firebase.auth.UserCredential> {
+  login(loginInput: LoginDTO): Promise<firebase.auth.UserCredential> {
     return this.angularFireAuth.signInWithEmailAndPassword(loginInput.email, loginInput.password)
     .catch(error => {
       const errorMessage = this.getLoginErrorMessage(error.code);
@@ -35,7 +35,7 @@ export class AuthService {
     });
   }
 
-  resetPassword(forgotPasswordInput: ResetPasswordInput): Promise<void> {
+  resetPassword(forgotPasswordInput: ResetPasswordDTO): Promise<void> {
     return this.angularFireAuth.sendPasswordResetEmail(forgotPasswordInput.email)
     .catch(error => {
       const errorMessage = this.getResetPasswordErrorMessage(error.code);

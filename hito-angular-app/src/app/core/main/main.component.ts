@@ -7,13 +7,16 @@ import {AfterViewInit, Component, ElementRef} from '@angular/core';
 })
 export class MainComponent implements AfterViewInit {
 
-  private readonly BODY_COLOR = "#121215"
+  private readonly BODY_COLOR = '#121215';
 
   constructor(private elementRef: ElementRef) {
-
   }
 
   ngAfterViewInit() {
+    this.updateBodyColor();
+  }
+
+  private updateBodyColor() {
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = this.BODY_COLOR;
   }
 

@@ -3,7 +3,7 @@ import { ErrorOccurred } from './error.action';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { CreateUser, Login, ResetPassword, Logout } from './auth.action';
+import { Login, ResetPassword, Logout, CreateAccountAndLogin } from './auth.action';
 import { User } from '../models/data-models/user.model';
 import { Router } from '@angular/router';
 import { routingConstants } from '../constants';
@@ -29,8 +29,8 @@ export class AuthState {
     return state.loggedInUser;
   }
 
-  @Action(CreateUser)
-  createUser({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateUser) {
+  @Action(CreateAccountAndLogin)
+  createAccountAndLogin({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateAccountAndLogin) {
     return this.authService.createUser(payload).then(userCredential => {
       const user: User = {
         uid: userCredential.user.uid,

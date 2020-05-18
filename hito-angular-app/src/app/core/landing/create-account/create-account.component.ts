@@ -1,10 +1,10 @@
-import { CreateAccountInput } from '../../../shared/models/ui-models/input-models/create-account-input.model';
+import { CreateAccountDTO } from '../../../shared/models/dtos/create-account-dto.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CreateUser } from 'src/app/shared/state-management/auth.action';
+import { CreateAccountAndLogin } from 'src/app/shared/state-management/auth.action';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
-import { routingConstants, validationConstants } from 'src/app/shared/constants';
+import { validationConstants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-create-account',
@@ -28,7 +28,7 @@ export class CreateAccountComponent implements OnInit {
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-6])[A-Za-z\d$@$!%*?&].{8,}')
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=\\S+$).{8,}')
     ])
   }, { updateOn: 'submit' }
   );
@@ -38,13 +38,11 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createUser(createAccountInput: CreateAccountInput) {
+  createUser(createAccountInput: CreateAccountDTO) {
     this.hasSubmittedForm = true;
     this.validateForm();
     if (this.createAccountForm.valid) {
-      this.store.dispatch(new CreateUser(createAccountInput)).subscribe(user => {
-        // Refactor add route change here
-      });
+      this.store.dispatch(new CreateAccountAndLogin(createAccountInput));
     }
   }
 
