@@ -1,3 +1,4 @@
+import { PaginationService } from './pagination.service';
 import { Conversation } from '../models/data-models/conversation.model';
 import { Observable } from 'rxjs';
 import { firestoreCollectionsConstants } from './../constants';
@@ -5,15 +6,18 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Message } from '../models/data-models/message.model';
 import { map } from 'rxjs/operators';
+import { PaginationQuery } from '../models/ui-models/pagination-query.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConversationService {
 
-  constructor(private angularFirestore: AngularFirestore) { }
+  constructor(private angularFirestore: AngularFirestore, private paginationService: PaginationService) { }
 
   getUsersConversations(username: string): Observable<Conversation[]> {
+    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.conversations, field: 'id'};
+    return this.paginationService.initLocalChatData(paginationQuery);
     return this.angularFirestore.collection<Conversation>(firestoreCollectionsConstants.conversations,
       ref => ref.where('users', 'array-contains', username)).valueChanges();
   }

@@ -10,27 +10,28 @@ import { tap, scan, take } from 'rxjs/operators';
 })
 export class PaginationService {
 
-  private _done = new BehaviorSubject(false);
   private _data = new BehaviorSubject([]);
 
   query: PaginationQuery;
-  data: Observable<any>;
-  done: Observable<boolean> = this._done.asObservable();
+  done: boolean;
+
+  // Not used yet
+  data: any[];
 
   constructor(private angularFirestore: AngularFirestore) { }
 
   initLocalChatData(paginationQuery: PaginationQuery): Observable<any> {
     this._data.next([]);
+    this.data = [];
     this.query = paginationQuery;
     const initialData = this.angularFirestore.collection(this.query.path, ref => ref.orderBy(this.query.field).limit(12));
     this.updateData(initialData);
-
-    return this.data = this._data.asObservable()
+    return this._data.asObservable()
       .pipe(scan((acc, val) => acc.concat(val)));
   }
 
   private updateData(col: AngularFirestoreCollection<any>) {
-    if (!this._done.value) {
+    if (!this.done) {
       return col.snapshotChanges().pipe(
         tap(arr => {
           const values = arr.map(snap => {
@@ -39,18 +40,19 @@ export class PaginationService {
             return { ...data, doc };
           });
 
+          this.data = values;
           this._data.next(values);
 
           if (!values.length) {
-            this._done.next(true);
+            this.done = true;
           }
         })
-      ).pipe(take(1)).subscribe();
+      ).pipe(take(2)).subscribe();
     }
   }
 
   private getLastPaginatedItem() {
-    const current = this._data.value;
+    const current = this.data;
     if (current.length) {
       return current[current.length - 1].doc;
     }

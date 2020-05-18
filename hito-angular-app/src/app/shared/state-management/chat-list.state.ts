@@ -84,8 +84,7 @@ export class ChatListState {
   }
 
   private getLocalChatList(username: string): Observable<ChatListItem[]> {
-    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
-    return this.paginationService.initLocalChatData(paginationQuery).pipe(map(users => {
+    return this.userService.getLocalUsers().pipe(map(users => {
       return ChatListItemConverter.convertUsers(username, users);
     }));
     // this.userService.getLocalUsers().subscribe(users => {
@@ -95,8 +94,7 @@ export class ChatListState {
   }
 
   private getHistoryChatList(username: string): Observable<ChatListItem[]> {
-    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.conversations, field: 'id'};
-    return this.paginationService.initLocalChatData(paginationQuery).pipe(map(conversations => {
+    return this.conversationService.getUsersConversations(username).pipe(map(conversations => {
       return ChatListItemConverter.convertConversations(username, conversations);
     }));
     // this.conversationService.getUsersConversations(payload).subscribe(conversations => {
