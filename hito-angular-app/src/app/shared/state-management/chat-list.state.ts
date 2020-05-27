@@ -1,10 +1,8 @@
 import { ChatListItemConverter } from './../models/converters/chat-list-item.converter';
-import { firestoreCollectionsConstants } from './../constants';
-import { PaginationQuery } from './../models/ui-models/pagination-query.model';
 import { UserService } from '../services/user.service';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { FindChatListItems, LoadNextPage, SetChatListMode } from './chat-list.action';
+import { LoadNextPage, SetChatListMode } from './chat-list.action';
 import { ConversationService } from '../services/conversation.service';
 import { ChatListItem } from '../models/ui-models/chat-list-item.model';
 import { ChatListMode } from '../global-enums/chat-list-mode.enum';
@@ -13,7 +11,6 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export class ChatListStateModel {
-  searchedChatListItems: ChatListItem[];
   loadedChatListItems: ChatListItem[];
   chatListMode: ChatListMode;
 }
@@ -21,7 +18,6 @@ export class ChatListStateModel {
 @State<ChatListStateModel>({
   name: 'chatList',
   defaults: {
-    searchedChatListItems: undefined,
     loadedChatListItems: undefined,
     chatListMode: undefined
    }
@@ -35,11 +31,6 @@ export class ChatListState {
 
   constructor(private paginationService: PaginationService,
               private userService: UserService, private conversationService: ConversationService) {}
-
-  @Selector()
-  static searchedChatListItems(state: ChatListStateModel) {
-    return state.searchedChatListItems;
-  }
 
   @Selector()
   static loadedChatListItems(state: ChatListStateModel) {
@@ -101,23 +92,5 @@ export class ChatListState {
     //   const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
     //   setState({...getState(), loadedChatListItems: chatListItems});
     // });
-  }
-
-  @Action(FindChatListItems)
-  FindChatListItems({ getState, setState }: StateContext<ChatListStateModel>, {payload, searchedUser}: FindChatListItems) {
-    // if (getState().chatListMode === ChatListMode.LOCAL_GROUPS) {
-        // Call findGroups function
-    // }
-    if (getState().chatListMode === ChatListMode.LOCAL_USERS) {
-      this.userService.findUsers(searchedUser).subscribe(users => {
-        const chatListItems = ChatListItemConverter.convertUsers(payload, users);
-        setState({...getState(), searchedChatListItems: chatListItems});
-      });
-    } else {
-      this.conversationService.findConversations(searchedUser).subscribe(conversations => {
-        const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
-        setState({...getState(), searchedChatListItems: chatListItems});
-      });
-    }
   }
 }

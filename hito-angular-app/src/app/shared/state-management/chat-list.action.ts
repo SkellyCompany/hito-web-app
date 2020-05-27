@@ -1,11 +1,5 @@
 import { ChatListMode } from '../global-enums/chat-list-mode.enum';
 
-export class FindChatListItems {
-  static readonly type = '[Chat-List] Find Chat List Items';
-
-  constructor(public payload: string, public searchedUser) {}
-}
-
 export class LoadNextPage {
   static readonly type = '[Chat-List] Load Next Page';
 
