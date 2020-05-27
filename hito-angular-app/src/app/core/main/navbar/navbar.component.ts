@@ -1,16 +1,11 @@
+import { SetChatListMode } from './../../../shared/state-management/chat-list.action';
 import { User } from '../../../shared/models/data-models/user.model';
 import { AuthState } from './../../../shared/state-management/auth.state';
 import { Logout } from './../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { LoadHistoryData, LoadLocalUsersData } from 'src/app/shared/state-management/chat-list.action';
 import { Observable } from 'rxjs';
-
-enum NavbarAction {
-  LOCAL_GROUPS = 0,
-  LOCAL_USERS = 1,
-  HISTORY = 2
-}
+import { ChatListMode } from 'src/app/shared/global-enums/chat-list-mode.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -22,13 +17,13 @@ export class NavbarComponent implements OnInit {
   @Select(AuthState.loggedInUser)
   loggedInUser$: Observable<User>;
 
-  readonly LOCAL_GROUPS_ACTION: NavbarAction = NavbarAction.LOCAL_GROUPS;
-  readonly LOCAL_USERS_ACTION: NavbarAction = NavbarAction.LOCAL_USERS;
-  readonly HISTORY_ACTION: NavbarAction = NavbarAction.HISTORY;
+  readonly LOCAL_GROUPS_MODE: ChatListMode = ChatListMode.LOCAL_GROUPS;
+  readonly LOCAL_USERS_MODE: ChatListMode = ChatListMode.LOCAL_USERS;
+  readonly HISTORY_MODE: ChatListMode = ChatListMode.HISTORY;
 
   loggedInUser: User;
   profilePopupShown = false;
-  activeAction: NavbarAction;
+  activeMode: ChatListMode;
 
   constructor(private store: Store) {
     this.loggedInUser$.subscribe(loggedInUser => {
@@ -37,7 +32,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onActionClick(NavbarAction.LOCAL_USERS);
+    this.onActionClick(ChatListMode.LOCAL_USERS);
   }
 
   toggleProfilePopup() {
@@ -48,14 +43,10 @@ export class NavbarComponent implements OnInit {
     this.store.dispatch(new Logout());
   }
 
-  onActionClick(action: NavbarAction) {
-    this.activeAction = action;
-    // if (action === this.GROUP_CHAT_ACTION) {
-    //   this.store.dispatch(new InitLocalChatData());
-    if (action === this.LOCAL_USERS_ACTION) {
-      this.store.dispatch(new LoadLocalUsersData(this.loggedInUser.username));
-    } else {
-      this.store.dispatch(new LoadHistoryData(this.loggedInUser.username));
+  onActionClick(action: ChatListMode) {
+    if (action !== this.activeMode) {
+      this.activeMode = action;
+      this.store.dispatch(new SetChatListMode(action, this.loggedInUser.username));
     }
   }
 }

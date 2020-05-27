@@ -1,8 +1,11 @@
+import { PaginationService } from './pagination.service';
 import { firestoreCollectionsConstants } from './../constants';
 import { Injectable } from '@angular/core';
 import { User } from '../models/data-models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { PaginationQuery } from '../models/ui-models/pagination-query.model';
+import { map, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,7 @@ import { Observable, throwError } from 'rxjs';
 
 export class UserService {
 
-  constructor(private angularFirestore: AngularFirestore) { }
+  constructor(private angularFirestore: AngularFirestore, private paginationService: PaginationService) { }
 
   createUser(user: User) {
     return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users).doc(user.uid).set(user);
@@ -20,13 +23,24 @@ export class UserService {
     return this.angularFirestore.collection(firestoreCollectionsConstants.users).doc<User>(uid).valueChanges();
   }
 
-  findUser(username: string): Observable<User[]> {
+  findUsers(username: string): Observable<User[]> {
     return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref =>
     ref.orderBy('username').startAt(username).endAt(username + '\uf8ff')).valueChanges();
   }
 
   getLocalUsers(): Observable<User[]> {
-    // TO DO replace random with actual local users functions.
-    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users).valueChanges();
+    // TO DO replace with actual local users functions.
+    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
+    return this.paginationService.initLocalChatData(paginationQuery);
+  }
+
+  isUsernameAvailable(username: string): Observable<boolean> {
+    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref =>
+    ref.orderBy('username').startAt(username).endAt(username)).valueChanges().pipe(first(), map(doc => {
+      if (doc.length === 0) {
+        return true;
+      }
+      return false;
+    }));
   }
 }

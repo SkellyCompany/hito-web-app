@@ -323,8 +323,8 @@ $color-error: #ff0033;
   }
 
   .picture-cog-main-popup {
-    transform: scale(1) translate(-15px, 29px) rotate(-180deg);
-    visibility: hidden;
+    transform: scale(1) translate(-15.5px, 29px) rotate(-180deg);
+    visibility: visible;
     animation: hide 0.3s;
   }
 

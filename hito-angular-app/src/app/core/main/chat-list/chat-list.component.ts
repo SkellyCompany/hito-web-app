@@ -1,6 +1,6 @@
 import { LoadChatConversation } from './../../../shared/state-management/chat-conversation.action';
 import { ChatListState } from '../../../shared/state-management/chat-list.state';
-import { FindChatListItems } from '../../../shared/state-management/chat-list.action';
+import { FindChatListItems, LoadNextPage } from '../../../shared/state-management/chat-list.action';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -8,6 +8,7 @@ import { Store, Select } from '@ngxs/store';
 import { ChatListItem } from 'src/app/shared/models/ui-models/chat-list-item.model';
 import { AuthState } from 'src/app/shared/state-management/auth.state';
 import { User } from 'src/app/shared/models/data-models/user.model';
+import { ChatListMode } from 'src/app/shared/global-enums/chat-list-mode.enum';
 
 @Component({
   selector: 'app-chat-list',
@@ -43,22 +44,22 @@ export class ChatListComponent implements OnInit {
   }
 
   scrollHandler(e: string) {
-    // if (e === 'bottom') {
-    //   this.store.dispatch(new LoadNextPage()).subscribe(() => {
-    //     this.chatListItems = this.loadedChatListItems$;
-    //   });
-    // }
+    if (e === 'bottom') {
+      this.store.dispatch(new LoadNextPage()).subscribe(() => {
+        this.chatListItems = this.loadedChatListItems$;
+      });
+    }
   }
 
   searchChatListItems() {
-  //   const name = this.searchForm.get('name').value;
-  //   if (name !== '') {
-  //     this.store.dispatch(new FindChatListItems(name)).subscribe(() => {
-  //       this.chatListItems = this.searchedChatListItems$;
-  //     });
-  //   } else {
-  //     this.chatListItems = this.loadedChatListItems$;
-  //   }
+    const searchInput = this.searchForm.get('name').value;
+    if (searchInput !== '') {
+      this.store.dispatch(new FindChatListItems(this.loggedInUser.username, searchInput)).subscribe(() => {
+        this.chatListItems = this.searchedChatListItems$;
+      });
+    } else {
+      this.chatListItems = this.loadedChatListItems$;
+    }
   }
 
   onSelect(chatListItem: ChatListItem) {

@@ -1,4 +1,4 @@
 export interface ChatListItem {
-  name: string;
+  displayName: string;
   conversationId: string;
 }

@@ -1,3 +1,4 @@
+import { PaginationService } from './pagination.service';
 import { Conversation } from '../models/data-models/conversation.model';
 import { Observable } from 'rxjs';
 import { firestoreCollectionsConstants } from './../constants';
@@ -5,17 +6,18 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Message } from '../models/data-models/message.model';
 import { map } from 'rxjs/operators';
+import { PaginationQuery } from '../models/ui-models/pagination-query.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConversationService {
 
-  constructor(private angularFirestore: AngularFirestore) { }
+  constructor(private angularFirestore: AngularFirestore, private paginationService: PaginationService) { }
 
   getUsersConversations(username: string): Observable<Conversation[]> {
-    return this.angularFirestore.collection<Conversation>(firestoreCollectionsConstants.conversations,
-      ref => ref.where('users', 'array-contains', username)).valueChanges();
+    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.conversations, field: 'id'};
+    return this.paginationService.initLocalChatData(paginationQuery);
   }
 
   getConversation(id: string): Observable<Conversation> {
@@ -45,5 +47,11 @@ export class ConversationService {
     this.angularFirestore.collection(firestoreCollectionsConstants.conversations)
     .doc(conversationId).collection<Message>(firestoreCollectionsConstants.conversationMessages)
     .add(message);
+  }
+
+  findConversations(user: string): Observable<Conversation[]> {
+    // TO DO Improve to check if users array starts with the user rather than if it contains the whole user string
+    return this.angularFirestore.collection<Conversation>(firestoreCollectionsConstants.conversations, ref =>
+    ref.orderBy('users', 'desc').where('users', 'array-contains', user)).valueChanges();
   }
 }

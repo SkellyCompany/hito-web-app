@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="44dcb7b5-ad81-4124-a664-3dc9e052728f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat/chat.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/chat/chat.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/hito-angular-app/src/app/core/main/navbar/navbar.component.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +59,10 @@
       <workItem from="1588949183146" duration="91000" />
       <workItem from="1588949299464" duration="17084000" />
       <workItem from="1589109173950" duration="3642000" />
+      <workItem from="1589980753561" duration="239000" />
+      <workItem from="1589988961141" duration="56000" />
+      <workItem from="1589992564921" duration="12000" />
+      <workItem from="1589993281347" duration="333000" />
     </task>
     <servers />
   </component>

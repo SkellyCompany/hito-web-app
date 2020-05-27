@@ -1,9 +1,10 @@
-import { validationConstants } from './../../../shared/constants';
+import { validationConstants, routingConstants } from './../../../shared/constants';
 import { Login } from '../../../shared/state-management/auth.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginInput } from 'src/app/shared/models/ui-models/input-models/login-input.model';
+import { LoginDTO } from 'src/app/shared/models/dtos/login-dto.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,18 +28,16 @@ export class LoginComponent implements OnInit {
   }, { updateOn: 'submit' }
   );
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  login(loginInput: LoginInput) {
+  login(loginInput: LoginDTO) {
     this.hasSubmittedForm = true;
     this.validateForm();
     if (this.loginForm.valid) {
-      this.store.dispatch(new Login(loginInput)).subscribe(() => {
-        // Refactor add route change here
-      });
+      this.store.dispatch(new Login(loginInput));
     }
   }
 

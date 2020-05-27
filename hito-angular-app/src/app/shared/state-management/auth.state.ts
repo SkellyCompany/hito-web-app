@@ -3,7 +3,7 @@ import { ErrorOccurred } from './error.action';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { CreateUser, Login, ResetPassword, Logout } from './auth.action';
+import { Login, ResetPassword, Logout, CreateAccountAndLogin } from './auth.action';
 import { User } from '../models/data-models/user.model';
 import { Router } from '@angular/router';
 import { routingConstants } from '../constants';
@@ -29,22 +29,26 @@ export class AuthState {
     return state.loggedInUser;
   }
 
-  @Action(CreateUser)
-  createUser({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateUser) {
-    return this.authService.createUser(payload).then(userCredential => {
-      const user: User = {
-        uid: userCredential.user.uid,
-        username: payload.username,
-        email: userCredential.user.email
-      };
-      this.userService.createUser(user).then(() => {
-        this.userService.getUser(user.uid).subscribe(userResult => {
-          setState({...getState(), loggedInUser: userResult});
-          this.router.navigate(['/' + routingConstants.app]);
+  @Action(CreateAccountAndLogin)
+  createAccountAndLogin({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateAccountAndLogin) {
+    this.userService.isUsernameAvailable(payload.username).subscribe(available => {
+      if (available) {
+        return this.authService.createUser(payload).then(userCredential => {
+          const user: User = {
+            uid: userCredential.user.uid,
+            username: payload.username,
+            email: userCredential.user.email
+          };
+          return this.userService.createUser(user).then(() => {
+            this.userService.getUser(user.uid).subscribe(userResult => {
+              setState({...getState(), loggedInUser: userResult});
+              this.router.navigate(['/' + routingConstants.app]);
+            });
+          }).catch(error => {
+            dispatch(new ErrorOccurred(error));
+          });
         });
-      }).catch(error => {
-        dispatch(new ErrorOccurred(error));
-      });
+      }
     });
   }
 

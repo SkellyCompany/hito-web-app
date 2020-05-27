@@ -17,7 +17,7 @@ export class ChatListItemConverter {
         }
       }
       chatListItems.push( {
-        name: conversationName,
+        displayName: conversationName,
         conversationId: conversation.id
       });
     }
@@ -27,9 +27,9 @@ export class ChatListItemConverter {
   static convertUsers(username: string, users: User[]): ChatListItem[] {
     const chatListItems: ChatListItem[] = [];
     for (const user of users) {
-      if(user.username !== username) {
+      if (user.username !== username) {
         chatListItems.push({
-          name: user.username,
+          displayName: user.username,
           conversationId: undefined
         });
       }
