@@ -1,12 +1,14 @@
-import { PrivateMessage } from './../../../shared/models/data-models/private-message.model';
+import { MessageDTO } from './../../../shared/models/dtos/message-dto.model';
+import { Message } from '../../../shared/models/data-models/message';
 import { PrivateConversation } from './../../../shared/models/data-models/private-conversation.model';
 import { ChatConversationState } from './../../../shared/state-management/chat-conversation.state';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 import { AuthState } from 'src/app/shared/state-management/auth.state';
 import { User } from 'src/app/shared/models/data-models/user.model';
+import { SendMessage } from 'src/app/shared/state-management/chat-conversation.action';
 
 @Component({
   selector: 'app-chat',
@@ -56,11 +58,18 @@ export class ChatComponent implements OnInit {
 
   }
 
-  sendMessage(message: PrivateMessage) {
-    // this.messageForm.reset();
-    // message.username = this.loggedInUser.username;
-    // message.postTime = new Date();
-    // this.store.dispatch(new SendMessage(this.chatConversation.id, message));
+  sendMessage(text: string) {
+    if (text !== undefined && text.length > 0) {
+      this.messageForm.reset();
+      const interlocutorId: string = this.loggedInUser.uid;
+      const postTime = new Date();
+      const messageDTO: MessageDTO = {
+        interlocutorId: interlocutorId,
+        postTime: postTime,
+        text: text,
+      };
+      this.store.dispatch(new SendMessage(messageDTO, this.loggedInUser.uid));
+    }
   }
 
   scrollMessagesDown() {
@@ -90,7 +99,7 @@ export class ChatComponent implements OnInit {
     return time;
   }
 
-  shouldPostQuickMessage(messageIndex: number, message: PrivateMessage): boolean {
+  shouldPostQuickMessage(messageIndex: number, message: Message): boolean {
     if (messageIndex === 0) {
       return false;
     }
@@ -99,7 +108,7 @@ export class ChatComponent implements OnInit {
   }
 
   isPreviousUserSame(messageIndex: number, uid: string) {
-    const lastSentMessage: PrivateMessage = this.privateConversation.messages[messageIndex - 1];
+    const lastSentMessage: Message = this.privateConversation.messages[messageIndex - 1];
     if (lastSentMessage !== undefined && uid === lastSentMessage.sender.uid) {
       return true;
     }
@@ -107,7 +116,7 @@ export class ChatComponent implements OnInit {
   }
 
   private haveTenMinutesPassed(messageIndex: number, messagePostTime): boolean {
-    const lastSentMessage: PrivateMessage = this.privateConversation.messages[messageIndex - 1];
+    const lastSentMessage: Message = this.privateConversation.messages[messageIndex - 1];
     const deltaTimeMilliseconds: number = messagePostTime - lastSentMessage.postTime.getTime();
     const deltaTimeMinutes = deltaTimeMilliseconds / 60000;
     if (deltaTimeMinutes < 10) {

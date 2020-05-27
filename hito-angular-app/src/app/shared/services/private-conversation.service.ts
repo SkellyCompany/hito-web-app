@@ -1,3 +1,5 @@
+import { PrivateConversationDTO } from './../models/dtos/private-conversation-dto.model';
+import { MessageDTO } from './../models/dtos/message-dto.model';
 import { MessageFirestore } from './../models/firestore-models/message-firestore.model';
 import { PrivateConversationFirestore } from '../models/firestore-models/private-conversation-firestore.model';
 import { Observable } from 'rxjs';
@@ -40,5 +42,16 @@ export class PrivateConversationService {
       });
       return firestoreMessages;
     }));
+  }
+
+  insertMessage(privateConversationId: string, messageDTO: MessageDTO) {
+    this.angularFirestore.collection(firestoreCollectionsConstants.privateConversations).doc(privateConversationId)
+    .collection(firestoreCollectionsConstants.messages).add(messageDTO);
+  }
+
+  createPrivateConversation(privateConversationDTO: PrivateConversationDTO): Promise<string> {
+    return this.angularFirestore.collection(firestoreCollectionsConstants.privateConversations).add(privateConversationDTO).then(doc => {
+      return doc.id;
+    });
   }
 }

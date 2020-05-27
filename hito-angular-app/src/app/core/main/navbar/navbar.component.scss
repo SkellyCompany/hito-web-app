@@ -324,7 +324,7 @@ $color-error: #ff0033;
 
   .picture-cog-main-popup {
     transform: scale(1) translate(-15.5px, 29px) rotate(-180deg);
-    visibility: visible;
+    visibility: hidden;
     animation: hide 0.3s;
   }
 

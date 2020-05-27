@@ -1,6 +1,6 @@
 import { User } from './user.model';
 
-export interface PrivateMessage {
+export interface Message {
   sender: User;
   postTime: Date;
   text: string;

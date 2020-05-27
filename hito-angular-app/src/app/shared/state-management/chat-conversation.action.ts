@@ -1,3 +1,4 @@
+import { MessageDTO } from './../models/dtos/message-dto.model';
 export class LoadChatConversation {
   static readonly type = '[ChatConversation] Load chat conversation';
 
@@ -16,8 +17,8 @@ export class LoadInterlocutor {
   constructor(public interlocutorId: string) {}
 }
 
-// export class SendMessage {
-//   static readonly type = '[ChatConversation] Send message';
+export class SendMessage {
+  static readonly type = '[ChatConversation] Send message';
 
-//   constructor(public conversationId: string, public message: Message) {}
-// }
+  constructor(public messageDTO: MessageDTO, public loggedInUid: string) {}
+}

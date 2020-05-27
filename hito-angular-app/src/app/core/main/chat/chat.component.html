@@ -31,8 +31,8 @@
       </li>
     </ul>
   </div>
-  <form class="input-message-container" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
+  <form class="input-message-container" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.get('text').value)">
     <input class="input-message" placeholder="Send message" formControlName="text">
-    <i class="las la-paper-plane" (click)="sendMessage(messageForm.value)"></i>
+    <i class="las la-paper-plane" (click)="sendMessage(messageForm.get('text').value)"></i>
   </form>
 </div>

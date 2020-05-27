@@ -17,7 +17,6 @@ export const validationConstants = {
 
 export const firestoreCollectionsConstants = {
   users: 'users',
-  conversations: 'conversations',
   messages: 'messages',
   privateConversations: 'privateConversations'
 }
