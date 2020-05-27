@@ -1,12 +1,12 @@
 <div class="main-container">
-  <form class="search-container"[formGroup]="searchForm" (ngSubmit)="searchChatListItems()">
-    <i class="las la-search" (click)="searchChatListItems()"></i>
-    <input class="search-input" placeholder="Search people" formControlName="name">
+  <form class="search-container"[formGroup]="searchForm">
+    <i class="las la-search"></i>
+    <input class="search-input" placeholder="Search people" formControlName="filter" (ngModelChange)="searchChatListItems()">
   </form>
   <div class="chat-list-items-container">
     <h2 class="chat-list-items-header">People</h2>
-    <ul class="chat-list-items-list" appScrollable (scrollPosition)="scrollHandler($event)" *ngIf="( chatListItems | async)?.length > 0">
-      <li *ngFor="let chatListItem of chatListItems | async" (click)="onSelect(chatListItem)">
+    <ul class="chat-list-items-list" appScrollable (scrollPosition)="scrollHandler($event)" *ngIf="chatListItems.length > 0">
+      <li *ngFor="let chatListItem of filteredChatListItems" (click)="onSelect(chatListItem)">
         <span>
           <div class="chat-list-item-selection" [ngClass]="chatListItem === selectedChatListItem ? 'chat-list-item-selection-active' : '' ">
             <div class="chat-list-item-selection-inner">
@@ -21,7 +21,7 @@
         </span>
       </li>
     </ul>
-    <div class="loading-container" *ngIf="( chatListItems | async)?.length <= 0">
+    <div class="loading-container" *ngIf="chatListItems.length <= 0">
       <app-loading></app-loading>
     </div>
   </div>

@@ -48,10 +48,4 @@ export class ConversationService {
     .doc(conversationId).collection<Message>(firestoreCollectionsConstants.conversationMessages)
     .add(message);
   }
-
-  findConversations(user: string): Observable<Conversation[]> {
-    // TO DO Improve to check if users array starts with the user rather than if it contains the whole user string
-    return this.angularFirestore.collection<Conversation>(firestoreCollectionsConstants.conversations, ref =>
-    ref.orderBy('users', 'desc').where('users', 'array-contains', user)).valueChanges();
-  }
 }

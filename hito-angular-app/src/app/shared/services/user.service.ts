@@ -23,11 +23,6 @@ export class UserService {
     return this.angularFirestore.collection(firestoreCollectionsConstants.users).doc<User>(uid).valueChanges();
   }
 
-  findUsers(username: string): Observable<User[]> {
-    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref =>
-    ref.orderBy('username').startAt(username).endAt(username + '\uf8ff')).valueChanges();
-  }
-
   getLocalUsers(): Observable<User[]> {
     // TO DO replace with actual local users functions.
     const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
