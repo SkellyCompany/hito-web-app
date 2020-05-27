@@ -1,23 +1,23 @@
-<div class="main-container" *ngIf="chatConversation" >
+<div class="main-container" *ngIf="interlocutor">
   <div class="topbar-container">
     <div class="profile-container">
       <img class="profile-picture" src="assets/images/default-user-profile.png">
-      <h2 class="profile-name">{{chatConversation.name}}</h2>
+      <h2 class="profile-name">{{interlocutor.username}}</h2>
     </div>
     <div class="options-container">
       <i class="las la-ellipsis-h"></i>
     </div>
   </div>
   <div class="chat-container">
-    <ul id="chat-container" class="chat-list" >
-      <li *ngFor="let message of chatConversation.messages; let i = index" >
+    <ul id="chat-container" class="chat-list"  *ngIf="privateConversation" >
+      <li *ngFor="let message of privateConversation.messages; let i = index" >
         <div class="full-message-container" *ngIf="!shouldPostQuickMessage(i, message)">
           <div class="message-profile-container">
             <img class ="message-profile" src="assets/images/default-user-profile.png">
           </div>
           <div class="message-data-container">
             <div class="message-header-container">
-              <span class="username">{{message.username}}</span>
+              <span class="username">{{message.sender.username}}</span>
               <span class="post-time">{{convertMessagePostTime(message.postTime)}}</span>
             </div>
             <div>

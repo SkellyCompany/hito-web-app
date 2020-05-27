@@ -1,6 +1,6 @@
 import { LoadLocalUsers } from './../../../shared/state-management/chat-list.action';
 import { ChatListMode } from './../../../shared/global-enums/chat-list-mode.enum';
-import { LoadChatConversation } from './../../../shared/state-management/chat-conversation.action';
+import { LoadPrivateConversation, LoadInterlocutor } from './../../../shared/state-management/chat-conversation.action';
 import { ChatListState } from '../../../shared/state-management/chat-list.state';
 import { LoadNextPage } from '../../../shared/state-management/chat-list.action';
 import { Observable, Subscription } from 'rxjs';
@@ -23,14 +23,18 @@ export class ChatListComponent implements OnInit {
   loggedInUser$: Observable<User>;
   @Select(ChatListState.localUsers)
   localUsers$: Observable<User[]>;
+
   @Select(ChatListState.chatListMode)
   chatListMode$: Observable<ChatListMode>;
+
 
   loggedInUser: User;
   chatListItems: ChatListItem[];
   filteredChatListItems: ChatListItem[];
   selectedChatListItem: ChatListItem;
+  chatListMode: ChatListMode;
 
+  localUsers: User[];
   localUsersSubscription: Subscription;
 
   searchForm = new FormGroup({
@@ -44,32 +48,38 @@ export class ChatListComponent implements OnInit {
     });
 
     this.chatListMode$.subscribe(chatListMode => {
-      if (chatListMode !== undefined) {
+      this.chatListMode = chatListMode;
+      if (this.chatListMode !== undefined) {
         this.removeChatListSubscription();
-        switch (chatListMode) {
-          case ChatListMode.LOCAL_USERS: {
-            this.loadLocalUsers();
-            break;
-          }
-          case ChatListMode.HISTORY: {
-            this.chatListItems = [];
-            this.filteredChatListItems = [];
-            break;
-          }
-          case ChatListMode.LOCAL_GROUPS: {
-            this.chatListItems = [];
-            this.filteredChatListItems = [];
-            break;
-          }
-        }
+        this.setChatList();
       }
     });
+  }
+
+  private setChatList() {
+    switch (this.chatListMode) {
+      case ChatListMode.LOCAL_USERS: {
+        this.loadLocalUsers();
+        break;
+      }
+      case ChatListMode.HISTORY: {
+        this.chatListItems = [];
+        this.filteredChatListItems = [];
+        break;
+      }
+      case ChatListMode.LOCAL_GROUPS: {
+        this.chatListItems = [];
+        this.filteredChatListItems = [];
+        break;
+      }
+    }
   }
 
   private removeChatListSubscription() {
     if (this.localUsersSubscription !== undefined) {
       this.localUsersSubscription.unsubscribe();
       this.localUsersSubscription = undefined;
+      this.localUsers = undefined;
     }
     // TODO Remove history and group observer when they will be implemented.
   }
@@ -77,6 +87,7 @@ export class ChatListComponent implements OnInit {
   private loadLocalUsers() {
     this.localUsersSubscription = this.localUsers$.subscribe(localUsers => {
       if (localUsers !== undefined) {
+        this.localUsers = localUsers;
         this.chatListItems = ChatListItemConverter.convertUsers(localUsers);
         const searchInput = this.searchForm.get('filter').value;
         this.filteredChatListItems = this.filterChatListItems(this.chatListItems, searchInput);
@@ -117,7 +128,25 @@ export class ChatListComponent implements OnInit {
   }
 
   onSelect(chatListItem: ChatListItem) {
-    this.selectedChatListItem = chatListItem;
-    this.store.dispatch(new LoadChatConversation(this.loggedInUser.username, chatListItem.conversationId));
+    const chatListItemIndex: number = this.chatListItems.indexOf(chatListItem);
+    this.selectedChatListItem = this.chatListItems[chatListItemIndex];
+
+    switch (this.chatListMode) {
+      case ChatListMode.LOCAL_USERS: {
+        const interlocutorId: string = this.localUsers[chatListItemIndex].uid;
+        const loggedInUid: string = this.loggedInUser.uid;
+        this.store.dispatch(new LoadInterlocutor(interlocutorId));
+        this.store.dispatch(new LoadPrivateConversation(interlocutorId, loggedInUid));
+        break;
+      }
+      case ChatListMode.HISTORY: {
+        // TODO Load history conversation.
+        break;
+      }
+      case ChatListMode.LOCAL_GROUPS: {
+        // TODO Load group conversation.
+        break;
+      }
+    }
   }
 }

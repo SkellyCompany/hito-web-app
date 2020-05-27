@@ -5,13 +5,13 @@ import { LoginDTO } from '../models/dtos/login-dto.model';
 export class CreateAccountAndLogin {
   static readonly type = '[AuthUser] Create Account And Login';
 
-  constructor(public payload: CreateAccountDTO) {}
+  constructor(public createAccountDTO: CreateAccountDTO) {}
 }
 
 export class Login {
   static readonly type = '[AuthUser] Login';
 
-  constructor(public payload: LoginDTO) {}
+  constructor(public loginDTO: LoginDTO) {}
 }
 
 export class Logout {
@@ -23,5 +23,5 @@ export class Logout {
 export class ResetPassword {
   static readonly type = '[AuthUser] Reset Password';
 
-  constructor(public payload: ResetPasswordDTO) {}
+  constructor(public resetPasswordDTO: ResetPasswordDTO) {}
 }

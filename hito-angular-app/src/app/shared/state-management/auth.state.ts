@@ -30,13 +30,13 @@ export class AuthState {
   }
 
   @Action(CreateAccountAndLogin)
-  createAccountAndLogin({getState, setState, dispatch}: StateContext<AuthStateModel>, {payload}: CreateAccountAndLogin) {
-    this.userService.isUsernameAvailable(payload.username).subscribe(available => {
+  createAccountAndLogin({getState, setState, dispatch}: StateContext<AuthStateModel>, {createAccountDTO}: CreateAccountAndLogin) {
+    this.userService.isUsernameAvailable(createAccountDTO.username).subscribe(available => {
       if (available) {
-        return this.authService.createUser(payload).then(userCredential => {
+        return this.authService.createUser(createAccountDTO).then(userCredential => {
           const user: User = {
             uid: userCredential.user.uid,
-            username: payload.username,
+            username: createAccountDTO.username,
             email: userCredential.user.email
           };
           return this.userService.createUser(user).then(() => {
@@ -53,8 +53,8 @@ export class AuthState {
   }
 
   @Action(Login)
-  login({getState, setState, dispatch }: StateContext<AuthStateModel>, {payload}: Login) {
-    return this.authService.login(payload).then(userCredential => {
+  login({getState, setState, dispatch }: StateContext<AuthStateModel>, {loginDTO}: Login) {
+    return this.authService.login(loginDTO).then(userCredential => {
       this.userService.getUser(userCredential.user.uid).subscribe(userResult => {
         setState({...getState(), loggedInUser: userResult});
         this.router.navigate(['/' + routingConstants.app]);
@@ -76,8 +76,8 @@ export class AuthState {
   }
 
   @Action(ResetPassword)
-  resetPassword({dispatch}: StateContext<AuthStateModel>, {payload}: ResetPassword) {
-    this.authService.resetPassword(payload).catch(error => {
+  resetPassword({dispatch}: StateContext<AuthStateModel>, {resetPasswordDTO}: ResetPassword) {
+    this.authService.resetPassword(resetPasswordDTO).catch(error => {
       dispatch(new ErrorOccurred(error));
       throw new Error(error);
     });
