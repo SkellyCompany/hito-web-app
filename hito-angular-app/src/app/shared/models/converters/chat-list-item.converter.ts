@@ -24,15 +24,13 @@ export class ChatListItemConverter {
     return chatListItems;
   }
 
-  static convertUsers(username: string, users: User[]): ChatListItem[] {
+  static convertUsers(users: User[]): ChatListItem[] {
     const chatListItems: ChatListItem[] = [];
     for (const user of users) {
-      if (user.username !== username) {
-        chatListItems.push({
-          displayName: user.username,
-          conversationId: undefined
-        });
-      }
+      chatListItems.push({
+        displayName: user.username,
+        conversationId: undefined
+      });
     }
     return chatListItems;
   }

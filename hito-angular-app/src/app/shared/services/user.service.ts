@@ -23,10 +23,18 @@ export class UserService {
     return this.angularFirestore.collection(firestoreCollectionsConstants.users).doc<User>(uid).valueChanges();
   }
 
-  getLocalUsers(): Observable<User[]> {
-    // TO DO replace with actual local users functions.
-    const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
-    return this.paginationService.initLocalChatData(paginationQuery);
+  getLocalUsers(loggedInUid: string): Observable<User[]> {
+    // const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
+    // return this.paginationService.initLocalChatData(paginationQuery).pipe(map(users => {
+    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users).valueChanges().pipe(map(users => {
+      const localUsers: User[] = [];
+      for (const user of users) {
+        if (user.uid !== loggedInUid) {
+          localUsers.push(user);
+        }
+      }
+      return localUsers;
+    }));
   }
 
   isUsernameAvailable(username: string): Observable<boolean> {

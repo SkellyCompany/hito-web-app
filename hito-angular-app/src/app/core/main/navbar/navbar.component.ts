@@ -14,9 +14,6 @@ import { ChatListMode } from 'src/app/shared/global-enums/chat-list-mode.enum';
 })
 export class NavbarComponent implements OnInit {
 
-  @Select(AuthState.loggedInUser)
-  loggedInUser$: Observable<User>;
-
   readonly LOCAL_GROUPS_MODE: ChatListMode = ChatListMode.LOCAL_GROUPS;
   readonly LOCAL_USERS_MODE: ChatListMode = ChatListMode.LOCAL_USERS;
   readonly HISTORY_MODE: ChatListMode = ChatListMode.HISTORY;
@@ -25,11 +22,7 @@ export class NavbarComponent implements OnInit {
   profilePopupShown = false;
   activeMode: ChatListMode;
 
-  constructor(private store: Store) {
-    this.loggedInUser$.subscribe(loggedInUser => {
-      this.loggedInUser = loggedInUser;
-    });
-  }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.onActionClick(ChatListMode.LOCAL_USERS);
@@ -46,7 +39,7 @@ export class NavbarComponent implements OnInit {
   onActionClick(action: ChatListMode) {
     if (action !== this.activeMode) {
       this.activeMode = action;
-      this.store.dispatch(new SetChatListMode(action, this.loggedInUser.username));
+      this.store.dispatch(new SetChatListMode(action));
     }
   }
 }

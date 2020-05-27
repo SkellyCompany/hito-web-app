@@ -9,5 +9,11 @@ export class LoadNextPage {
 export class SetChatListMode {
   static readonly type = '[Chat-List] Set Chat List Mode';
 
-  constructor(public payload: ChatListMode, public loggedInUserUsername: string) {}
+  constructor(public payload: ChatListMode) {}
+}
+
+export class LoadLocalUsers {
+  static readonly type = '[Chat-List] Load Local Users';
+
+  constructor(public payload: string) {}
 }
