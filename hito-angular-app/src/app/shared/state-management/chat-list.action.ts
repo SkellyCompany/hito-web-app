@@ -17,3 +17,9 @@ export class LoadLocalUsers {
 
   constructor(public loggedInUid: string) {}
 }
+
+export class LoadMoreLocalUsers {
+  static readonly type = '[Chat-List] Load More Local Users';
+
+  constructor(public loggedInUid: string) {}
+}

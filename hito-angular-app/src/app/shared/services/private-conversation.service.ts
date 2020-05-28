@@ -17,8 +17,8 @@ export class PrivateConversationService {
 
   getPrivateConversation(firstInterlocutorId: string, secondInterlocutorId: string): Observable<PrivateConversationFirestore> {
     return this.angularFirestore.collection(firestoreCollectionsConstants.privateConversations, ref =>
-      ref.where('secondInterlocutorId', '==', firstInterlocutorId)
-      .where('firstInterlocutorId', '==', secondInterlocutorId)).snapshotChanges().pipe(map(docs => {
+      ref.where('firstInterlocutorId', '==', firstInterlocutorId)
+      .where('secondInterlocutorId', '==', secondInterlocutorId)).snapshotChanges().pipe(map(docs => {
         if (docs.length > 0) {
           const doc = docs[0];
           const privateConversation: PrivateConversationFirestore = doc.payload.doc.data() as PrivateConversationFirestore;

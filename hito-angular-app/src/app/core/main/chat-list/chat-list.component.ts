@@ -1,4 +1,4 @@
-import { LoadLocalUsers } from './../../../shared/state-management/chat-list.action';
+import { LoadLocalUsers, LoadMoreLocalUsers } from './../../../shared/state-management/chat-list.action';
 import { ChatListMode } from './../../../shared/global-enums/chat-list-mode.enum';
 import { LoadPrivateConversation, LoadInterlocutor } from './../../../shared/state-management/chat-conversation.action';
 import { ChatListState } from '../../../shared/state-management/chat-list.state';
@@ -100,9 +100,7 @@ export class ChatListComponent implements OnInit {
 
   scrollHandler(e: string) {
     if (e === 'bottom') {
-      this.store.dispatch(new LoadNextPage()).subscribe(loadedChatListItems => {
-        this.chatListItems = loadedChatListItems;
-      });
+      this.store.dispatch(new LoadMoreLocalUsers(this.loggedInUser.uid));
     }
   }
 

@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { PrivateConversationFirestore } from './../models/firestore-models/private-conversation-firestore.model';
 import { PrivateConversationDTO } from './../models/dtos/private-conversation-dto.model';
 import { FirestoreConverter } from './../models/converters/firestore.converter';
 import { PrivateConversation } from './../models/data-models/private-conversation.model';
@@ -61,29 +63,40 @@ export class ChatConversationState {
   }
 
   @Action(LoadPrivateConversation)
-  LoadPrivateConversation({getState, setState}: StateContext<ChatConversationStateModel>,
+  LoadPrivateConversation(ctx: StateContext<ChatConversationStateModel>,
                           {firstInterlocutorId, secondInterlocutorId}: LoadPrivateConversation) {
     this.privateConversationService.getPrivateConversation(firstInterlocutorId, secondInterlocutorId)
     .subscribe(privateConversationFirestore => {
-      if (privateConversationFirestore !== undefined) {
-        this.userService.getUser(privateConversationFirestore.firstInterlocutorId).subscribe(firstInterlocutor => {
-          this.userService.getUser(privateConversationFirestore.secondInterlocutorId).subscribe(secondInterlocutor => {
-            this.privateConversationService.getMessages(privateConversationFirestore.id).subscribe(firestoreMessages => {
-              const privateMessages: Message[]
-              = FirestoreConverter.convertFirestoreMessages(firestoreMessages, firstInterlocutor, secondInterlocutor);
-              const privateConversation: PrivateConversation = {
-                id: privateConversationFirestore.id,
-                firstInterlocutor: firstInterlocutor,
-                secondInterlocutor: secondInterlocutor,
-                messages: privateMessages
-              };
-              setState({...getState(), loadedPrivateConversation: privateConversation});
-            });
-          });
+      if (privateConversationFirestore === undefined) {
+        this.privateConversationService.getPrivateConversation(secondInterlocutorId, firstInterlocutorId)
+        .subscribe(privateConversationFirestore => {
+          if (privateConversationFirestore === undefined) {
+            ctx.setState({...ctx.getState(), loadedPrivateConversation: undefined});
+          } else {
+            this.fetchUsersAndMessages(privateConversationFirestore, ctx);
+          }
         });
       } else {
-        setState({...getState(), loadedPrivateConversation: undefined});
+        this.fetchUsersAndMessages(privateConversationFirestore, ctx);
       }
+    });
+  }
+
+  private fetchUsersAndMessages(privateConversationFirestore: PrivateConversationFirestore, ctx: StateContext<ChatConversationStateModel>) {
+    this.userService.getUser(privateConversationFirestore.firstInterlocutorId).subscribe(firstInterlocutor => {
+      this.userService.getUser(privateConversationFirestore.secondInterlocutorId).subscribe(secondInterlocutor => {
+        this.privateConversationService.getMessages(privateConversationFirestore.id).subscribe(firestoreMessages => {
+          const privateMessages: Message[]
+          = FirestoreConverter.convertFirestoreMessages(firestoreMessages, firstInterlocutor, secondInterlocutor);
+          const privateConversation: PrivateConversation = {
+            id: privateConversationFirestore.id,
+            firstInterlocutor: firstInterlocutor,
+            secondInterlocutor: secondInterlocutor,
+            messages: privateMessages
+          };
+          ctx.setState({...ctx.getState(), loadedPrivateConversation: privateConversation});
+        });
+      });
     });
   }
 }

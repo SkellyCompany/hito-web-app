@@ -90,7 +90,7 @@ export class ChatComponent implements OnInit {
     let convertedMinute;
     const minute = postTime.getMinutes();
     if (minute < 10) {
-      convertedMinute = "0" + minute;
+      convertedMinute = '0' + minute;
     } else {
       convertedMinute = minute;
     }

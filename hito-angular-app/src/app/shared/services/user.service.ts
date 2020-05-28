@@ -1,10 +1,8 @@
-import { PaginationService } from './pagination.service';
 import { firestoreCollectionsConstants } from './../constants';
 import { Injectable } from '@angular/core';
 import { User } from '../models/data-models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { PaginationQuery } from '../models/ui-models/pagination-query.model';
 import { map, first } from 'rxjs/operators';
 
 @Injectable({
@@ -13,7 +11,12 @@ import { map, first } from 'rxjs/operators';
 
 export class UserService {
 
-  constructor(private angularFirestore: AngularFirestore, private paginationService: PaginationService) { }
+  firstUserUid: string;
+  lastUserUid: string;
+  localUsers: User[] = [];
+  done: boolean;
+
+  constructor(private angularFirestore: AngularFirestore) { }
 
   createUser(user: User) {
     return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users).doc(user.uid).set(user);
@@ -24,17 +27,42 @@ export class UserService {
   }
 
   getLocalUsers(loggedInUid: string): Observable<User[]> {
-    // const paginationQuery: PaginationQuery = {path: firestoreCollectionsConstants.users, field: 'username'};
-    // return this.paginationService.initLocalChatData(paginationQuery).pipe(map(users => {
-    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users).valueChanges().pipe(map(users => {
-      const localUsers: User[] = [];
+    return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref => ref.limit(12))
+    .valueChanges().pipe(map(users => {
+      this.firstUserUid = users[0].uid;
       for (const user of users) {
         if (user.uid !== loggedInUid) {
-          localUsers.push(user);
+          this.localUsers.push(user);
+          if (user === users[users.length - 1]) {
+            this.lastUserUid = user.uid;
+          }
         }
       }
-      return localUsers;
+      return this.localUsers;
     }));
+  }
+
+  getMoreLocalUsers(loggedInUid: string): Observable<User[]> {
+    if (!this.done) {
+      return this.angularFirestore.collection<User>(firestoreCollectionsConstants.users, ref => ref.limit(5).orderBy('uid')
+      .startAfter(this.lastUserUid))
+      .valueChanges().pipe(map(users => {
+        for (const user of users) {
+          if (user.uid === this.firstUserUid) {
+            this.done = true;
+            return;
+          }
+          if (user.uid !== loggedInUid) {
+            this.localUsers.push(user);
+            if (user === users[users.length - 1]) {
+              this.lastUserUid = user.uid;
+            }
+          }
+        }
+        return this.localUsers;
+      }));
+    }
+
   }
 
   isUsernameAvailable(username: string): Observable<boolean> {
