@@ -1,24 +1,19 @@
-import { ChatListItemConverter } from './../models/converters/chat-list-item.converter';
 import { UserService } from '../services/user.service';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { LoadNextPage, SetChatListMode } from './chat-list.action';
-import { ConversationService } from '../services/conversation.service';
-import { ChatListItem } from '../models/ui-models/chat-list-item.model';
+import { LoadNextPage, SetChatListMode, LoadLocalUsers, LoadMoreLocalUsers } from './chat-list.action';
 import { ChatListMode } from '../global-enums/chat-list-mode.enum';
-import { PaginationService } from '../services/pagination.service';
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { User } from '../models/data-models/user.model';
 
 export class ChatListStateModel {
-  loadedChatListItems: ChatListItem[];
+  localUsers: User[];
   chatListMode: ChatListMode;
 }
 
 @State<ChatListStateModel>({
   name: 'chatList',
   defaults: {
-    loadedChatListItems: undefined,
+    localUsers: undefined,
     chatListMode: undefined
    }
 })
@@ -26,15 +21,11 @@ export class ChatListStateModel {
 @Injectable()
 export class ChatListState {
 
-  private localChatSubsctription: Subscription;
-  private historyChatSubscription: Subscription;
-
-  constructor(private paginationService: PaginationService,
-              private userService: UserService, private conversationService: ConversationService) {}
+  constructor(private userService: UserService,) {}
 
   @Selector()
-  static loadedChatListItems(state: ChatListStateModel) {
-    return state.loadedChatListItems;
+  static localUsers(state: ChatListStateModel) {
+    return [...state.localUsers];
   }
 
   @Selector()
@@ -42,55 +33,22 @@ export class ChatListState {
     return state.chatListMode;
   }
 
-  @Action(LoadNextPage)
-  LoadNextPage({}: StateContext<ChatListStateModel>) {
-    this.paginationService.loadNextPage();
-  }
-
   @Action(SetChatListMode)
-  SetChatListMode({getState, setState}: StateContext<ChatListStateModel>, {payload, loggedInUserUsername}: SetChatListMode) {
-    this.unsubscribeChatLists();
-    // if (payload === ChatListMode.LOCAL_GROUPS) {
-        // Call loadGroups function
-    // }
-    if (payload === ChatListMode.LOCAL_USERS) {
-      this.localChatSubsctription = this.getLocalChatList(loggedInUserUsername).subscribe(chatListItems => {
-        setState({...getState(), loadedChatListItems: chatListItems});
-      });
-    } else {
-      this.historyChatSubscription = this.getHistoryChatList(loggedInUserUsername).subscribe(chatListItems => {
-        setState({...getState(), loadedChatListItems: chatListItems});
-      });
-    }
-    setState({...getState(), chatListMode: payload});
+  SetChatListMode({getState, setState}: StateContext<ChatListStateModel>, {chatListMode}: SetChatListMode) {
+    setState({...getState(), chatListMode: chatListMode});
   }
 
-  private unsubscribeChatLists() {
-    if(this.localChatSubsctription !== undefined) {
-      this.localChatSubsctription.unsubscribe();
-    }
-    if(this.historyChatSubscription !== undefined) {
-      this.historyChatSubscription.unsubscribe();
-    }
+  @Action(LoadLocalUsers)
+  LoadLocalUsers({getState, setState}: StateContext<ChatListStateModel>, {loggedInUid}: LoadLocalUsers) {
+    this.userService.getLocalUsers(loggedInUid).subscribe(localUsers => {
+      setState({...getState(), localUsers: localUsers});
+    });
   }
 
-  private getLocalChatList(username: string): Observable<ChatListItem[]> {
-    return this.userService.getLocalUsers().pipe(map(users => {
-      return ChatListItemConverter.convertUsers(username, users);
-    }));
-    // this.userService.getLocalUsers().subscribe(users => {
-    //   const chatListItems = ChatListItemConverter.convertUsers(payload, users);
-    //   setState({...getState(), loadedChatListItems: chatListItems});
-    // });
-  }
-
-  private getHistoryChatList(username: string): Observable<ChatListItem[]> {
-    return this.conversationService.getUsersConversations(username).pipe(map(conversations => {
-      return ChatListItemConverter.convertConversations(username, conversations);
-    }));
-    // this.conversationService.getUsersConversations(payload).subscribe(conversations => {
-    //   const chatListItems = ChatListItemConverter.convertConversations(payload, conversations);
-    //   setState({...getState(), loadedChatListItems: chatListItems});
-    // });
+  @Action(LoadMoreLocalUsers)
+  LoadMoreLocalUsers({getState, setState}: StateContext<ChatListStateModel>, {loggedInUid}: LoadMoreLocalUsers) {
+    this.userService.getMoreLocalUsers(loggedInUid).subscribe(localUsers => {
+      setState({...getState(), localUsers: localUsers });
+    });
   }
 }

@@ -1,8 +1,9 @@
-import { ChatConversation } from './../../../shared/models/ui-models/chat-conversation.model';
+import { MessageDTO } from './../../../shared/models/dtos/message-dto.model';
+import { Message } from '../../../shared/models/data-models/message';
+import { PrivateConversation } from './../../../shared/models/data-models/private-conversation.model';
 import { ChatConversationState } from './../../../shared/state-management/chat-conversation.state';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Message } from 'src/app/shared/models/data-models/message.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 import { AuthState } from 'src/app/shared/state-management/auth.state';
@@ -16,14 +17,19 @@ import { SendMessage } from 'src/app/shared/state-management/chat-conversation.a
 })
 export class ChatComponent implements OnInit {
 
+  @Select(ChatConversationState.loadedInterlocutor)
+  loadedInterlocutor$: Observable<User>;
+  @Select(ChatConversationState.loadedPrivateConversation)
+  loadedPrivateConversation$: Observable<PrivateConversation>;
+
   @Select(AuthState.loggedInUser)
   loggedInUser$: Observable<User>;
 
-  @Select(ChatConversationState.loadedChatConversation)
-  chatConversation$: Observable<ChatConversation>;
-
   loggedInUser: User;
-  chatConversation: ChatConversation;
+  interlocutor: User;
+  // chatConversation: ChatConversation;
+  privateConversation: PrivateConversation;
+
   messageForm = new FormGroup({
     text: new FormControl('')
   });
@@ -32,27 +38,42 @@ export class ChatComponent implements OnInit {
     this.loggedInUser$.subscribe(loggedInUser => {
       this.loggedInUser = loggedInUser;
     });
-    this.chatConversation$.subscribe(chatConversation => {
-      this.chatConversation = chatConversation;
-      if(chatConversation !== undefined) {
-        setTimeout(() => this.scrollMessagesDown(), 10);
-      }
+
+    this.loadedPrivateConversation$.subscribe(loadedPrivateConversation => {
+      this.privateConversation = loadedPrivateConversation;
     });
+
+    this.loadedInterlocutor$.subscribe(loadedInterlocutor => {
+      this.interlocutor = loadedInterlocutor;
+    });
+    // this.chatConversation$.subscribe(chatConversation => {
+    //   this.chatConversation = chatConversation;
+    //   if(chatConversation !== undefined) {
+    //     setTimeout(() => this.scrollMessagesDown(), 10);
+    //   }
+    // });
   }
 
   ngOnInit(): void {
 
   }
 
-  sendMessage(message: Message) {
-    this.messageForm.reset();
-    message.username = this.loggedInUser.username;
-    message.postTime = new Date();
-    this.store.dispatch(new SendMessage(this.chatConversation.id, message));
+  sendMessage(text: string) {
+    if (text !== undefined && text.length > 0) {
+      this.messageForm.reset();
+      const interlocutorId: string = this.loggedInUser.uid;
+      const postTime = new Date();
+      const messageDTO: MessageDTO = {
+        interlocutorId: interlocutorId,
+        postTime: postTime,
+        text: text,
+      };
+      this.store.dispatch(new SendMessage(messageDTO, this.loggedInUser.uid));
+    }
   }
 
   scrollMessagesDown() {
-    const chatContainer = document.getElementById("chat-container");
+    const chatContainer = document.getElementById('chat-container');
     if (chatContainer !== null) {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
@@ -67,9 +88,9 @@ export class ChatComponent implements OnInit {
     const hour = postTime.getHours();
 
     let convertedMinute;
-    let minute = postTime.getMinutes();
-    if(minute < 10) {
-      convertedMinute = "0" + minute;
+    const minute = postTime.getMinutes();
+    if (minute < 10) {
+      convertedMinute = '0' + minute;
     } else {
       convertedMinute = minute;
     }
@@ -79,23 +100,23 @@ export class ChatComponent implements OnInit {
   }
 
   shouldPostQuickMessage(messageIndex: number, message: Message): boolean {
-    if(messageIndex === 0) {
+    if (messageIndex === 0) {
       return false;
     }
-    return this.isPreviousUsernameEqual(messageIndex, message.username) &&
+    return this.isPreviousUserSame(messageIndex, message.sender.uid) &&
       !this.haveTenMinutesPassed(messageIndex, message.postTime);
   }
 
-  isPreviousUsernameEqual(messageIndex: number, currentUsername: string) {
-    const lastSentMessage: Message = this.chatConversation.messages[messageIndex - 1];
-    if (lastSentMessage !== undefined && currentUsername === lastSentMessage.username) {
+  isPreviousUserSame(messageIndex: number, uid: string) {
+    const lastSentMessage: Message = this.privateConversation.messages[messageIndex - 1];
+    if (lastSentMessage !== undefined && uid === lastSentMessage.sender.uid) {
       return true;
     }
     return false;
   }
 
   private haveTenMinutesPassed(messageIndex: number, messagePostTime): boolean {
-    const lastSentMessage: Message = this.chatConversation.messages[messageIndex - 1];
+    const lastSentMessage: Message = this.privateConversation.messages[messageIndex - 1];
     const deltaTimeMilliseconds: number = messagePostTime - lastSentMessage.postTime.getTime();
     const deltaTimeMinutes = deltaTimeMilliseconds / 60000;
     if (deltaTimeMinutes < 10) {

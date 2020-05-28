@@ -5,7 +5,7 @@
   </form>
   <div class="chat-list-items-container">
     <h2 class="chat-list-items-header">People</h2>
-    <ul class="chat-list-items-list" appScrollable (scrollPosition)="scrollHandler($event)" *ngIf="chatListItems.length > 0">
+    <ul class="chat-list-items-list" appScrollable (scrollPosition)="scrollHandler($event)" *ngIf="chatListItems">
       <li *ngFor="let chatListItem of filteredChatListItems" (click)="onSelect(chatListItem)">
         <span>
           <div class="chat-list-item-selection" [ngClass]="chatListItem === selectedChatListItem ? 'chat-list-item-selection-active' : '' ">
@@ -21,7 +21,7 @@
         </span>
       </li>
     </ul>
-    <div class="loading-container" *ngIf="chatListItems.length <= 0">
+    <div class="loading-container" *ngIf="!chatListItems">
       <app-loading></app-loading>
     </div>
   </div>
